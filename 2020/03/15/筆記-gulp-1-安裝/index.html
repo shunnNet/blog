@@ -5,23 +5,21 @@
   
 
   
-  <title>筆記-hexo-2-建立文章 | 邊緣邊緣人的技術筆記</title>
+  <title>[筆記] gulp - 1. 安裝 | 邊緣邊緣人的技術筆記</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="建立新文章 new&#x2F;&#x2F; in cmd hexo new [layout] [filename]建立一個檔案。  [filename]顧名思義，就是生成的檔案名稱，他會生成一個markdown檔案(.md)。  [layout]他有三個值，不填的情況下就會直接採用預設值 post ：  post (預設值) : 在 &#x2F;source&#x2F;_posts 目錄下生成 .md 檔 draft: 在 &#x2F;sourc">
+  <meta name="description" content="前端自動化工具，使用 Node.js。目前已經知道的用途(很多)：   多檔案打包成一個 壓縮 js css html 甚至是圖片檔 css 後處理器 ( e.g autoprefixer、lostgrid ) html template 編譯 ( e.g pug&#x2F;jade )………………………  需求 Node.js gulp 版本 4.0+  安裝npm install -g gulp-cli">
 <meta property="og:type" content="article">
-<meta property="og:title" content="筆記-hexo-2-建立文章">
-<meta property="og:url" content="https://shunnnet.github.io/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-2-%E5%BB%BA%E7%AB%8B%E6%96%87%E7%AB%A0/index.html">
+<meta property="og:title" content="[筆記] gulp - 1. 安裝">
+<meta property="og:url" content="https://shunnnet.github.io/blog/2020/03/15/%E7%AD%86%E8%A8%98-gulp-1-%E5%AE%89%E8%A3%9D/index.html">
 <meta property="og:site_name" content="邊緣邊緣人的技術筆記">
-<meta property="og:description" content="建立新文章 new&#x2F;&#x2F; in cmd hexo new [layout] [filename]建立一個檔案。  [filename]顧名思義，就是生成的檔案名稱，他會生成一個markdown檔案(.md)。  [layout]他有三個值，不填的情況下就會直接採用預設值 post ：  post (預設值) : 在 &#x2F;source&#x2F;_posts 目錄下生成 .md 檔 draft: 在 &#x2F;sourc">
+<meta property="og:description" content="前端自動化工具，使用 Node.js。目前已經知道的用途(很多)：   多檔案打包成一個 壓縮 js css html 甚至是圖片檔 css 後處理器 ( e.g autoprefixer、lostgrid ) html template 編譯 ( e.g pug&#x2F;jade )………………………  需求 Node.js gulp 版本 4.0+  安裝npm install -g gulp-cli">
 <meta property="og:locale" content="zh_TW">
-<meta property="og:image" content="https://shunnnet.github.io/blog/src/hexo%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95-server.jpg">
-<meta property="article:published_time" content="2020-03-14T18:43:27.000Z">
-<meta property="article:modified_time" content="2020-03-14T19:00:12.769Z">
+<meta property="article:published_time" content="2020-03-14T18:56:15.000Z">
+<meta property="article:modified_time" content="2020-03-14T19:07:15.957Z">
 <meta property="article:author" content="shunnNet">
 <meta property="article:tag" content="筆記">
-<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="gulp">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://shunnnet.github.io/blog/src/hexo%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95-server.jpg">
   
     <link rel="alternate" href="/blog/atom.xml" title="邊緣邊緣人的技術筆記" type="application/atom+xml">
   
@@ -74,10 +72,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-筆記-hexo-2-建立文章" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-筆記-gulp-1-安裝" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-2-%E5%BB%BA%E7%AB%8B%E6%96%87%E7%AB%A0/" class="article-date">
-  <time datetime="2020-03-14T18:43:27.000Z" itemprop="datePublished">2020-03-15</time>
+    <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-gulp-1-%E5%AE%89%E8%A3%9D/" class="article-date">
+  <time datetime="2020-03-14T18:56:15.000Z" itemprop="datePublished">2020-03-15</time>
 </a>
     
   </div>
@@ -88,7 +86,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      筆記-hexo-2-建立文章
+      [筆記] gulp - 1. 安裝
     </h1>
   
 
@@ -96,53 +94,61 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="建立新文章-new"><a href="#建立新文章-new" class="headerlink" title="建立新文章 new"></a>建立新文章 new</h2><pre><code>// in cmd
-hexo new [layout] [filename]</code></pre><p>建立一個檔案。</p>
+        <p>前端自動化工具，使用 Node.js。<br>目前已經知道的用途(很多)： </p>
 <ul>
-<li><p>[filename]<br>顧名思義，就是生成的檔案名稱，他會生成一個markdown檔案(.md)。</p>
-</li>
-<li><p>[layout]<br>他有三個值，不填的情況下就會直接採用預設值 post ：</p>
-<ul>
-<li>post (預設值) : 在 /source/_posts 目錄下生成 .md 檔</li>
-<li>draft: 在 /source/_draft 目錄下生成 .md 檔，草稿。</li>
-<li>page : 在 /source/ 目錄下生成 .md 檔。非文章的完整頁面(待說明)</li>
+<li>多檔案打包成一個</li>
+<li>壓縮 js css html 甚至是圖片檔</li>
+<li>css 後處理器 ( e.g autoprefixer、lostgrid )</li>
+<li>html template 編譯 ( e.g pug/jade )<br>………………………</li>
 </ul>
-</li>
+<h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><ul>
+<li>Node.js</li>
+<li>gulp 版本 4.0+</li>
 </ul>
-<p>簡單講，要新增文章：</p>
-<pre><code>// in cmd
-hexo new 第一篇文章</code></pre><p>就OK了。</p>
-<p>然後就可以編輯那個 .md 檔案。編輯好內容後，使用部屬的指令：</p>
-<pre><code>hexo clean &amp;&amp; hexo deploy</code></pre><p>就會更新到自己的 Github Pages 上。</p>
-<h2 id="預覽-server"><a href="#預覽-server" class="headerlink" title="預覽 server"></a>預覽 server</h2><p>如果你想在發布之前先看一下樣子，就用 server。</p>
-<pre><code>// in cmd
-hexo server</code></pre><p>等他跑出來會長這樣：</p>
-<img src="/blog/src/hexo使用方法-server.jpg"> 
-
-<p>圖片中最後一排英文提示你要怎麼看，以及怎麼關閉預覽。<br>到支援 http 連線的瀏覽器(比如:firefox)打開以下網址：<br><code>http://localhost:4000/{reponame}/</code><br>(e.g 我的 repo 叫 blog 所以 <code>http://localhost:4000/blog/</code> 連這個)</p>
-<p>就會預覽上線的樣子0.0</p>
-<h2 id="草稿-draft"><a href="#草稿-draft" class="headerlink" title="草稿 draft"></a>草稿 draft</h2><ol>
-<li><p>建立草稿<br> 也許你想先打些草稿，等完成後再發布。<br> 這時候你可以這樣建立草稿：</p>
-<pre><code>// in cmd
-hexo new draft 草稿檔案名稱</code></pre><p> !!! 注意： 只要檔名就好(e.g : 草稿.md ，就打 <code>hexo new draft 草稿檔案名稱</code>)<br> 然後建立的檔案會出現在 /source/_drafts 目錄下。</p>
-</li>
-<li><p>預覽草稿<br> 方法很簡單，也是用 server 指令，不過要加個 –draft：</p>
-<pre><code>// in cmd
-hexo server --draft</code></pre><p> 然後同樣連線到 <code>http://localhost:4000/{reponame}/</code> ，會看到草稿發布後的樣子。</p>
-</li>
-<li><p>發布草稿</p>
-<pre><code>// in cmd
-hexo publish 草稿檔案名稱</code></pre><p> 草稿檔案就會從 /source/_drafts 目錄 跑到 /source/_posts 底下，跟一般的文章沒兩樣。</p>
+<h2 id="安裝"><a href="#安裝" class="headerlink" title="安裝"></a>安裝</h2><pre><code>npm install -g gulp-cli</code></pre><p>然後開一個 Node.js 專案，並安裝 gulp</p>
+<pre><code>npm init
+npm install 
+npm install gulp --save</code></pre><p>就搞定了</p>
+<h2 id="範例"><a href="#範例" class="headerlink" title="範例"></a>範例</h2><ol>
+<li><p>在專案資料夾第一層建立 test.js ，裡面：</p>
+<pre><code>var gulp = require(&quot;gulp&quot;);
+gulp.task(&quot;copyHTML&quot;,()=&gt;{
+    return gulp.src(&quot;./source/*.html&quot;)
+               .pipe(gulp.dest(&quot;./public/&quot;))
+})</code></pre><p> 作用：將 source 底下的所有 html 檔案複製到 public 底下</p>
 </li>
 </ol>
+<ol start="2">
+<li>建立一個 source 資料夾，底下隨便寫一個 html 檔案。</li>
+</ol>
+<ol start="3">
+<li><p>cmd 到 專案目錄下：</p>
+<pre><code>gulp copyHTML</code></pre></li>
+</ol>
+<h2 id="常用的方法"><a href="#常用的方法" class="headerlink" title="常用的方法"></a>常用的方法</h2><ul>
+<li>.task</li>
+<li>.src (readstream)</li>
+<li>.dest (writestream)</li>
+<li>.watch</li>
+<li>.pipe </li>
+</ul>
+<h2 id="套件"><a href="#套件" class="headerlink" title="套件"></a>套件</h2><ul>
+<li>編譯 : coffee</li>
+<li>合併 : concat</li>
+<li>壓縮 : uglity</li>
+</ul>
+<h2 id="cmd-命令"><a href="#cmd-命令" class="headerlink" title="cmd 命令"></a>cmd 命令</h2><ul>
+<li>gulp –tasks : 查看可用的 task</li>
+<li>gulp taskname: 運行指定的 task</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://shunnnet.github.io/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-2-%E5%BB%BA%E7%AB%8B%E6%96%87%E7%AB%A0/" data-id="ck7ryl0sh000300twdhls4mm3" class="article-share-link">Share</a>
+      <a data-url="https://shunnnet.github.io/blog/2020/03/15/%E7%AD%86%E8%A8%98-gulp-1-%E5%AE%89%E8%A3%9D/" data-id="ck7rz78vh0006sstw47sh3bzv" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/hexo/" rel="tag">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%AD%86%E8%A8%98/" rel="tag">筆記</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/gulp/" rel="tag">gulp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%AD%86%E8%A8%98/" rel="tag">筆記</a></li></ul>
 
     </footer>
   </div>
@@ -150,19 +156,10 @@ hexo publish 草稿檔案名稱</code></pre><p> 草稿檔案就會從 /source/_d
     
 <nav id="article-nav">
   
-    <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-gulp-1-%E5%AE%89%E8%A3%9D/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          [筆記] gulp - 1. 安裝
-        
-      </div>
-    </a>
   
-  
-    <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-1-%E7%94%9F%E6%88%90%E9%83%A8%E8%90%BD%E6%A0%BC/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-2-%E5%BB%BA%E7%AB%8B%E6%96%87%E7%AB%A0/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">筆記-hexo-1-生成部落格</div>
+      <div class="article-nav-title">筆記-hexo-2-建立文章</div>
     </a>
   
 </nav>
