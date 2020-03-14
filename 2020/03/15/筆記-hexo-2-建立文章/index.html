@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>筆記-hexo-2-建立文章 | 邊緣邊緣人的技術筆記</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="建立新文章 new&#x2F;&#x2F; in cmd hexo new [layout] [filename]建立一個檔案。  [filename]顧名思義，就是生成的檔案名稱，他會生成一個markdown檔案(.md)。  [layout]他有三個值，不填的情況下就會直接採用預設值 post ：  post (預設值) : 在 &#x2F;source&#x2F;_posts 目錄下生成 .md 檔 draft: 在 &#x2F;sourc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="筆記-hexo-2-建立文章">
+<meta property="og:url" content="https://shunnnet.github.io/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-2-%E5%BB%BA%E7%AB%8B%E6%96%87%E7%AB%A0/index.html">
+<meta property="og:site_name" content="邊緣邊緣人的技術筆記">
+<meta property="og:description" content="建立新文章 new&#x2F;&#x2F; in cmd hexo new [layout] [filename]建立一個檔案。  [filename]顧名思義，就是生成的檔案名稱，他會生成一個markdown檔案(.md)。  [layout]他有三個值，不填的情況下就會直接採用預設值 post ：  post (預設值) : 在 &#x2F;source&#x2F;_posts 目錄下生成 .md 檔 draft: 在 &#x2F;sourc">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://shunnnet.github.io/blog/src/hexo%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95-server.jpg">
+<meta property="article:published_time" content="2020-03-14T18:43:27.000Z">
+<meta property="article:modified_time" content="2020-03-14T18:43:27.210Z">
+<meta property="article:author" content="shunnNet">
+<meta property="article:tag" content="筆記">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shunnnet.github.io/blog/src/hexo%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95-server.jpg">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="邊緣邊緣人的技術筆記" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">邊緣邊緣人的技術筆記</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">I need a job .............................</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blog/">Home</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://shunnnet.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-筆記-hexo-2-建立文章" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-2-%E5%BB%BA%E7%AB%8B%E6%96%87%E7%AB%A0/" class="article-date">
+  <time datetime="2020-03-14T18:43:27.000Z" itemprop="datePublished">2020-03-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      筆記-hexo-2-建立文章
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="建立新文章-new"><a href="#建立新文章-new" class="headerlink" title="建立新文章 new"></a>建立新文章 new</h2><pre><code>// in cmd
+hexo new [layout] [filename]</code></pre><p>建立一個檔案。</p>
+<ul>
+<li><p>[filename]<br>顧名思義，就是生成的檔案名稱，他會生成一個markdown檔案(.md)。</p>
+</li>
+<li><p>[layout]<br>他有三個值，不填的情況下就會直接採用預設值 post ：</p>
+<ul>
+<li>post (預設值) : 在 /source/_posts 目錄下生成 .md 檔</li>
+<li>draft: 在 /source/_draft 目錄下生成 .md 檔，草稿。</li>
+<li>page : 在 /source/ 目錄下生成 .md 檔。非文章的完整頁面(待說明)</li>
+</ul>
+</li>
+</ul>
+<p>簡單講，要新增文章：</p>
+<pre><code>// in cmd
+hexo new 第一篇文章</code></pre><p>就OK了。</p>
+<p>然後就可以編輯那個 .md 檔案。編輯好內容後，使用部屬的指令：</p>
+<pre><code>hexo clean &amp;&amp; hexo deploy</code></pre><p>就會更新到自己的 Github Pages 上。</p>
+<h2 id="預覽-server"><a href="#預覽-server" class="headerlink" title="預覽 server"></a>預覽 server</h2><p>如果你想在發布之前先看一下樣子，就用 server。</p>
+<pre><code>// in cmd
+hexo server</code></pre><p>等他跑出來會長這樣：</p>
+<img src="/blog/src/hexo使用方法-server.jpg"> 
+
+<p>圖片中最後一排英文提示你要怎麼看，以及怎麼關閉預覽。<br>到支援 http 連線的瀏覽器(比如:firefox)打開以下網址：<br><code>http://localhost:4000/{reponame}/</code><br>(e.g 我的 repo 叫 blog 所以 <code>http://localhost:4000/blog/</code> 連這個)</p>
+<p>就會預覽上線的樣子0.0</p>
+<h2 id="草稿-draft"><a href="#草稿-draft" class="headerlink" title="草稿 draft"></a>草稿 draft</h2><ol>
+<li><p>建立草稿<br> 也許你想先打些草稿，等完成後再發布。<br> 這時候你可以這樣建立草稿：</p>
+<pre><code>// in cmd
+hexo new draft 草稿檔案名稱</code></pre><p> !!! 注意： 只要檔名就好(e.g : 草稿.md ，就打 <code>hexo new draft 草稿檔案名稱</code>)<br> 然後建立的檔案會出現在 /source/_drafts 目錄下。</p>
+</li>
+<li><p>預覽草稿<br> 方法很簡單，也是用 server 指令，不過要加個 –draft：</p>
+<pre><code>// in cmd
+hexo server --draft</code></pre><p> 然後同樣連線到 <code>http://localhost:4000/{reponame}/</code> ，會看到草稿發布後的樣子。</p>
+</li>
+<li><p>發布草稿</p>
+<pre><code>// in cmd
+hexo publish 草稿檔案名稱</code></pre><p> 草稿檔案就會從 /source/_drafts 目錄 跑到 /source/_posts 底下，跟一般的文章沒兩樣。</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://shunnnet.github.io/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-2-%E5%BB%BA%E7%AB%8B%E6%96%87%E7%AB%A0/" data-id="ck7ryl0sh000300twdhls4mm3" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%AD%86%E8%A8%98/" rel="tag">筆記</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-1-%E7%94%9F%E6%88%90%E9%83%A8%E8%90%BD%E6%A0%BC/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">筆記-hexo-1-生成部落格</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E7%AD%86%E8%A8%98/" rel="tag">筆記</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/%E7%AD%86%E8%A8%98/" style="font-size: 10px;">筆記</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/03/">三月 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-2-%E5%BB%BA%E7%AB%8B%E6%96%87%E7%AB%A0/">筆記-hexo-2-建立文章</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-1-%E7%94%9F%E6%88%90%E9%83%A8%E8%90%BD%E6%A0%BC/">筆記-hexo-1-生成部落格</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-%E5%89%8D%E5%BE%8C%E7%AB%AF%E7%9B%B8%E9%97%9C%E6%8A%80%E8%A1%93%E7%9F%A5%E8%AD%98/">筆記-前後端相關技術知識</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2020/03/13/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 shunnNet<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blog/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+
+  
+<script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

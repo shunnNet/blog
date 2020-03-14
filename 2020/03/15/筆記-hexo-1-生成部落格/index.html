@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>筆記-hexo-1-生成部落格 | 邊緣邊緣人的技術筆記</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="步驟一覽： npm 安裝 hexo 初始化 hexo 的 node.js 專案 設定 Github repository 設定 Github Page 部屬   這個部落格就是用 hexo 弄出來的。hexo 實際上是個靜態網站生成器，只要有簡易伺服器又有 repo 的服務(e.g : github ,heroku)，就可以掛上去。在這邊紀錄的是使用 github page 的步驟。 0. 環境需">
+<meta property="og:type" content="article">
+<meta property="og:title" content="筆記-hexo-1-生成部落格">
+<meta property="og:url" content="https://shunnnet.github.io/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-1-%E7%94%9F%E6%88%90%E9%83%A8%E8%90%BD%E6%A0%BC/index.html">
+<meta property="og:site_name" content="邊緣邊緣人的技術筆記">
+<meta property="og:description" content="步驟一覽： npm 安裝 hexo 初始化 hexo 的 node.js 專案 設定 Github repository 設定 Github Page 部屬   這個部落格就是用 hexo 弄出來的。hexo 實際上是個靜態網站生成器，只要有簡易伺服器又有 repo 的服務(e.g : github ,heroku)，就可以掛上去。在這邊紀錄的是使用 github page 的步驟。 0. 環境需">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://shunnnet.github.io/blog/src/hexo%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95-%E5%88%9D%E5%A7%8B%E5%8C%96%E5%AE%8C%E6%88%90.jpg">
+<meta property="og:image" content="https://shunnnet.github.io/blog/src/hexo%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95-deploy.jpg">
+<meta property="og:image" content="https://shunnnet.github.io/blog/src/hexo%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95-GithubPages.jpg">
+<meta property="article:published_time" content="2020-03-14T18:43:14.000Z">
+<meta property="article:modified_time" content="2020-03-14T18:43:14.452Z">
+<meta property="article:author" content="shunnNet">
+<meta property="article:tag" content="筆記">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shunnnet.github.io/blog/src/hexo%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95-%E5%88%9D%E5%A7%8B%E5%8C%96%E5%AE%8C%E6%88%90.jpg">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="邊緣邊緣人的技術筆記" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">邊緣邊緣人的技術筆記</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">I need a job .............................</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blog/">Home</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://shunnnet.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-筆記-hexo-1-生成部落格" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-1-%E7%94%9F%E6%88%90%E9%83%A8%E8%90%BD%E6%A0%BC/" class="article-date">
+  <time datetime="2020-03-14T18:43:14.000Z" itemprop="datePublished">2020-03-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      筆記-hexo-1-生成部落格
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="步驟一覽："><a href="#步驟一覽：" class="headerlink" title="步驟一覽："></a>步驟一覽：</h2><ol>
+<li>npm 安裝 hexo</li>
+<li>初始化 hexo 的 node.js 專案</li>
+<li>設定 Github repository</li>
+<li>設定 Github Page</li>
+<li>部屬 </li>
+</ol>
+<p>這個部落格就是用 hexo 弄出來的。<br>hexo 實際上是個靜態網站生成器，只要有簡易伺服器又有 repo 的服務(e.g : github ,heroku)，就可以掛上去。在這邊紀錄的是使用 github page 的步驟。</p>
+<h3 id="0-環境需求"><a href="#0-環境需求" class="headerlink" title="0. 環境需求"></a>0. 環境需求</h3><ul>
+<li>Node.js</li>
+<li>Git</li>
+<li>Github 帳號</li>
+</ul>
+<h3 id="1-安裝-hexo"><a href="#1-安裝-hexo" class="headerlink" title="1. 安裝 hexo"></a>1. 安裝 hexo</h3><pre>npm install -g hexo-cli</pre>
+
+<h3 id="2-初始化-hexo-的-node-js-專案"><a href="#2-初始化-hexo-的-node-js-專案" class="headerlink" title="2. 初始化 hexo 的 node.js 專案"></a>2. 初始化 hexo 的 node.js 專案</h3><pre>
+hexo init [folder name]
+cd [folder name]
+npm install hexo-deployer-git --save
+</pre>
+
+<p>上面這些指令都跑完後，目錄應該會長的像是下面這樣。<br>(除了紅色槓掉的部分之外)</p>
+<img src="/blog/src/hexo使用方法-初始化完成.jpg"> 
+
+<h3 id="3-設定-Github-repository"><a href="#3-設定-Github-repository" class="headerlink" title="3. 設定 Github repository"></a>3. 設定 Github repository</h3><ul>
+<li>開一個新的 Github repository，把 repo 的網址複製下來<br>e.g : <code>https://github.com/shunnNet/blog.git</code><br>然後到 _config.yml 這個檔案的最下面，把 deploy 的部分改成如下。<br><b>( repo 的部分請貼上 repo 的網址 )</b></li>
+</ul>
+<img src="/blog/src/hexo使用方法-deploy.jpg"> 
+
+<h3 id="4-設定-Github-Page"><a href="#4-設定-Github-Page" class="headerlink" title="4. 設定 Github Page"></a>4. 設定 Github Page</h3><ol>
+<li>到 Github repository 的 setting 的地方找到 GitHub Pages 設定</li>
+<li>source 的欄位有個下拉選單，選擇 <b> Master branch </b></li>
+<li>等他跑完，回到同樣的位置，就會出現綠色區塊，裡面是 Github pages 的連結，複製下來。</li>
+</ol>
+<img src="/blog/src/hexo使用方法-GithubPages.jpg">
+
+<ol start="4">
+<li>回到 _confing.yml，到下圖的設定位置<ul>
+<li>url 填 Github Pages 的網址</li>
+<li>path 填 /repo名稱/<br>(e.g 比如我的 repo 叫 blog ，所以打 /blog/)</li>
+</ul>
+</li>
+</ol>
+<h3 id="5-部屬"><a href="#5-部屬" class="headerlink" title="5. 部屬"></a>5. 部屬</h3><pre><code>hexo clean &amp;&amp; hexo deploy</code></pre><p>部屬的過程你可能會需要輸入 Github 的 帳號密碼。<br>部屬跑完之後，到你的 repository 頁面，應該會發現自己 repo 中多了很多東西。<br>稍微等個 1 分鐘，用瀏覽器開你的 Github Pages 頁面 ，應該就會看到部落格了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://shunnnet.github.io/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-1-%E7%94%9F%E6%88%90%E9%83%A8%E8%90%BD%E6%A0%BC/" data-id="ck7ryl0sa000000tw14alfmyo" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%AD%86%E8%A8%98/" rel="tag">筆記</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-2-%E5%BB%BA%E7%AB%8B%E6%96%87%E7%AB%A0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          筆記-hexo-2-建立文章
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-%E5%89%8D%E5%BE%8C%E7%AB%AF%E7%9B%B8%E9%97%9C%E6%8A%80%E8%A1%93%E7%9F%A5%E8%AD%98/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">筆記-前後端相關技術知識</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E7%AD%86%E8%A8%98/" rel="tag">筆記</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/%E7%AD%86%E8%A8%98/" style="font-size: 10px;">筆記</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/03/">三月 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-2-%E5%BB%BA%E7%AB%8B%E6%96%87%E7%AB%A0/">筆記-hexo-2-建立文章</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-1-%E7%94%9F%E6%88%90%E9%83%A8%E8%90%BD%E6%A0%BC/">筆記-hexo-1-生成部落格</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-%E5%89%8D%E5%BE%8C%E7%AB%AF%E7%9B%B8%E9%97%9C%E6%8A%80%E8%A1%93%E7%9F%A5%E8%AD%98/">筆記-前後端相關技術知識</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2020/03/13/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 shunnNet<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blog/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+
+  
+<script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

@@ -74,6 +74,235 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-筆記-hexo-2-建立文章" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-2-%E5%BB%BA%E7%AB%8B%E6%96%87%E7%AB%A0/" class="article-date">
+  <time datetime="2020-03-14T18:43:27.000Z" itemprop="datePublished">2020-03-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-2-%E5%BB%BA%E7%AB%8B%E6%96%87%E7%AB%A0/">筆記-hexo-2-建立文章</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="建立新文章-new"><a href="#建立新文章-new" class="headerlink" title="建立新文章 new"></a>建立新文章 new</h2><pre><code>// in cmd
+hexo new [layout] [filename]</code></pre><p>建立一個檔案。</p>
+<ul>
+<li><p>[filename]<br>顧名思義，就是生成的檔案名稱，他會生成一個markdown檔案(.md)。</p>
+</li>
+<li><p>[layout]<br>他有三個值，不填的情況下就會直接採用預設值 post ：</p>
+<ul>
+<li>post (預設值) : 在 /source/_posts 目錄下生成 .md 檔</li>
+<li>draft: 在 /source/_draft 目錄下生成 .md 檔，草稿。</li>
+<li>page : 在 /source/ 目錄下生成 .md 檔。非文章的完整頁面(待說明)</li>
+</ul>
+</li>
+</ul>
+<p>簡單講，要新增文章：</p>
+<pre><code>// in cmd
+hexo new 第一篇文章</code></pre><p>就OK了。</p>
+<p>然後就可以編輯那個 .md 檔案。編輯好內容後，使用部屬的指令：</p>
+<pre><code>hexo clean &amp;&amp; hexo deploy</code></pre><p>就會更新到自己的 Github Pages 上。</p>
+<h2 id="預覽-server"><a href="#預覽-server" class="headerlink" title="預覽 server"></a>預覽 server</h2><p>如果你想在發布之前先看一下樣子，就用 server。</p>
+<pre><code>// in cmd
+hexo server</code></pre><p>等他跑出來會長這樣：</p>
+<img src="/blog/src/hexo使用方法-server.jpg"> 
+
+<p>圖片中最後一排英文提示你要怎麼看，以及怎麼關閉預覽。<br>到支援 http 連線的瀏覽器(比如:firefox)打開以下網址：<br><code>http://localhost:4000/{reponame}/</code><br>(e.g 我的 repo 叫 blog 所以 <code>http://localhost:4000/blog/</code> 連這個)</p>
+<p>就會預覽上線的樣子0.0</p>
+<h2 id="草稿-draft"><a href="#草稿-draft" class="headerlink" title="草稿 draft"></a>草稿 draft</h2><ol>
+<li><p>建立草稿<br> 也許你想先打些草稿，等完成後再發布。<br> 這時候你可以這樣建立草稿：</p>
+<pre><code>// in cmd
+hexo new draft 草稿檔案名稱</code></pre><p> !!! 注意： 只要檔名就好(e.g : 草稿.md ，就打 <code>hexo new draft 草稿檔案名稱</code>)<br> 然後建立的檔案會出現在 /source/_drafts 目錄下。</p>
+</li>
+<li><p>預覽草稿<br> 方法很簡單，也是用 server 指令，不過要加個 –draft：</p>
+<pre><code>// in cmd
+hexo server --draft</code></pre><p> 然後同樣連線到 <code>http://localhost:4000/{reponame}/</code> ，會看到草稿發布後的樣子。</p>
+</li>
+<li><p>發布草稿</p>
+<pre><code>// in cmd
+hexo publish 草稿檔案名稱</code></pre><p> 草稿檔案就會從 /source/_drafts 目錄 跑到 /source/_posts 底下，跟一般的文章沒兩樣。</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://shunnnet.github.io/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-2-%E5%BB%BA%E7%AB%8B%E6%96%87%E7%AB%A0/" data-id="ck7ryl0sh000300twdhls4mm3" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%AD%86%E8%A8%98/" rel="tag">筆記</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-筆記-hexo-1-生成部落格" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-1-%E7%94%9F%E6%88%90%E9%83%A8%E8%90%BD%E6%A0%BC/" class="article-date">
+  <time datetime="2020-03-14T18:43:14.000Z" itemprop="datePublished">2020-03-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-1-%E7%94%9F%E6%88%90%E9%83%A8%E8%90%BD%E6%A0%BC/">筆記-hexo-1-生成部落格</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="步驟一覽："><a href="#步驟一覽：" class="headerlink" title="步驟一覽："></a>步驟一覽：</h2><ol>
+<li>npm 安裝 hexo</li>
+<li>初始化 hexo 的 node.js 專案</li>
+<li>設定 Github repository</li>
+<li>設定 Github Page</li>
+<li>部屬 </li>
+</ol>
+<p>這個部落格就是用 hexo 弄出來的。<br>hexo 實際上是個靜態網站生成器，只要有簡易伺服器又有 repo 的服務(e.g : github ,heroku)，就可以掛上去。在這邊紀錄的是使用 github page 的步驟。</p>
+<h3 id="0-環境需求"><a href="#0-環境需求" class="headerlink" title="0. 環境需求"></a>0. 環境需求</h3><ul>
+<li>Node.js</li>
+<li>Git</li>
+<li>Github 帳號</li>
+</ul>
+<h3 id="1-安裝-hexo"><a href="#1-安裝-hexo" class="headerlink" title="1. 安裝 hexo"></a>1. 安裝 hexo</h3><pre>npm install -g hexo-cli</pre>
+
+<h3 id="2-初始化-hexo-的-node-js-專案"><a href="#2-初始化-hexo-的-node-js-專案" class="headerlink" title="2. 初始化 hexo 的 node.js 專案"></a>2. 初始化 hexo 的 node.js 專案</h3><pre>
+hexo init [folder name]
+cd [folder name]
+npm install hexo-deployer-git --save
+</pre>
+
+<p>上面這些指令都跑完後，目錄應該會長的像是下面這樣。<br>(除了紅色槓掉的部分之外)</p>
+<img src="/blog/src/hexo使用方法-初始化完成.jpg"> 
+
+<h3 id="3-設定-Github-repository"><a href="#3-設定-Github-repository" class="headerlink" title="3. 設定 Github repository"></a>3. 設定 Github repository</h3><ul>
+<li>開一個新的 Github repository，把 repo 的網址複製下來<br>e.g : <code>https://github.com/shunnNet/blog.git</code><br>然後到 _config.yml 這個檔案的最下面，把 deploy 的部分改成如下。<br><b>( repo 的部分請貼上 repo 的網址 )</b></li>
+</ul>
+<img src="/blog/src/hexo使用方法-deploy.jpg"> 
+
+<h3 id="4-設定-Github-Page"><a href="#4-設定-Github-Page" class="headerlink" title="4. 設定 Github Page"></a>4. 設定 Github Page</h3><ol>
+<li>到 Github repository 的 setting 的地方找到 GitHub Pages 設定</li>
+<li>source 的欄位有個下拉選單，選擇 <b> Master branch </b></li>
+<li>等他跑完，回到同樣的位置，就會出現綠色區塊，裡面是 Github pages 的連結，複製下來。</li>
+</ol>
+<img src="/blog/src/hexo使用方法-GithubPages.jpg">
+
+<ol start="4">
+<li>回到 _confing.yml，到下圖的設定位置<ul>
+<li>url 填 Github Pages 的網址</li>
+<li>path 填 /repo名稱/<br>(e.g 比如我的 repo 叫 blog ，所以打 /blog/)</li>
+</ul>
+</li>
+</ol>
+<h3 id="5-部屬"><a href="#5-部屬" class="headerlink" title="5. 部屬"></a>5. 部屬</h3><pre><code>hexo clean &amp;&amp; hexo deploy</code></pre><p>部屬的過程你可能會需要輸入 Github 的 帳號密碼。<br>部屬跑完之後，到你的 repository 頁面，應該會發現自己 repo 中多了很多東西。<br>稍微等個 1 分鐘，用瀏覽器開你的 Github Pages 頁面 ，應該就會看到部落格了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://shunnnet.github.io/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-1-%E7%94%9F%E6%88%90%E9%83%A8%E8%90%BD%E6%A0%BC/" data-id="ck7ryl0sa000000tw14alfmyo" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%AD%86%E8%A8%98/" rel="tag">筆記</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-筆記-前後端相關技術知識" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-%E5%89%8D%E5%BE%8C%E7%AB%AF%E7%9B%B8%E9%97%9C%E6%8A%80%E8%A1%93%E7%9F%A5%E8%AD%98/" class="article-date">
+  <time datetime="2020-03-14T18:39:10.000Z" itemprop="datePublished">2020-03-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-%E5%89%8D%E5%BE%8C%E7%AB%AF%E7%9B%B8%E9%97%9C%E6%8A%80%E8%A1%93%E7%9F%A5%E8%AD%98/">筆記-前後端相關技術知識</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="主要資料來源"><a href="#主要資料來源" class="headerlink" title="主要資料來源"></a>主要資料來源</h3><ul>
+<li><a href="https://www.youtube.com/watch?v=QuCu4iDpPTU" target="_blank" rel="noopener">六角 - 前後端都該理解的計算機概論</a></li>
+</ul>
+<p>2020/3/13</p>
+<p>所有的電子裝置都是按以下結構運行：</p>
+<p>input &gt;&gt; 記憶體 &gt;&gt; CPU &gt;&gt; 記憶體 &gt;&gt; output</p>
+<ul>
+<li>觀看 Process 的運行狀況 ： 在 Mac 中，可以使用「活動監視器」；在 Windows 中使用「工作管理員」</li>
+</ul>
+<h2 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h2><p>執行or運算各種動作。<br>比如跑動畫，網頁渲染等等。<br>所以在開啟、執行 process 時，他的CPU耗用總是比較大。<br>如果某個 process 沒有在運行動作，只是開著的話，他不會耗用CPU。</p>
+<h2 id="記憶體-RAM"><a href="#記憶體-RAM" class="headerlink" title="記憶體 RAM"></a>記憶體 RAM</h2><p>暫存空間。或許可以想成是儲存一大堆資料的地方。<br>比如在JS中指派變數，資料是被存在某個記憶體位置的。<br>在他被回收之前，就是佔用了記憶體。</p>
+<h2 id="程序-Process"><a href="#程序-Process" class="headerlink" title="程序 Process"></a>程序 Process</h2><p>就是應用程式。一個應用程式是一個 Process，並且其中不會有第二個。</p>
+<h2 id="執行緒-Thread"><a href="#執行緒-Thread" class="headerlink" title="執行緒 Thread"></a>執行緒 Thread</h2><p>一個 Process 會有一或多個 Thread ， Thread 中是一連串要執行的指令。這些 Thread 會排隊去找 CPU ，等著被處理。</p>
+<h2 id="IP"><a href="#IP" class="headerlink" title="IP"></a>IP</h2><p>指「電腦在網路上的位置」，像是地址一樣的東西。<br>一般家用電腦的 IP 位置會浮動，那跟網路供應商有關。<br>可以去跟供應商申請固定 IP 。<br>如果你的電腦有打開 port ，並使用協定的話，就可以從外部訪問你的電腦。</p>
+<h2 id="port"><a href="#port" class="headerlink" title="port"></a>port</h2><p><a href="https://www.google.com/search?q=%E5%B8%B8%E7%94%A8port+%E5%88%97%E8%A1%A8" target="_blank" rel="noopener">常用port 列表 - Google 搜尋</a><br>你必須要找到位置，並且要有入口，才能進入別人的電腦。<br>port 就是像電腦的入口的東西。<br>一個電腦可以有好多個入口。<br>一個入口只能被一個 process 監聽。</p>
+<p>在 windows 中查詢 port 的使用狀況：<br>cmd &gt;<br>netstat -a : 所有 port 的狀態，要跑一陣子才會全跑完。<br>netstat -h : 查看所有指令。</p>
+<h2 id="虛擬主機"><a href="#虛擬主機" class="headerlink" title="虛擬主機"></a>虛擬主機</h2><p>網路上可以找到虛擬主機的服務，它讓你感覺自己的網站放在一個主機上。但實際上會有多個網站放在同一個主機上，只是不同網站透過不同的 port 而已。<br>當共用的其他應用程式出問題，導致主機掛掉的時候，你的網站也會一起死。這就是虛擬主機的缺點。</p>
+<h2 id="實體主機"><a href="#實體主機" class="headerlink" title="實體主機"></a>實體主機</h2><p>相對於虛擬主機，實體主機就是一個網站一台電腦。</p>
+<h2 id="選購主機的簡易判斷方式"><a href="#選購主機的簡易判斷方式" class="headerlink" title="選購主機的簡易判斷方式"></a>選購主機的簡易判斷方式</h2><p>可以觀察自己的後端程序對 CPU 跟 記憶體的耗用狀況去決定要購買怎麼樣設備的主機。</p>
+<h2 id="流量"><a href="#流量" class="headerlink" title="流量"></a>流量</h2><p>買主機的時候通常還會限定流量。</p>
+<p>可以透過 chrome dev tool : Network 看到 resource<br><img src="/blog/流量.jpg"><br><img src=":storage%5Cc13e7371-2d20-4342-9a5d-e13639b7af19%5C015d8043.jpg" alt="流量.jpg"><br>最下方有一個 resource ，表示載入這個網頁所花費的流量(合計檔案大小)</p>
+<p>可以用 :</p>
+<p>估計流量 x 月估計訪問人數 = 月估計流量</p>
+<p>去計算你需要的流量數。</p>
+<h2 id="主機服務"><a href="#主機服務" class="headerlink" title="主機服務"></a>主機服務</h2><ul>
+<li><a href="https://emanager.aptg.com.tw/konakart/CustomProdIntro.action?page=Dynamic&data=vhostCost&ContentId=334" target="_blank" rel="noopener">虛擬主機-亞太e管家-企業e化服務平台</a></li>
+<li><a href="https://www.pumo.com.tw/www/hosting/windows.jsp" target="_blank" rel="noopener">推薦 Windows 虛擬主機 搭配 MSSQL | 捕夢網數位科技 PUMO</a></li>
+<li><a href="https://azure.microsoft.com/zh-tw/free/" target="_blank" rel="noopener">立即建立免費的 Azure 帳戶 | Microsoft Azure</a></li>
+</ul>
+<h2 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h2><ul>
+<li><a href="https://www.youtube.com/watch?v=OAx_6-wdslM" target="_blank" rel="noopener">Introducing How Computers Work</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://shunnnet.github.io/blog/2020/03/15/%E7%AD%86%E8%A8%98-%E5%89%8D%E5%BE%8C%E7%AB%AF%E7%9B%B8%E9%97%9C%E6%8A%80%E8%A1%93%E7%9F%A5%E8%AD%98/" data-id="ck7ryl0sf000100tw99qidz0d" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%AD%86%E8%A8%98/" rel="tag">筆記</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2020/03/13/hello-world/" class="article-date">
@@ -133,9 +362,23 @@
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E7%AD%86%E8%A8%98/" rel="tag">筆記</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/%E7%AD%86%E8%A8%98/" style="font-size: 10px;">筆記</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
@@ -152,6 +395,18 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-2-%E5%BB%BA%E7%AB%8B%E6%96%87%E7%AB%A0/">筆記-hexo-2-建立文章</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-1-%E7%94%9F%E6%88%90%E9%83%A8%E8%90%BD%E6%A0%BC/">筆記-hexo-1-生成部落格</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-%E5%89%8D%E5%BE%8C%E7%AB%AF%E7%9B%B8%E9%97%9C%E6%8A%80%E8%A1%93%E7%9F%A5%E8%AD%98/">筆記-前後端相關技術知識</a>
+          </li>
         
           <li>
             <a href="/blog/2020/03/13/hello-world/">Hello World</a>
