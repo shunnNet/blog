@@ -190,7 +190,7 @@ hexo new [layout] [filename]</code></pre><p>建立一個檔案。</p>
 <ul>
 <li>post (預設值) : 在 /source/_posts 目錄下生成 .md 檔</li>
 <li>draft: 在 /source/_draft 目錄下生成 .md 檔，草稿。</li>
-<li>page : 在 /source/ 目錄下生成 .md 檔。非文章的完整頁面(待說明)</li>
+<li>page : 在 /source/ 目錄下生成指定名稱的資料夾，裡面會放一個 index.md 檔。非文章的完整頁面(待說明)</li>
 </ul>
 </li>
 </ul>
@@ -198,7 +198,7 @@ hexo new [layout] [filename]</code></pre><p>建立一個檔案。</p>
 <pre><code>// in cmd
 hexo new 第一篇文章</code></pre><p>就OK了。</p>
 <p>然後就可以編輯那個 .md 檔案。編輯好內容後，使用部屬的指令：</p>
-<pre><code>hexo clean &amp;&amp; hexo deploy</code></pre><p>就會更新到自己的 Github Pages 上。</p>
+<pre><code>hexo deploy -g</code></pre><p>就會更新到自己的 Github Pages 上。</p>
 <h2 id="預覽-server"><a href="#預覽-server" class="headerlink" title="預覽 server"></a>預覽 server</h2><p>如果你想在發布之前先看一下樣子，就用 server。</p>
 <pre><code>// in cmd
 hexo server</code></pre><p>等他跑出來會長這樣：</p>
@@ -301,6 +301,8 @@ npm install hexo-deployer-git --save
 </ul>
 </li>
 </ol>
+<img src="/blog/src/hexo使用方法-GithubPages-2.jpg"> 
+
 <h3 id="5-部屬"><a href="#5-部屬" class="headerlink" title="5. 部屬"></a>5. 部屬</h3><pre><code>hexo clean &amp;&amp; hexo deploy</code></pre><p>部屬的過程你可能會需要輸入 Github 的 帳號密碼。<br>部屬跑完之後，到你的 repository 頁面，應該會發現自己 repo 中多了很多東西。<br>稍微等個 1 分鐘，用瀏覽器開你的 Github Pages 頁面 ，應該就會看到部落格了。</p>
 
       
@@ -379,7 +381,7 @@ npm install hexo-deployer-git --save
       <a data-url="https://shunnnet.github.io/blog/2020/03/15/%E7%AD%86%E8%A8%98-%E5%89%8D%E5%BE%8C%E7%AB%AF%E7%9B%B8%E9%97%9C%E6%8A%80%E8%A1%93%E7%9F%A5%E8%AD%98/" data-id="ck7ryl0sf000100tw99qidz0d" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%AD%86%E8%A8%98/" rel="tag">筆記</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%AD%86%E8%A8%98/" rel="tag">筆記</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%B6%B2%E8%B7%AF%E7%9F%A5%E8%AD%98/" rel="tag">網路知識</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E8%A8%88%E7%AE%97%E6%A9%9F%E6%A6%82%E8%AB%96/" rel="tag">計算機概論</a></li></ul>
 
     </footer>
   </div>
@@ -450,7 +452,7 @@ npm install hexo-deployer-git --save
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gulp/" rel="tag">gulp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E7%AD%86%E8%A8%98/" rel="tag">筆記</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gulp/" rel="tag">gulp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E7%AD%86%E8%A8%98/" rel="tag">筆記</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E7%B6%B2%E8%B7%AF%E7%9F%A5%E8%AD%98/" rel="tag">網路知識</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E8%A8%88%E7%AE%97%E6%A9%9F%E6%A6%82%E8%AB%96/" rel="tag">計算機概論</a></li></ul>
     </div>
   </div>
 
@@ -460,7 +462,7 @@ npm install hexo-deployer-git --save
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/blog/tags/gulp/" style="font-size: 10px;">gulp</a> <a href="/blog/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/blog/tags/%E7%AD%86%E8%A8%98/" style="font-size: 20px;">筆記</a>
+      <a href="/blog/tags/gulp/" style="font-size: 10px;">gulp</a> <a href="/blog/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/blog/tags/%E7%AD%86%E8%A8%98/" style="font-size: 20px;">筆記</a> <a href="/blog/tags/%E7%B6%B2%E8%B7%AF%E7%9F%A5%E8%AD%98/" style="font-size: 10px;">網路知識</a> <a href="/blog/tags/%E8%A8%88%E7%AE%97%E6%A9%9F%E6%A6%82%E8%AB%96/" style="font-size: 10px;">計算機概論</a>
     </div>
   </div>
 
