@@ -5,20 +5,20 @@
   
 
   
-  <title>Tag: 網路知識 | 邊緣邊緣人的技術筆記</title>
+  <title>pocket-random 開發紀錄 - 1. 緣由 &amp; 環境 | 邊緣邊緣人的技術筆記</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="會放一些筆記整理，行有餘力寫點文">
-<meta property="og:type" content="website">
-<meta property="og:title" content="邊緣邊緣人的技術筆記">
-<meta property="og:url" content="https://shunnnet.github.io/blog/tags/%E7%B6%B2%E8%B7%AF%E7%9F%A5%E8%AD%98/index.html">
+  <meta name="description" content="緣由某天我突然有了個念頭：每天讀 3~5 篇技術文章，領域不限。剛好六角正在辦鐵人賽，所以我打算把想看的文章用 Pocket 存起來，然後每天隨便挑幾篇來看。 誰知道我居然覺得「隨便挑」這件事情好累… 乾脆直接程式幫我挑就好啦 0.0! 於是就開始弄這個了 orz(有類似的東西? 我才不管哩) 環境我需要拿到 Pocket 中的文章清單，查了一下有 Pocket API 這東西。因為打算弄成所有人">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pocket-random 開發紀錄 - 1. 緣由 &amp; 環境">
+<meta property="og:url" content="https://shunnnet.github.io/blog/2020/03/19/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-1-%E7%B7%A3%E7%94%B1-%E7%92%B0%E5%A2%83/index.html">
 <meta property="og:site_name" content="邊緣邊緣人的技術筆記">
-<meta property="og:description" content="會放一些筆記整理，行有餘力寫點文">
+<meta property="og:description" content="緣由某天我突然有了個念頭：每天讀 3~5 篇技術文章，領域不限。剛好六角正在辦鐵人賽，所以我打算把想看的文章用 Pocket 存起來，然後每天隨便挑幾篇來看。 誰知道我居然覺得「隨便挑」這件事情好累… 乾脆直接程式幫我挑就好啦 0.0! 於是就開始弄這個了 orz(有類似的東西? 我才不管哩) 環境我需要拿到 Pocket 中的文章清單，查了一下有 Pocket API 這東西。因為打算弄成所有人">
 <meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-03-18T18:52:12.000Z">
+<meta property="article:modified_time" content="2020-03-18T18:56:26.450Z">
 <meta property="article:author" content="shunnNet">
-<meta property="article:tag" content="前端">
-<meta property="article:tag" content="後端">
-<meta property="article:tag" content="網路">
-<meta property="article:tag" content="軟體">
+<meta property="article:tag" content="開發紀錄">
+<meta property="article:tag" content="Pocket API">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/blog/atom.xml" title="邊緣邊緣人的技術筆記" type="application/atom+xml">
@@ -72,40 +72,72 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/blog/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-%E5%89%8D%E5%BE%8C%E7%AB%AF%E7%9B%B8%E9%97%9C%E6%8A%80%E8%A1%93%E7%9F%A5%E8%AD%98/" class="archive-article-date">
-  <time datetime="2020-03-14T18:39:10.000Z" itemprop="datePublished">3月 15</time>
+        <section id="main"><article id="post-pocket-random-開發紀錄-1-緣由-環境" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2020/03/19/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-1-%E7%B7%A3%E7%94%B1-%E7%92%B0%E5%A2%83/" class="article-date">
+  <time datetime="2020-03-18T18:52:12.000Z" itemprop="datePublished">2020-03-19</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-%E5%89%8D%E5%BE%8C%E7%AB%AF%E7%9B%B8%E9%97%9C%E6%8A%80%E8%A1%93%E7%9F%A5%E8%AD%98/">筆記-前後端相關技術知識</a>
+    <h1 class="article-title" itemprop="name">
+      pocket-random 開發紀錄 - 1. 緣由 &amp; 環境
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="緣由"><a href="#緣由" class="headerlink" title="緣由"></a>緣由</h2><p>某天我突然有了個念頭：每天讀 3~5 篇技術文章，領域不限。剛好<a href="https://shawnlin0201.github.io/hexschool-2020-challenge-blog-list/" target="_blank" rel="noopener">六角正在辦鐵人賽</a>，所以我打算把想看的文章用 Pocket 存起來，然後每天隨便挑幾篇來看。</p>
+<p>誰知道我居然覺得「隨便挑」這件事情好累…</p>
+<p>乾脆直接程式幫我挑就好啦 0.0!</p>
+<p>於是就開始弄這個了 orz<br>(有類似的東西? 我才不管哩)</p>
+<h2 id="環境"><a href="#環境" class="headerlink" title="環境"></a>環境</h2><p>我需要拿到 Pocket 中的文章清單，查了一下有 <a href="https://getpocket.com/developer/docs/overview" target="_blank" rel="noopener">Pocket API</a> 這東西。<br>因為打算弄成所有人都能用的樣子，所以我會有應用程式金鑰、各種使用者的access_token，而且這些敏感資訊都不能放前端，所以需要藏在後端，把所有 API 請求也都放在後端。<br>此外應該會需要存一些設定或是帳戶等等的，所以至少要有個資料庫。</p>
+<p>前端如果只有隨機從所有文章挑幾篇出來太無聊，所以想說做成可以改設定，可以設定挑幾篇；而且可以指定 tag；甚至是指定隨機挑的清單中要有某 tag 幾篇這種。這種麻煩事交給 Vue 應該很適合。(框架我也只會vue………………)</p>
+<p>API<br>Pocket API v3</p>
+<p>前端<br>Vue.js (處理前端大小事)</p>
+<p>後端<br>Node.js<br>express (請求+路由)<br>mongoose (資料庫)</p>
+<h2 id="結果"><a href="#結果" class="headerlink" title="結果"></a>結果</h2><p>開始寫這個之後，每天讀 3~5 篇的技術文章的想法反而跳票了。</p>
 
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://shunnnet.github.io/blog/2020/03/19/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-1-%E7%B7%A3%E7%94%B1-%E7%92%B0%E5%A2%83/" data-id="ck7xosl0a000hnwtw3j4g7sq7" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Pocket-API/" rel="tag">Pocket API</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84/" rel="tag">開發紀錄</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blog/2020/03/19/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-2-%E5%AF%A6%E4%BD%9C-Pocket-API-%E8%AA%8D%E8%AD%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          pocket-random 開發紀錄 - 2. 實作 Pocket API 認證
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-gulp-1-%E5%AE%89%E8%A3%9D/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">[筆記] gulp - 1. 安裝</div>
+    </a>
+  
+</nav>
+
+  
+</article>
 
 </section>
         

@@ -74,6 +74,312 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-pocket-random-開發紀錄-2-實作-Pocket-API-認證" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2020/03/19/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-2-%E5%AF%A6%E4%BD%9C-Pocket-API-%E8%AA%8D%E8%AD%89/" class="article-date">
+  <time datetime="2020-03-18T18:53:52.000Z" itemprop="datePublished">2020-03-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2020/03/19/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-2-%E5%AF%A6%E4%BD%9C-Pocket-API-%E8%AA%8D%E8%AD%89/">pocket-random 開發紀錄 - 2. 實作 Pocket API 認證</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://github.com/shunnNet/p-r" target="_blank" rel="noopener">Github repository</a><br>(git master commit : 9bc555a335e9c844e014a656cc3d519b7bccd6bc)</p>
+<h2 id="讀-Pocket-API-認證"><a href="#讀-Pocket-API-認證" class="headerlink" title="讀 Pocket API 認證"></a>讀 Pocket API 認證</h2><p><a href="https://getpocket.com/developer/docs/authentication" target="_blank" rel="noopener">Pocket API Authentication</a><br>等我有空再把內容寫出來。</p>
+<h2 id="整理-Pocket-API-認證部分"><a href="#整理-Pocket-API-認證部分" class="headerlink" title="整理 Pocket API 認證部分"></a>整理 Pocket API 認證部分</h2><p>接下來要實作的是使用者用 Pocket 帳號登入的部分，列一下他的步驟。</p>
+<ol start="0">
+<li><p>所有的 AJAX 請求都要是POST方法，並且附帶以下 header</p>
+<pre><code>Content-Type : application/json; charset=UTF-8
+X-Accept : application/json</code></pre></li>
+<li><p>取得request token (決定由後端處理)</p>
+<pre><code>POST to
+https://getpocket.com/v3/oauth/request
+
+body = {
+  consumer_key : **************,
+  redirect_uri : 我的應用程式網址,
+  state : 可選，metadata
+}</code></pre><p> 回傳的資料會是以下格式</p>
+<pre><code>{
+  code : 我的request_token
+}</code></pre></li>
+<li><p>將使用者導向到以下認證頁面，該頁面建議不要新開視窗。 (決定由前端處理)<br> <code>https://getpocket.com/auth/authorize?request_token=[request_token]&amp;redirect_uri=[redirect_uri]</code><br> 使用者按下同意應用程式存取指定權限後，會自動導向到redirect_uri。</p>
+</li>
+<li><p>使用者進入 redirect_uri 後，使用 POST 請求，取得access_token。(決定由後端處理)</p>
+<pre><code>POST to
+https://getpocket.com/v3/oauth/authorize
+
+body = {
+  consumer_key : **************,
+  code : **request_token**
+}</code></pre><p> 回傳的資料會是以下格式</p>
+<pre><code>{
+  username : 使用者名稱,
+  access_token : ****************
+}</code></pre><p>這麼一來就可以存取使用者的 Pocket 清單做各種事。</p>
+</li>
+</ol>
+<h2 id="問題點-A"><a href="#問題點-A" class="headerlink" title="問題點 A"></a>問題點 A</h2><ol>
+<li><p>如何確認使用者已經登入 Pocket 並同意存取？<br> 使用者不一定會乖乖的從我開給他登入的頁面進入，常常是直接開 APP 的網址，我要怎麼確認他的狀態？<br> 結論：在使用者開 APP 網址時，進行一次步驟3，看能不能取得access_token。否則導向回到登入頁。</p>
+</li>
+<li><p>Pocket API 文件有提到許多在iOS、Mac實作上的例外狀況，而且也建議，因為 Pocket 有手機 APP 版本，所以在行動版要導向到 手機APP 驗證。<br> 結論：因為完全不知道實際運行上會怎麼樣，所以先做到桌面網頁版認證成功，丟到heroku上，在測試手機版。    </p>
+</li>
+</ol>
+<p>因為問題2的部分，決定先實作出基本前端頁面，跟後端有關認證的部分。</p>
+<h2 id="建立Node-js-express-專案"><a href="#建立Node-js-express-專案" class="headerlink" title="建立Node.js + express 專案"></a>建立Node.js + express 專案</h2><p>我使用express-generator直接生成一個express專案架構，下圖是我的目錄結構：</p>
+<img src="/blog/src/pocket-random開發日誌-1-目錄結構.jpg">
+
+<ul>
+<li>model : 放 mongoose model</li>
+<li>views : 放 html 檔案。雖然 view 支援 template 語言，但這次的頁面預計只有兩頁，所以用HTML(好懷念呀~)。但其實考慮到頁面可能會擴充，其實用 template 寫應該比較好。</li>
+<li>controller : 放各路由的 middleware function，根據路由切檔案。包括一個工具middleware customUtil.js。</li>
+<li>routes：放路由。</li>
+<li>auth.js： 裡面有放consumer_key這個敏感資訊。因為會把檔案丟到 github repo 上，所以把這個資訊另外放一個檔案，要用再require進來。然後在 .gitignore 加入他。</li>
+<li>兩個 .pem ：放 SSL 憑證，是用 mkcert 生出來的。否則不能用 https ，也就是不能用 Chrome 測試。</li>
+</ul>
+<h3 id="將-request-換成-fetch"><a href="#將-request-換成-fetch" class="headerlink" title="將 request 換成 fetch"></a>將 request 換成 fetch</h3><p>開始著手寫連 API 的函式，上一個專案是用 request 做 HTTP 連線，本來打算沿用，但在查 POST 方法怎麼寫時，發現 request 在今年2月已經 deprecate 了。原因我沒查清楚。<br>後來看到有人提到 node-fetch 這個套件。<br>node-fetch的用法跟瀏覽器上的fetch幾乎一模一樣，很好上手，還可以支援 binary 的樣子。<br>基於這個原因，選擇使用 node-fetch 實作連線 API 的部分。</p>
+<h3 id="必須要有-error-pug"><a href="#必須要有-error-pug" class="headerlink" title="必須要有 error.pug"></a>必須要有 error.pug</h3><p>express 在發生錯誤時，會選擇 views 目錄中的 error.pug 渲染出錯誤頁面回傳。如果沒有error.pug 就會發生錯誤。<br>所以雖然這次只有 HTML 檔，但我還是在 views 中放了一個error.pug。<br>這部分還不知道要怎麼調掉。</p>
+<h3 id="將-routes-amp-controller-分成-page-跟-pocket"><a href="#將-routes-amp-controller-分成-page-跟-pocket" class="headerlink" title="將 routes &amp; controller 分成 page 跟 pocket"></a>將 routes &amp; controller 分成 page 跟 pocket</h3><img src="/blog/src/pocket-random開發日誌-2-切分路由.jpg">
+這次的專案會有前端透過 AJAX 跟後端溝通的部分。
+- 當前端按下 login 時，傳 AJAX 到後端，後端跟 API 取得資訊後，再回傳前端。
+- 前端可能對文章增加 Pocket 的 tag ，這時要再 AJAX 給後端，後端跟 API 溝通，再回傳前端
+
+<p>種種。<br>這個專案的路由分成兩種：AJAX、瀏覽器頁面請求。<br>所以我決定將分別將路由切成page、pocket兩個檔案管理。<br>(controller 則是對應 router 的結構)<br>雖然不知道這樣切的理由是否太薄弱。</p>
+<h2 id="page-路由"><a href="#page-路由" class="headerlink" title="page 路由"></a>page 路由</h2><p>設想中，APP會按照這樣的流程完成登入程序：</p>
+<ol>
+<li>使用者進入 login.html</li>
+<li>使用者點擊 login 按鈕</li>
+<li>前端傳送 AJAX 給後端，後端向 Pocket API 取得 request_token。</li>
+<li>後端傳送合併好的認證 URL 給前端。</li>
+<li>前端頁面導向到認證 URL，等待使用者授權。</li>
+<li>使用者授權完成，Pocket API 將使用者導向到 redirect_url，也就是 app page。</li>
+<li>後端 /app 路由接到請求，向 Pocket API 取得 access_token。</li>
+<li>傳送 app.html，使用者進入app。</li>
+</ol>
+<p>以下是路由的流程，不是一開始就規劃好，而是在 router 完成後寫上：<br><img src="/blog/src/pocket-random開發日誌-4-day1 page-router.jpg"><br><img src="/blog/src/pocket-random開發日誌-3-day1 pocket-router.jpg"></p>
+<p>由於還沒有處理好資料庫的部分，所以 request_token 跟 access_token 都先存在 session。<br>在重開 server 時，session就會刪除。</p>
+<h3 id="確認-or-反省"><a href="#確認-or-反省" class="headerlink" title="確認 or 反省"></a>確認 or 反省</h3><ol>
+<li><p>為什麼進入 /app 要先 check requset_token ?<br> 這部分實作上要滿足兩個條件：</p>
+<ol>
+<li>要有 session</li>
+<li>session 中要有 request_token<br>主要原因是，要取得 access_token ，必須要有 consumer_key 跟 request_token，所以在請求 access_token 之前，先確認 request_token 是否存在。<br>如果存在，表示已經走過先前的程序，所以繼續往下請求。<br>反之，回到最初的程序，login，去請求 request_token。</li>
+</ol>
+</li>
+<li><p>承1，這部分沒考慮到：如果使用者按下 login 按鈕後，直接前往 /app 路由的情形。<br> (登入程序進行到 5，使用者沒授權直接連 /app)</p>
+<p> 在這情況下，請求 access_token 時，Pocket API 會回傳 403。<br> 所以可能要在 get access_token 後，再增加是否重新導向回 login page 的判定吧。</p>
+</li>
+<li><p>is Ajax request? 的判定 以及 重新導向<br> 在 pocket router 的兩個路由都有這個 middleware。<br> 這還滿明顯，我是說畫到圖上的時候……………orz</p>
+<p> 首先，應該把這個 middleware 寫成共通的處理，比如寫在 router.use 之類的。<br> 可能我在寫的時候覺得不同的路由會需要回傳到不同的訊息吧？<br> 這也可以加入考量。</p>
+<p> 實際上直接回傳一個 json 或是 string 都比重新導向好，不然路由還要多跑一次/login。</p>
+</li>
+</ol>
+<h2 id="controller"><a href="#controller" class="headerlink" title="controller"></a>controller</h2><p>直接上 code </p>
+<pre><code>// page.js
+const fetch = require(&apos;node-fetch&apos;);
+const auth = require(&quot;../auth&quot;);
+const utils = require(&quot;./customUtil&quot;);
+const path = require(&quot;path&quot;)
+
+module.exports.getLogin = getLogin;
+module.exports.redirectIfNoReqToken = redirectIfNoReqToken;
+module.exports.getAccessTokenIfhavent = getAccessTokenIfhavent;
+module.exports.toApp = toApp;
+
+
+function getLogin(req,res,next) {
+    res.sendFile( process.cwd() + &quot;/views/login.html&quot;)
+}
+
+function redirectIfNoReqToken(req,res,next){
+    if (req.session &amp;&amp; req.session.request_token){
+        next()
+    }else{
+        res.redirect(&quot;/login&quot;)
+    }
+}
+
+function getAccessTokenIfhavent(req,res,next){
+    if (!req.session.access_token){
+        const body = {
+            consumer_key : auth.consumer_key,
+            code : req.session.request_token
+        }
+        fetch(utils.pocket_url.authorize,{
+            method : &quot;post&quot;,
+            body : JSON.stringify(body),
+            headers : utils.header_base
+        })
+        .then(response =&gt; response.json())
+        .then(data =&gt; {
+            req.session.access_token = data.access_token; 
+            req.session.username = data.username;
+            next()
+        })
+    }else{
+        next()
+    }
+}
+
+function toApp(req,res,next){
+    res.sendFile( process.cwd() + &quot;/views/app.html&quot;)
+}
+
+
+
+// pocket.js
+const fetch = require(&apos;node-fetch&apos;);
+const auth = require(&quot;../auth&quot;);
+const utils = require(&quot;./customUtil&quot;);
+
+module.exports.redirectIfNotAjax = redirectIfNotAjax;
+module.exports.getRequestToken = getRequestToken;
+module.exports.sendAuthUrl = sendAuthUrl;
+module.exports.rejectIfNotAjax = rejectIfNotAjax;
+module.exports.retrieveData = retrieveData;
+
+function redirectIfNotAjax(req,res,next){
+    if (req.isAjax){
+        next()
+    }else{
+        res.redirect(&quot;/login&quot;)
+    }
+}
+
+
+function getRequestToken(req,res,next){
+    fetch(utils.pocket_url.request,{
+        method : &quot;post&quot;,
+        body : JSON.stringify(auth),
+        headers : utils.header_base
+    })
+    .then(response =&gt; response.json())
+    .then( response =&gt;{
+        req.session.request_token = response.code;
+        next()
+    })
+}
+function sendAuthUrl(req,res,next){
+    const redirect_url = `${utils.pocket_url.user_auth}?request_token=${req.session.request_token}&amp;redirect_uri=${auth.redirect_uri}`
+    const sendBack ={
+        redirect_url
+    }
+    res.json(sendBack)
+}
+
+function rejectIfNotAjax(req,res,next){
+    if (req.isAjax){
+        next()
+    }else{
+        res.json({msg: &quot;failed&quot;})
+    }
+}
+
+function retrieveData(req,res,next){
+    const body = {
+        consumer_key : auth.consumer_key,
+        access_token : req.session.access_token
+    }
+    fetch(utils.pocket_url.retrieve,{
+        method : &quot;post&quot;,
+        body : JSON.stringify(body),
+        headers : utils.header_base
+    }).then(response =&gt; response.json())
+      .then(response =&gt; {
+          res.json(response)
+      })
+}</code></pre><p>途中遇到的幾個問題是：</p>
+<ol>
+<li>對 Node.js 的路徑處理不是很熟，稍微找一下才找到 <code>process.pwd()</code> 取得根目錄。此外也有一些地方也是相對路徑指定不熟…我都反正改一改試一試就出來的心態。</li>
+<li>簡單掃了一下，fetch 的 option 似乎可以拉出來，或是想個辦法全部合併，因為除了 body 之外通通是一樣的。讓請求的流程被看的更清楚。</li>
+</ol>
+<h2 id="收尾-amp-全部問題點-amp-在意點清單"><a href="#收尾-amp-全部問題點-amp-在意點清單" class="headerlink" title="收尾 &amp; 全部問題點 &amp; 在意點清單"></a>收尾 &amp; 全部問題點 &amp; 在意點清單</h2><p>結果還沒進行到 跨平台測試的部分，這可能是個大坑，留待下次吧。</p>
+<p>清單：</p>
+<ol>
+<li>修改 fetch 的 option</li>
+<li>整理相對路徑的寫法</li>
+<li>思考 is Ajax request? 在 mount 路由時的處理方式</li>
+<li>取得 access_token 的步驟後，新增若 403 就重新導向 /login</li>
+<li>/login 跟 /pocket/login 兩個看起來太像，還是擇一改吧？</li>
+<li>避免使用 error.pug</li>
+<li>Pocket API 在 行動版、iOS、Mac上的實作狀況</li>
+<li>是否有比 MVC 架構更好的選擇？因為這專案很小….(大概吧)</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://shunnnet.github.io/blog/2020/03/19/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-2-%E5%AF%A6%E4%BD%9C-Pocket-API-%E8%AA%8D%E8%AD%89/" data-id="ck7xoshpt0000nwtwggo1gool" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Node-js/" rel="tag">Node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Oauth2-0/" rel="tag">Oauth2.0</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Pocket-API/" rel="tag">Pocket API</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/express/" rel="tag">express</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/javascript/" rel="tag">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/node-fetch/" rel="tag">node-fetch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/server/" rel="tag">server</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84/" rel="tag">開發紀錄</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-pocket-random-開發紀錄-1-緣由-環境" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2020/03/19/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-1-%E7%B7%A3%E7%94%B1-%E7%92%B0%E5%A2%83/" class="article-date">
+  <time datetime="2020-03-18T18:52:12.000Z" itemprop="datePublished">2020-03-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2020/03/19/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-1-%E7%B7%A3%E7%94%B1-%E7%92%B0%E5%A2%83/">pocket-random 開發紀錄 - 1. 緣由 &amp; 環境</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="緣由"><a href="#緣由" class="headerlink" title="緣由"></a>緣由</h2><p>某天我突然有了個念頭：每天讀 3~5 篇技術文章，領域不限。剛好<a href="https://shawnlin0201.github.io/hexschool-2020-challenge-blog-list/" target="_blank" rel="noopener">六角正在辦鐵人賽</a>，所以我打算把想看的文章用 Pocket 存起來，然後每天隨便挑幾篇來看。</p>
+<p>誰知道我居然覺得「隨便挑」這件事情好累…</p>
+<p>乾脆直接程式幫我挑就好啦 0.0!</p>
+<p>於是就開始弄這個了 orz<br>(有類似的東西? 我才不管哩)</p>
+<h2 id="環境"><a href="#環境" class="headerlink" title="環境"></a>環境</h2><p>我需要拿到 Pocket 中的文章清單，查了一下有 <a href="https://getpocket.com/developer/docs/overview" target="_blank" rel="noopener">Pocket API</a> 這東西。<br>因為打算弄成所有人都能用的樣子，所以我會有應用程式金鑰、各種使用者的access_token，而且這些敏感資訊都不能放前端，所以需要藏在後端，把所有 API 請求也都放在後端。<br>此外應該會需要存一些設定或是帳戶等等的，所以至少要有個資料庫。</p>
+<p>前端如果只有隨機從所有文章挑幾篇出來太無聊，所以想說做成可以改設定，可以設定挑幾篇；而且可以指定 tag；甚至是指定隨機挑的清單中要有某 tag 幾篇這種。這種麻煩事交給 Vue 應該很適合。(框架我也只會vue………………)</p>
+<p>API<br>Pocket API v3</p>
+<p>前端<br>Vue.js (處理前端大小事)</p>
+<p>後端<br>Node.js<br>express (請求+路由)<br>mongoose (資料庫)</p>
+<h2 id="結果"><a href="#結果" class="headerlink" title="結果"></a>結果</h2><p>開始寫這個之後，每天讀 3~5 篇的技術文章的想法反而跳票了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://shunnnet.github.io/blog/2020/03/19/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-1-%E7%B7%A3%E7%94%B1-%E7%92%B0%E5%A2%83/" data-id="ck7xosl0a000hnwtw3j4g7sq7" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Pocket-API/" rel="tag">Pocket API</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84/" rel="tag">開發紀錄</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-筆記-gulp-1-安裝" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-gulp-1-%E5%AE%89%E8%A3%9D/" class="article-date">
@@ -452,7 +758,7 @@ npm install hexo-deployer-git --save
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gulp/" rel="tag">gulp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E7%AD%86%E8%A8%98/" rel="tag">筆記</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E7%B6%B2%E8%B7%AF%E7%9F%A5%E8%AD%98/" rel="tag">網路知識</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E8%A8%88%E7%AE%97%E6%A9%9F%E6%A6%82%E8%AB%96/" rel="tag">計算機概論</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Node-js/" rel="tag">Node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Oauth2-0/" rel="tag">Oauth2.0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Pocket-API/" rel="tag">Pocket API</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/express/" rel="tag">express</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gulp/" rel="tag">gulp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/javascript/" rel="tag">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/node-fetch/" rel="tag">node-fetch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/server/" rel="tag">server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E7%AD%86%E8%A8%98/" rel="tag">筆記</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E7%B6%B2%E8%B7%AF%E7%9F%A5%E8%AD%98/" rel="tag">網路知識</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E8%A8%88%E7%AE%97%E6%A9%9F%E6%A6%82%E8%AB%96/" rel="tag">計算機概論</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84/" rel="tag">開發紀錄</a></li></ul>
     </div>
   </div>
 
@@ -462,7 +768,7 @@ npm install hexo-deployer-git --save
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/blog/tags/gulp/" style="font-size: 10px;">gulp</a> <a href="/blog/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/blog/tags/%E7%AD%86%E8%A8%98/" style="font-size: 20px;">筆記</a> <a href="/blog/tags/%E7%B6%B2%E8%B7%AF%E7%9F%A5%E8%AD%98/" style="font-size: 10px;">網路知識</a> <a href="/blog/tags/%E8%A8%88%E7%AE%97%E6%A9%9F%E6%A6%82%E8%AB%96/" style="font-size: 10px;">計算機概論</a>
+      <a href="/blog/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/blog/tags/Oauth2-0/" style="font-size: 10px;">Oauth2.0</a> <a href="/blog/tags/Pocket-API/" style="font-size: 15px;">Pocket API</a> <a href="/blog/tags/express/" style="font-size: 10px;">express</a> <a href="/blog/tags/gulp/" style="font-size: 10px;">gulp</a> <a href="/blog/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/blog/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/blog/tags/node-fetch/" style="font-size: 10px;">node-fetch</a> <a href="/blog/tags/server/" style="font-size: 10px;">server</a> <a href="/blog/tags/%E7%AD%86%E8%A8%98/" style="font-size: 20px;">筆記</a> <a href="/blog/tags/%E7%B6%B2%E8%B7%AF%E7%9F%A5%E8%AD%98/" style="font-size: 10px;">網路知識</a> <a href="/blog/tags/%E8%A8%88%E7%AE%97%E6%A9%9F%E6%A6%82%E8%AB%96/" style="font-size: 10px;">計算機概論</a> <a href="/blog/tags/%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84/" style="font-size: 15px;">開發紀錄</a>
     </div>
   </div>
 
@@ -484,6 +790,14 @@ npm install hexo-deployer-git --save
       <ul>
         
           <li>
+            <a href="/blog/2020/03/19/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-2-%E5%AF%A6%E4%BD%9C-Pocket-API-%E8%AA%8D%E8%AD%89/">pocket-random 開發紀錄 - 2. 實作 Pocket API 認證</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2020/03/19/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-1-%E7%B7%A3%E7%94%B1-%E7%92%B0%E5%A2%83/">pocket-random 開發紀錄 - 1. 緣由 &amp; 環境</a>
+          </li>
+        
+          <li>
             <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-gulp-1-%E5%AE%89%E8%A3%9D/">[筆記] gulp - 1. 安裝</a>
           </li>
         
@@ -493,14 +807,6 @@ npm install hexo-deployer-git --save
         
           <li>
             <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-1-%E7%94%9F%E6%88%90%E9%83%A8%E8%90%BD%E6%A0%BC/">筆記-hexo-1-生成部落格</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-%E5%89%8D%E5%BE%8C%E7%AB%AF%E7%9B%B8%E9%97%9C%E6%8A%80%E8%A1%93%E7%9F%A5%E8%AD%98/">筆記-前後端相關技術知識</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2020/03/13/hello-world/">Hello World</a>
           </li>
         
       </ul>
