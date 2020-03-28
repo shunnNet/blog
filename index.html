@@ -1,12 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-TW">
 <head>
-  <meta charset="utf-8">
-  
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
 
-  
-  <title>邊緣邊緣人的技術筆記</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shunnnet.github.io","root":"/blog/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
   <meta name="description" content="會放一些筆記整理，行有餘力寫點文">
 <meta property="og:type" content="website">
 <meta property="og:title" content="邊緣邊緣人的技術筆記">
@@ -20,83 +33,439 @@
 <meta property="article:tag" content="網路">
 <meta property="article:tag" content="軟體">
 <meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/blog/atom.xml" title="邊緣邊緣人的技術筆記" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  
-<link rel="stylesheet" href="/blog/css/style.css">
 
-<meta name="generator" content="Hexo 4.2.0"></head>
+<link rel="canonical" href="https://shunnnet.github.io/blog/">
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/blog/" id="logo">邊緣邊緣人的技術筆記</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/blog/" id="subtitle">I need a job .............................</a>
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>邊緣邊緣人的技術筆記</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">邊緣邊緣人的技術筆記</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">I need a job .............................</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-首頁">
+
+    <a href="/blog/" rel="section"><i class="fa fa-fw fa-home"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-分類">
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分類</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index">
+            
+
+  <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://shunnnet.github.io/blog/2020/03/28/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-3-%E6%80%9D%E8%80%83%E8%B3%87%E6%96%99%E6%A0%BC%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.jpg">
+      <meta itemprop="name" content="shunnNet">
+      <meta itemprop="description" content="會放一些筆記整理，行有餘力寫點文">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="邊緣邊緣人的技術筆記">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2020/03/28/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-3-%E6%80%9D%E8%80%83%E8%B3%87%E6%96%99%E6%A0%BC%E5%BC%8F/" class="post-title-link" itemprop="url">pocket-random 開發紀錄 - 3. 思考篩選文章用的資料格式</a>
         </h2>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/blog/">Home</a>
-        
-          <a class="main-nav-link" href="/blog/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://shunnnet.github.io/blog"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main">
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2020-03-28 23:56:21" itemprop="dateCreated datePublished" datetime="2020-03-28T23:56:21+08:00">2020-03-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2020-03-29 00:58:58" itemprop="dateModified" datetime="2020-03-29T00:58:58+08:00">2020-03-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84/" itemprop="url" rel="index"><span itemprop="name">開發紀錄</span></a>
+                </span>
+            </span>
+
+          
   
-    <article id="post-pocket-random-開發紀錄-2-實作-Pocket-API-認證" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2020/03/19/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-2-%E5%AF%A6%E4%BD%9C-Pocket-API-%E8%AA%8D%E8%AD%89/" class="article-date">
-  <time datetime="2020-03-18T18:53:52.000Z" itemprop="datePublished">2020-03-19</time>
-</a>
+  <span class="post-meta-item">
     
-  </div>
-  <div class="article-inner">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
     
-    
-      <header class="article-header">
-        
+    <a title="disqus" href="/blog/2020/03/28/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-3-%E6%80%9D%E8%80%83%E8%B3%87%E6%96%99%E6%A0%BC%E5%BC%8F/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/03/28/pocket-random-開發紀錄-3-思考資料格式/" itemprop="commentCount"></span>
+    </a>
+  </span>
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2020/03/19/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-2-%E5%AF%A6%E4%BD%9C-Pocket-API-%E8%AA%8D%E8%AD%89/">pocket-random 開發紀錄 - 2. 實作 Pocket API 認證</a>
-    </h1>
   
 
+        </div>
       </header>
+
     
-    <div class="article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p><a href="https://github.com/shunnNet/p-r" target="_blank" rel="noopener">Github repository</a><br>(git master commit : 9bc555a335e9c844e014a656cc3d519b7bccd6bc)</p>
+          <p>pocket-random 要實作的功能有：</p>
+<ol>
+<li>隨機顯示文章</li>
+<li>對 1 做排程與規劃</li>
+<li>統計、顯示成就</li>
+</ol>
+<p>這篇文章主要紀錄 隨機顯示文章 這個功能的資料結構思考過程。<br>話說，為什麼要思考這樣的東西，原因是需要確定資料庫的資料格式，同時也是要整理程式的流程。<br>考量整體之後再決定資料結構，以免寫到一半又要大改。</p>
+<p>我怎麼會說又呢orz</p>
+<h2 id="隨機顯示文章-排程規劃"><a href="#隨機顯示文章-排程規劃" class="headerlink" title="隨機顯示文章 + 排程規劃"></a>隨機顯示文章 + 排程規劃</h2><p>我手上會有的資料：<br>使用者儲存在 Pocket 帳號的所有文章及其屬性。</p>
+<h3 id="要實現的功能"><a href="#要實現的功能" class="headerlink" title="要實現的功能"></a>要實現的功能</h3><ol>
+<li><p>每天設定多個領域，每個領域隨機選出文章<br>e.g : 比如每天都看 javascript 的文章 2 篇、CSS 的文章 1 篇。</p>
+</li>
+<li><p>星期一~日 可以做不同的設定</p>
+</li>
+<li><p>由於要統計每日看完的文章，必須要判斷使用者「已看完」文章。</p>
+</li>
+</ol>
+<h3 id="初步構想"><a href="#初步構想" class="headerlink" title="初步構想"></a>初步構想</h3><ul>
+<li><p>功能 1 ：<br>Pocket 可以對文章加上 tag，所以可以透過文章的 tag 判斷一個文章屬於甚麼領域。<br>比如 「每天選出有 javascript tag的文章 1 篇」</p>
+</li>
+<li><p>功能 2 ：<br>用個星期一~日的作為key的物件，value 用陣列放功能 1 設定的條件就行。</p>
+</li>
+<li><p>功能 3 ：<br>使用「封存」(archive) 或設定特定標籤（e.g : random-readed），這個特定標籤可以使用者自訂。<br>之所以可以用封存去標示，是考慮也許有使用者比較習慣用封存的功能。</p>
+</li>
+</ul>
+<h3 id="考慮各種可能"><a href="#考慮各種可能" class="headerlink" title="考慮各種可能"></a>考慮各種可能</h3><ol>
+<li><p>一個文章的 tag 可能有很多個。<br>比如：「<code>vue</code>、<code>前端</code>、<code>javascript</code>」、「<code>後端</code>、<code>vue</code>、<code>Node.js</code>」、「<code>後端</code>、<code>php</code>、<code>資料庫</code>」……..<br>試著想像一下，如果我想要集中看 vue 的文章，每天前端 2 篇、後端 1 篇，只用一個 tag <code>vue</code> 是不夠的。要能設定複數的 tag 才行。比如：<br>「<code>vue</code>、<code>前端</code>，2 篇」<br>「<code>vue</code>、<code>後端</code>，1 篇」<br>也有一個想法是使用者自己去自己的 Pocket 整理 tag。可是如果使用者文章很多，tag又很複雜，叫人先整理再來用，好像太霸道了。</p>
+</li>
+<li><p>承1，也有可能會這樣：<br>「我想要看 <code>美食</code> 或是 <code>旅遊</code>的文章，每天 2 篇 ~ 」<br>「我想要看 <code>html</code>、<code>vue</code> 或是 <code>html</code>、<code>jQuery</code> 的文章，每天 2 篇」<br>雖然沒有根據，但使用者說不定會想這樣篩。</p>
+</li>
+</ol>
+<p>考慮到例外情況2時，從舉例的句子中浮現一個可能的資料結構：<br>「我想要看 <code>html</code>、<code>vue</code> 或是 <code>html</code>、<code>jQuery</code> 的文章，每天 2 篇」<br>=&gt;「篩出 tag 有 <code>html</code> 且 <code>vue</code> 或 <code>html</code> 且 <code>jQuery</code> 的文章」<br>=&gt; <code>[[&#39;html&#39;,&#39;vue&#39;],[&#39;html&#39;,jQuery]]</code></p>
+<p>因為 tag 變成複數的，所以先前提到 某某領域 的定義就不能用 tagName，而是交由使用者自己定義。<br>所以使用者設定好 某領域的文章出現幾篇 ，其背後的資料結構如下：</p>
+<pre><code>{
+  name : &apos;practice1&apos;,
+  filter : [[&apos;html&apos;,&apos;vue&apos;],[&apos;html&apos;,&apos;jQuery&apos;]],
+  targetNum : 2 
+}</code></pre><ol start="3">
+<li>同一個領域，每天的目標篇數可能不同。<br>在寫這個文章的時候想到這個可能情況：<br>星期一到日，每天可以對同一領域設定不同的目標。<br>直覺想的話，可以這樣表現：</li>
+</ol>
+<pre><code>&apos;Monday&apos; : [
+  { 
+    filter : [&apos;parctice1&apos;],
+    targetNum : 2
+  }
+]
+
+// filter
+&apos;practice1&apos; : {
+  filter : [[&apos;html&apos;,&apos;vue&apos;],[&apos;html&apos;,&apos;jQuery&apos;]]
+}</code></pre><p>之後就可以根據今天星期幾，去取得對應的 filter。</p>
+<ol start="4">
+<li>出現相同名稱的 filter ：<br>這裡要提的狀況是，使用者曾經命名一個 practice1 的 filter，用了一段時間後，他想要修改 filter 的條件。於是就會出現不同條件，名稱卻相同的狀況。<br>只在篩選資料的用途上，可以在演算的過程排除掉相同的 filter。<br>但是這個程式有統計的需求，不同時期(不同條件)的 practice1 要如何區別呢？</li>
+</ol>
+<h3 id="模擬-filter-的演算狀況"><a href="#模擬-filter-的演算狀況" class="headerlink" title="模擬 filter 的演算狀況"></a>模擬 filter 的演算狀況</h3><p>filter 的形式就是：<br><code>const filter = [[&#39;html&#39;,&#39;vue&#39;],[&#39;html&#39;,&#39;jQuery&#39;]]</code><br>它儲存的是一串條件，要用這個條件篩出一串符合的文章，再從符合的文章中做隨機選取。<br>底下是文章們的範例資料：</p>
+<pre><code>let articles = [
+  { title: &quot;文章1&quot;, tags: [&quot;html&quot;,&quot;vue&quot;] },
+  { title: &quot;文章2&quot;, tags: [&quot;css&quot;,&quot;vue&quot;,&quot;動畫&quot;] },
+  { title: &quot;文章3&quot;, tags: [&quot;html&quot;,&quot;jQuery&quot;,&quot;Web API&quot;] },
+  // .......................
+]</code></pre><p>範例的 filter 邏輯是：<br>找出 tag 中同時有 html , vue 標籤，或者同時有 html, jQuery 標籤，的文章。<br>用原生 js 寫可以這樣：</p>
+<pre><code>let result = []
+articles.forEach(article =&gt;{
+  if (isArticleMatch(article,filter)){
+      result.push(article)
+  }
+})
+function isArticleMatch(article,filter){
+  for (var i=0;i&lt;filter.length;i++){
+      let situation = filter[i];
+      if (isMatchSituation(article,situation)){
+          return true
+      }
+  }
+  return false
+}
+function isMatchSituation(article,situation){
+    for (var i=0;i&lt;situation.length;i++){
+        var hasTag = article.tags.includes(situation[i])
+        if (!hasTag){
+            return false
+        }
+    }
+    return true
+}</code></pre><p>可行，可是</p>
+<ol>
+<li><p>易讀性有點差。除了套第三方函式庫改進之外，或許可以將 filter 打包成物件去處理。</p>
+</li>
+<li><p>以上面的例子來說，html 這個條件兩個 situation 都有，所以 html 這個條件篩了兩次，能不能只篩一次呢？<br>我試著改成這樣</p>
+<pre><code>// 原本
+&apos;practice1&apos; : {
+  filter : [[&apos;html&apos;,&apos;vue&apos;],[&apos;html&apos;,&apos;jQuery&apos;]]
+}
+// 修改
+&apos;practice1-2&apos; : {
+  filter : [[&apos;html&apos;,&apos;vue&apos;],[&apos;html&apos;,&apos;jQuery&apos;]],
+  internal : [&apos;html&apos;],
+  spec : [ [&apos;vue&apos;],[&apos;jQuery&apos;] ]
+}</code></pre></li>
+</ol>
+<p>保留原始使用者設定的狀況，然後另外製作演算用的資料。<br>分析出兩個 filter 都有 <code>html</code> 這個條件，先比對這個共通條件，然後再比對各個獨特條件 <code>spec</code>。</p>
+<pre><code>let filter = {
+      filter : [[&apos;html&apos;,&apos;vue&apos;],[&apos;html&apos;,&apos;jQuery&apos;]],
+      internal : [&apos;html&apos;],
+      spec : [ [&apos;vue&apos;],[&apos;jQuery&apos;] ]
+    }
+let result = []
+articles.forEach(article =&gt;{
+  if (isArticleMatchInternal(article,filter) &amp;&amp;  //新增
+      isArticleMatchSpec(article,filter)){
+
+      result.push(article)
+  }
+})
+function isArticleMatchInternal(article,filter){ //新增
+  for (var i=0;i&lt;filter.internal.length;i++){
+    var hasTag = article.tags.includes(filter.internal[i])
+    if (!hasTag){ return false }
+  }
+  return true
+}
+
+function isArticleMatchSpec(article,filter){
+  for (var i=0;i&lt;filter.spec.length;i++){
+      let situation = filter.spec[i];
+      if (isMatchSituation(article,situation)){
+          return true
+      }
+  }
+  return false
+}
+function isMatchSituation(article,situation){
+    for (var i=0;i&lt;situation.length;i++){
+        var hasTag = article.tags.includes(situation[i])
+        if (!hasTag){
+            return false
+        }
+    }
+    return true
+}</code></pre><p>還算能用吧…，要想辦法解決易讀性問題。</p>
+<h2 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h2><p>從以上過程可以得出資料流動的狀況如下：<br><img src="/blog/src/pocket-random開發日誌-3-1 資料流動.jpg"></p>
+<p>這麼一來就確定了：</p>
+<ol>
+<li>使用者設定的每個領域篩選條件該如何儲存？</li>
+<li>大概該如何去實作出來，會遇到甚麼問題？</li>
+</ol>
+<p>所以可以開始設定 (一部分) 資料庫的格式了。</p>
+<p>欠缺且需要額外處理的部分是：</p>
+<ol>
+<li>如何解決易讀性的問題？</li>
+<li>如何用資料表示星期幾？</li>
+<li>如何實作隨機選取？</li>
+</ol>
+<h2 id="尾巴"><a href="#尾巴" class="headerlink" title="尾巴"></a>尾巴</h2><p>其實還有一部分是關於統計用的資料格式，思考過程也是又臭又長的，就不多提了。<br>有沒有人能把這篇看下去我也是很好奇…。</p>
+<p>　　我發現滿有趣的部份是，統計用的資料格式跟這部分資料如何表現，這兩個很可能不會互相影響。但如果更動更根本的定義，兩個都會一起改。比如說，上面提到一個在寫文章的時候才想到的狀況：我原本設想，目標篇數跟filter綁定在一起，因filter而異。但後來想到，實際上可能需要每天不一樣，所以應該是因時間而異才對。這導致兩邊原本想好的格式一起改動。<br>　　相對的，不管我怎麼修改 filter 的格式，都不會改變統計用的資料格式。<br>　　我在想這個原因應該是，前者我是變更更根本的遊戲規則，後者我只是改變形式而已。所以或許我之後可以先從遊戲規則的定義開始整理起吧。</p>
+<p>　　有個值得反省的部分是，我並沒有明確的設定使用者是怎麼樣的人，如果是要專案開發的話，果然還是要稍微做個功課吧？</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://shunnnet.github.io/blog/2020/03/19/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-2-%E5%AF%A6%E4%BD%9C-Pocket-API-%E8%AA%8D%E8%AD%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.jpg">
+      <meta itemprop="name" content="shunnNet">
+      <meta itemprop="description" content="會放一些筆記整理，行有餘力寫點文">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="邊緣邊緣人的技術筆記">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2020/03/19/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-2-%E5%AF%A6%E4%BD%9C-Pocket-API-%E8%AA%8D%E8%AD%89/" class="post-title-link" itemprop="url">pocket-random 開發紀錄 - 2. 實作 Pocket API 認證</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2020-03-19 02:53:52" itemprop="dateCreated datePublished" datetime="2020-03-19T02:53:52+08:00">2020-03-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2020-03-29 00:59:01" itemprop="dateModified" datetime="2020-03-29T00:59:01+08:00">2020-03-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84/" itemprop="url" rel="index"><span itemprop="name">開發紀錄</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2020/03/19/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-2-%E5%AF%A6%E4%BD%9C-Pocket-API-%E8%AA%8D%E8%AD%89/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/03/19/pocket-random-開發紀錄-2-實作-Pocket-API-認證/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a href="https://github.com/shunnNet/p-r" target="_blank" rel="noopener">Github repository</a><br>(git master commit : 9bc555a335e9c844e014a656cc3d519b7bccd6bc)</p>
 <h2 id="讀-Pocket-API-認證"><a href="#讀-Pocket-API-認證" class="headerlink" title="讀 Pocket API 認證"></a>讀 Pocket API 認證</h2><p><a href="https://getpocket.com/developer/docs/authentication" target="_blank" rel="noopener">Pocket API Authentication</a><br>等我有空再把內容寫出來。</p>
 <h2 id="整理-Pocket-API-認證部分"><a href="#整理-Pocket-API-認證部分" class="headerlink" title="整理 Pocket API 認證部分"></a>整理 Pocket API 認證部分</h2><p>接下來要實作的是使用者用 Pocket 帳號登入的部分，列一下他的步驟。</p>
 <ol start="0">
@@ -319,42 +688,91 @@ function retrieveData(req,res,next){
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="https://shunnnet.github.io/blog/2020/03/19/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-2-%E5%AF%A6%E4%BD%9C-Pocket-API-%E8%AA%8D%E8%AD%89/" data-id="ck7xoshpt0000nwtwggo1gool" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Node-js/" rel="tag">Node.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Oauth2-0/" rel="tag">Oauth2.0</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Pocket-API/" rel="tag">Pocket API</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/express/" rel="tag">express</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/javascript/" rel="tag">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/node-fetch/" rel="tag">node-fetch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/server/" rel="tag">server</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/w3HexSchool/" rel="tag">w3HexSchool</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84/" rel="tag">開發紀錄</a></li></ul>
 
-    </footer>
-  </div>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
   
-</article>
-
-
   
-    <article id="post-pocket-random-開發紀錄-1-緣由-環境" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2020/03/19/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-1-%E7%B7%A3%E7%94%B1-%E7%92%B0%E5%A2%83/" class="article-date">
-  <time datetime="2020-03-18T18:52:12.000Z" itemprop="datePublished">2020-03-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+  
+
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2020/03/19/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-1-%E7%B7%A3%E7%94%B1-%E7%92%B0%E5%A2%83/">pocket-random 開發紀錄 - 1. 緣由 &amp; 環境</a>
-    </h1>
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://shunnnet.github.io/blog/2020/03/19/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-1-%E7%B7%A3%E7%94%B1-%E7%92%B0%E5%A2%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.jpg">
+      <meta itemprop="name" content="shunnNet">
+      <meta itemprop="description" content="會放一些筆記整理，行有餘力寫點文">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="邊緣邊緣人的技術筆記">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2020/03/19/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-1-%E7%B7%A3%E7%94%B1-%E7%92%B0%E5%A2%83/" class="post-title-link" itemprop="url">pocket-random 開發紀錄 - 1. 緣由 & 環境</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2020-03-19 02:52:12" itemprop="dateCreated datePublished" datetime="2020-03-19T02:52:12+08:00">2020-03-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2020-03-29 00:58:52" itemprop="dateModified" datetime="2020-03-29T00:58:52+08:00">2020-03-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84/" itemprop="url" rel="index"><span itemprop="name">開發紀錄</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2020/03/19/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-1-%E7%B7%A3%E7%94%B1-%E7%92%B0%E5%A2%83/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/03/19/pocket-random-開發紀錄-1-緣由-環境/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
   
 
+        </div>
       </header>
+
     
-    <div class="article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <h2 id="緣由"><a href="#緣由" class="headerlink" title="緣由"></a>緣由</h2><p>某天我突然有了個念頭：每天讀 3~5 篇技術文章，領域不限。剛好<a href="https://shawnlin0201.github.io/hexschool-2020-challenge-blog-list/" target="_blank" rel="noopener">六角正在辦鐵人賽</a>，所以我打算把想看的文章用 Pocket 存起來，然後每天隨便挑幾篇來看。</p>
+          <h2 id="緣由"><a href="#緣由" class="headerlink" title="緣由"></a>緣由</h2><p>某天我突然有了個念頭：每天讀 3~5 篇技術文章，領域不限。剛好<a href="https://shawnlin0201.github.io/hexschool-2020-challenge-blog-list/" target="_blank" rel="noopener">六角正在辦鐵人賽</a>，所以我打算把想看的文章用 Pocket 存起來，然後每天隨便挑幾篇來看。</p>
 <p>誰知道我居然覺得「隨便挑」這件事情好累…</p>
 <p>乾脆直接程式幫我挑就好啦 0.0!</p>
 <p>於是就開始弄這個了 orz<br>(有類似的東西? 我才不管哩)</p>
@@ -367,42 +785,91 @@ function retrieveData(req,res,next){
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="https://shunnnet.github.io/blog/2020/03/19/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-1-%E7%B7%A3%E7%94%B1-%E7%92%B0%E5%A2%83/" data-id="ck7xosl0a000hnwtw3j4g7sq7" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Pocket-API/" rel="tag">Pocket API</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/w3HexSchool/" rel="tag">w3HexSchool</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84/" rel="tag">開發紀錄</a></li></ul>
 
-    </footer>
-  </div>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
   
-</article>
-
-
   
-    <article id="post-筆記-gulp-1-安裝" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-gulp-1-%E5%AE%89%E8%A3%9D/" class="article-date">
-  <time datetime="2020-03-14T18:56:15.000Z" itemprop="datePublished">2020-03-15</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+  
+
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-gulp-1-%E5%AE%89%E8%A3%9D/">[筆記] gulp - 1. 安裝</a>
-    </h1>
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://shunnnet.github.io/blog/2020/03/15/%E7%AD%86%E8%A8%98-gulp-1-%E5%AE%89%E8%A3%9D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.jpg">
+      <meta itemprop="name" content="shunnNet">
+      <meta itemprop="description" content="會放一些筆記整理，行有餘力寫點文">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="邊緣邊緣人的技術筆記">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-gulp-1-%E5%AE%89%E8%A3%9D/" class="post-title-link" itemprop="url">[筆記] gulp - 1. 安裝</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2020-03-15 02:56:15" itemprop="dateCreated datePublished" datetime="2020-03-15T02:56:15+08:00">2020-03-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2020-03-29 00:59:25" itemprop="dateModified" datetime="2020-03-29T00:59:25+08:00">2020-03-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E7%AD%86%E8%A8%98/" itemprop="url" rel="index"><span itemprop="name">筆記</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-gulp-1-%E5%AE%89%E8%A3%9D/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/03/15/筆記-gulp-1-安裝/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
   
 
+        </div>
       </header>
+
     
-    <div class="article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>前端自動化工具，使用 Node.js。<br>目前已經知道的用途(很多)： </p>
+          <p>前端自動化工具，使用 Node.js。<br>目前已經知道的用途(很多)： </p>
 <ul>
 <li>多檔案打包成一個</li>
 <li>壓縮 js css html 甚至是圖片檔</li>
@@ -452,42 +919,91 @@ gulp.task(&quot;copyHTML&quot;,()=&gt;{
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="https://shunnnet.github.io/blog/2020/03/15/%E7%AD%86%E8%A8%98-gulp-1-%E5%AE%89%E8%A3%9D/" data-id="ck7rz78vh0006sstw47sh3bzv" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/gulp/" rel="tag">gulp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%AD%86%E8%A8%98/" rel="tag">筆記</a></li></ul>
 
-    </footer>
-  </div>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
   
-</article>
-
-
   
-    <article id="post-筆記-hexo-2-建立文章" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-2-%E5%BB%BA%E7%AB%8B%E6%96%87%E7%AB%A0/" class="article-date">
-  <time datetime="2020-03-14T18:43:27.000Z" itemprop="datePublished">2020-03-15</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+  
+
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-2-%E5%BB%BA%E7%AB%8B%E6%96%87%E7%AB%A0/">筆記-hexo-2-建立文章</a>
-    </h1>
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://shunnnet.github.io/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-2-%E5%BB%BA%E7%AB%8B%E6%96%87%E7%AB%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.jpg">
+      <meta itemprop="name" content="shunnNet">
+      <meta itemprop="description" content="會放一些筆記整理，行有餘力寫點文">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="邊緣邊緣人的技術筆記">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-2-%E5%BB%BA%E7%AB%8B%E6%96%87%E7%AB%A0/" class="post-title-link" itemprop="url">筆記-hexo-2-建立文章</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2020-03-15 02:43:27" itemprop="dateCreated datePublished" datetime="2020-03-15T02:43:27+08:00">2020-03-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2020-03-29 00:58:46" itemprop="dateModified" datetime="2020-03-29T00:58:46+08:00">2020-03-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E7%AD%86%E8%A8%98/" itemprop="url" rel="index"><span itemprop="name">筆記</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-2-%E5%BB%BA%E7%AB%8B%E6%96%87%E7%AB%A0/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/03/15/筆記-hexo-2-建立文章/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
   
 
+        </div>
       </header>
+
     
-    <div class="article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <h2 id="建立新文章-new"><a href="#建立新文章-new" class="headerlink" title="建立新文章 new"></a>建立新文章 new</h2><pre><code>// in cmd
+          <h2 id="建立新文章-new"><a href="#建立新文章-new" class="headerlink" title="建立新文章 new"></a>建立新文章 new</h2><pre><code>// in cmd
 hexo new [layout] [filename]</code></pre><p>建立一個檔案。</p>
 <ul>
 <li><p>[filename]<br>顧名思義，就是生成的檔案名稱，他會生成一個markdown檔案(.md)。</p>
@@ -529,42 +1045,91 @@ hexo publish 草稿檔案名稱</code></pre><p> 草稿檔案就會從 /source/_d
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="https://shunnnet.github.io/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-2-%E5%BB%BA%E7%AB%8B%E6%96%87%E7%AB%A0/" data-id="ck7ryl0sh000300twdhls4mm3" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/hexo/" rel="tag">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%AD%86%E8%A8%98/" rel="tag">筆記</a></li></ul>
 
-    </footer>
-  </div>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
   
-</article>
-
-
   
-    <article id="post-筆記-hexo-1-生成部落格" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-1-%E7%94%9F%E6%88%90%E9%83%A8%E8%90%BD%E6%A0%BC/" class="article-date">
-  <time datetime="2020-03-14T18:43:14.000Z" itemprop="datePublished">2020-03-15</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+  
+
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-1-%E7%94%9F%E6%88%90%E9%83%A8%E8%90%BD%E6%A0%BC/">筆記-hexo-1-生成部落格</a>
-    </h1>
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://shunnnet.github.io/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-1-%E7%94%9F%E6%88%90%E9%83%A8%E8%90%BD%E6%A0%BC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.jpg">
+      <meta itemprop="name" content="shunnNet">
+      <meta itemprop="description" content="會放一些筆記整理，行有餘力寫點文">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="邊緣邊緣人的技術筆記">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-1-%E7%94%9F%E6%88%90%E9%83%A8%E8%90%BD%E6%A0%BC/" class="post-title-link" itemprop="url">筆記-hexo-1-生成部落格</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2020-03-15 02:43:14" itemprop="dateCreated datePublished" datetime="2020-03-15T02:43:14+08:00">2020-03-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2020-03-29 00:59:19" itemprop="dateModified" datetime="2020-03-29T00:59:19+08:00">2020-03-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E7%AD%86%E8%A8%98/" itemprop="url" rel="index"><span itemprop="name">筆記</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-1-%E7%94%9F%E6%88%90%E9%83%A8%E8%90%BD%E6%A0%BC/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/03/15/筆記-hexo-1-生成部落格/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
   
 
+        </div>
       </header>
+
     
-    <div class="article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <h2 id="步驟一覽："><a href="#步驟一覽：" class="headerlink" title="步驟一覽："></a>步驟一覽：</h2><ol>
+          <h2 id="步驟一覽："><a href="#步驟一覽：" class="headerlink" title="步驟一覽："></a>步驟一覽：</h2><ol>
 <li>npm 安裝 hexo</li>
 <li>初始化 hexo 的 node.js 專案</li>
 <li>設定 Github repository</li>
@@ -613,42 +1178,76 @@ npm install hexo-deployer-git --save
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="https://shunnnet.github.io/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-1-%E7%94%9F%E6%88%90%E9%83%A8%E8%90%BD%E6%A0%BC/" data-id="ck7ryl0sa000000tw14alfmyo" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/hexo/" rel="tag">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%AD%86%E8%A8%98/" rel="tag">筆記</a></li></ul>
 
-    </footer>
-  </div>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
   
-</article>
-
-
   
-    <article id="post-筆記-前後端相關技術知識" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-%E5%89%8D%E5%BE%8C%E7%AB%AF%E7%9B%B8%E9%97%9C%E6%8A%80%E8%A1%93%E7%9F%A5%E8%AD%98/" class="article-date">
-  <time datetime="2020-03-14T18:39:10.000Z" itemprop="datePublished">2020-03-15</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+  
+
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-%E5%89%8D%E5%BE%8C%E7%AB%AF%E7%9B%B8%E9%97%9C%E6%8A%80%E8%A1%93%E7%9F%A5%E8%AD%98/">筆記-前後端相關技術知識</a>
-    </h1>
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://shunnnet.github.io/blog/2020/03/15/%E7%AD%86%E8%A8%98-%E5%89%8D%E5%BE%8C%E7%AB%AF%E7%9B%B8%E9%97%9C%E6%8A%80%E8%A1%93%E7%9F%A5%E8%AD%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.jpg">
+      <meta itemprop="name" content="shunnNet">
+      <meta itemprop="description" content="會放一些筆記整理，行有餘力寫點文">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="邊緣邊緣人的技術筆記">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-%E5%89%8D%E5%BE%8C%E7%AB%AF%E7%9B%B8%E9%97%9C%E6%8A%80%E8%A1%93%E7%9F%A5%E8%AD%98/" class="post-title-link" itemprop="url">筆記-前後端相關技術知識</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+              
+
+              <time title="創建時間：2020-03-15 02:39:10 / 修改時間：03:19:32" itemprop="dateCreated datePublished" datetime="2020-03-15T02:39:10+08:00">2020-03-15</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-%E5%89%8D%E5%BE%8C%E7%AB%AF%E7%9B%B8%E9%97%9C%E6%8A%80%E8%A1%93%E7%9F%A5%E8%AD%98/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/03/15/筆記-前後端相關技術知識/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
   
 
+        </div>
       </header>
+
     
-    <div class="article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <h3 id="主要資料來源"><a href="#主要資料來源" class="headerlink" title="主要資料來源"></a>主要資料來源</h3><ul>
+          <h3 id="主要資料來源"><a href="#主要資料來源" class="headerlink" title="主要資料來源"></a>主要資料來源</h3><ul>
 <li><a href="https://www.youtube.com/watch?v=QuCu4iDpPTU" target="_blank" rel="noopener">六角 - 前後端都該理解的計算機概論</a></li>
 </ul>
 <p>2020/3/13</p>
@@ -683,42 +1282,75 @@ npm install hexo-deployer-git --save
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="https://shunnnet.github.io/blog/2020/03/15/%E7%AD%86%E8%A8%98-%E5%89%8D%E5%BE%8C%E7%AB%AF%E7%9B%B8%E9%97%9C%E6%8A%80%E8%A1%93%E7%9F%A5%E8%AD%98/" data-id="ck7ryl0sf000100tw99qidz0d" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%AD%86%E8%A8%98/" rel="tag">筆記</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%B6%B2%E8%B7%AF%E7%9F%A5%E8%AD%98/" rel="tag">網路知識</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E8%A8%88%E7%AE%97%E6%A9%9F%E6%A6%82%E8%AB%96/" rel="tag">計算機概論</a></li></ul>
 
-    </footer>
-  </div>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
   
-</article>
-
-
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2020/03/13/hello-world/" class="article-date">
-  <time datetime="2020-03-13T10:35:01.250Z" itemprop="datePublished">2020-03-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+  
+
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2020/03/13/hello-world/">Hello World</a>
-    </h1>
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://shunnnet.github.io/blog/2020/03/13/hello-world/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.jpg">
+      <meta itemprop="name" content="shunnNet">
+      <meta itemprop="description" content="會放一些筆記整理，行有餘力寫點文">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="邊緣邊緣人的技術筆記">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2020/03/13/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2020-03-13 18:35:01" itemprop="dateCreated datePublished" datetime="2020-03-13T18:35:01+08:00">2020-03-13</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2020/03/13/hello-world/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/03/13/hello-world/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
   
 
+        </div>
       </header>
+
     
-    <div class="article-entry" itemprop="articleBody">
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
 
 <p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
@@ -734,125 +1366,194 @@ npm install hexo-deployer-git --save
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="https://shunnnet.github.io/blog/2020/03/13/hello-world/" data-id="ck7qb9e8m0001cctwfhvracvi" class="article-share-link">Share</a>
-      
-      
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+  </div>
+
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="shunnNet"
+      src="/blog/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">shunnNet</p>
+  <div class="site-description" itemprop="description">會放一些筆記整理，行有餘力寫點文</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives">
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">標籤</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shunnNet" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shunnNet" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shunnNet</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
     </footer>
   </div>
-  
-</article>
-
 
   
+  <script src="/blog/lib/anime.min.js"></script>
+
+<script src="/blog/js/utils.js"></script>
 
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
+<script src="/blog/js/schemes/pisces.js"></script>
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Node-js/" rel="tag">Node.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Oauth2-0/" rel="tag">Oauth2.0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Pocket-API/" rel="tag">Pocket API</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/express/" rel="tag">express</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/gulp/" rel="tag">gulp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/javascript/" rel="tag">javascript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/node-fetch/" rel="tag">node-fetch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/server/" rel="tag">server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/w3HexSchool/" rel="tag">w3HexSchool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E7%AD%86%E8%A8%98/" rel="tag">筆記</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E7%B6%B2%E8%B7%AF%E7%9F%A5%E8%AD%98/" rel="tag">網路知識</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E8%A8%88%E7%AE%97%E6%A9%9F%E6%A6%82%E8%AB%96/" rel="tag">計算機概論</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84/" rel="tag">開發紀錄</a></li></ul>
-    </div>
-  </div>
+
+<script src="/blog/js/next-boot.js"></script>
+
+
 
 
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/blog/tags/Node-js/" style="font-size: 10px;">Node.js</a> <a href="/blog/tags/Oauth2-0/" style="font-size: 10px;">Oauth2.0</a> <a href="/blog/tags/Pocket-API/" style="font-size: 15px;">Pocket API</a> <a href="/blog/tags/express/" style="font-size: 10px;">express</a> <a href="/blog/tags/gulp/" style="font-size: 10px;">gulp</a> <a href="/blog/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/blog/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/blog/tags/node-fetch/" style="font-size: 10px;">node-fetch</a> <a href="/blog/tags/server/" style="font-size: 10px;">server</a> <a href="/blog/tags/w3HexSchool/" style="font-size: 15px;">w3HexSchool</a> <a href="/blog/tags/%E7%AD%86%E8%A8%98/" style="font-size: 20px;">筆記</a> <a href="/blog/tags/%E7%B6%B2%E8%B7%AF%E7%9F%A5%E8%AD%98/" style="font-size: 10px;">網路知識</a> <a href="/blog/tags/%E8%A8%88%E7%AE%97%E6%A9%9F%E6%A6%82%E8%AB%96/" style="font-size: 10px;">計算機概論</a> <a href="/blog/tags/%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84/" style="font-size: 15px;">開發紀錄</a>
-    </div>
-  </div>
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/03/">三月 2020</a></li></ul>
-    </div>
-  </div>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/blog/2020/03/19/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-2-%E5%AF%A6%E4%BD%9C-Pocket-API-%E8%AA%8D%E8%AD%89/">pocket-random 開發紀錄 - 2. 實作 Pocket API 認證</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2020/03/19/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-1-%E7%B7%A3%E7%94%B1-%E7%92%B0%E5%A2%83/">pocket-random 開發紀錄 - 1. 緣由 &amp; 環境</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-gulp-1-%E5%AE%89%E8%A3%9D/">[筆記] gulp - 1. 安裝</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-2-%E5%BB%BA%E7%AB%8B%E6%96%87%E7%AB%A0/">筆記-hexo-2-建立文章</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-1-%E7%94%9F%E6%88%90%E9%83%A8%E8%90%BD%E6%A0%BC/">筆記-hexo-1-生成部落格</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
 
   
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2020 shunnNet<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/blog/" class="mobile-nav-link">Home</a>
-  
-    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://shunnnetblog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
 
-
-  
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
-
-  
-<script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
-
-
-
-
-<script src="/blog/js/script.js"></script>
-
-
-
-
-  </div>
 </body>
 </html>
