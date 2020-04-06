@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shunnnet.github.io","root":"/blog/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="這篇文章要來講如何用 webpack 蓋出一個 SPA 的前端打包程序。這些事情在 Vue-CLI 裡面只要一個 serve&#x2F;build 就搞定了，但是如果要自己用 webpack 做出類似的打包該怎麼做？ 如果你對 webpack 不熟悉，可以到 webpack 教學文件 做到「起步」的步驟，大概就會有點概念了。 開發環境先說明一下我的開發語言：  Vue scss HTML JS6+  Vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[筆記] 使用 Webpack 蓋出 Vue-CLI 的打包程序">
+<meta property="og:url" content="https://shunnnet.github.io/blog/2020/04/07/%E4%BD%BF%E7%94%A8%20Webpack%20%E8%93%8B%E5%87%BA%20Vue-CLI%20%E7%9A%84%E6%89%93%E5%8C%85%E7%A8%8B%E5%BA%8F/index.html">
+<meta property="og:site_name" content="邊緣邊緣人的技術筆記">
+<meta property="og:description" content="這篇文章要來講如何用 webpack 蓋出一個 SPA 的前端打包程序。這些事情在 Vue-CLI 裡面只要一個 serve&#x2F;build 就搞定了，但是如果要自己用 webpack 做出類似的打包該怎麼做？ 如果你對 webpack 不熟悉，可以到 webpack 教學文件 做到「起步」的步驟，大概就會有點概念了。 開發環境先說明一下我的開發語言：  Vue scss HTML JS6+  Vue">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-04-06T18:32:15.000Z">
+<meta property="article:modified_time" content="2020-04-06T18:49:31.111Z">
+<meta property="article:author" content="shunnNet">
+<meta property="article:tag" content="筆記">
+<meta property="article:tag" content="w3HexSchool">
+<meta property="article:tag" content="Webpack">
+<meta property="article:tag" content="Vue-CLI">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://shunnnet.github.io/blog/2020/04/07/%E4%BD%BF%E7%94%A8%20Webpack%20%E8%93%8B%E5%87%BA%20Vue-CLI%20%E7%9A%84%E6%89%93%E5%8C%85%E7%A8%8B%E5%BA%8F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>[筆記] 使用 Webpack 蓋出 Vue-CLI 的打包程序 | 邊緣邊緣人的技術筆記</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">邊緣邊緣人的技術筆記</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-首頁">
+
+    <a href="/blog/" rel="section"><i class="fa fa-fw fa-home"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-分類">
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分類</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://shunnnet.github.io/blog/2020/04/07/%E4%BD%BF%E7%94%A8%20Webpack%20%E8%93%8B%E5%87%BA%20Vue-CLI%20%E7%9A%84%E6%89%93%E5%8C%85%E7%A8%8B%E5%BA%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.jpg">
+      <meta itemprop="name" content="shunnNet">
+      <meta itemprop="description" content="會放一些筆記整理，行有餘力寫點文">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="邊緣邊緣人的技術筆記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [筆記] 使用 Webpack 蓋出 Vue-CLI 的打包程序
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+              
+
+              <time title="創建時間：2020-04-07 02:32:15 / 修改時間：02:49:31" itemprop="dateCreated datePublished" datetime="2020-04-07T02:32:15+08:00">2020-04-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E7%AD%86%E8%A8%98/" itemprop="url" rel="index"><span itemprop="name">筆記</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2020/04/07/%E4%BD%BF%E7%94%A8%20Webpack%20%E8%93%8B%E5%87%BA%20Vue-CLI%20%E7%9A%84%E6%89%93%E5%8C%85%E7%A8%8B%E5%BA%8F/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/04/07/使用 Webpack 蓋出 Vue-CLI 的打包程序/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>這篇文章要來講如何用 webpack 蓋出一個 SPA 的前端打包程序。<br>這些事情在 Vue-CLI 裡面只要一個 serve/build 就搞定了，但是如果要自己用 webpack 做出類似的打包該怎麼做？</p>
+<p>如果你對 webpack 不熟悉，可以到 <a href="https://webpack.docschina.org/guides/installation/" target="_blank" rel="noopener">webpack 教學文件</a> 做到「起步」的步驟，大概就會有點概念了。</p>
+<h2 id="開發環境"><a href="#開發環境" class="headerlink" title="開發環境"></a>開發環境</h2><p>先說明一下我的開發語言：</p>
+<ul>
+<li>Vue</li>
+<li>scss</li>
+<li>HTML</li>
+<li>JS6+</li>
+</ul>
+<h2 id="Vue-CLI-做了哪些打包？"><a href="#Vue-CLI-做了哪些打包？" class="headerlink" title="Vue-CLI 做了哪些打包？"></a>Vue-CLI 做了哪些打包？</h2><p>來列一下 Vue-CLI 支援什麼：</p>
+<ul>
+<li>打包 .vue 檔</li>
+<li>可以在 .vue 檔中使用預處理語言 (scss/pug)</li>
+<li>用 babel 轉譯</li>
+<li>CSS 自動前綴(墜) (autoprefix)</li>
+<li>壓縮圖片變成 base64 格式</li>
+<li>自動網頁重載 Hot Module Reload (HMR)</li>
+<li>CSS + JS sourcemap</li>
+</ul>
+<p>以上就是這篇文章要實現的功能。</p>
+<a id="more"></a>
+
+<h2 id="設置-webpack-環境"><a href="#設置-webpack-環境" class="headerlink" title="設置 webpack 環境"></a>設置 webpack 環境</h2><p>首先當然要有 webpack，所以基本款是安裝 <code>webpack webpack-cli</code>，假裝專業一點加入 <code>webpack-merge</code>，可以用來切分 <code>production</code> 跟 <code>devlopment</code> 環境。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev webpack webpack-cli webpack-merge</span><br></pre></td></tr></table></figure>
+
+<p>接著在根目錄建立 webpack 用的設定檔</p>
+<ul>
+<li><code>webpack.common.js</code> (共通設定)</li>
+<li><code>webpack.prod.js</code> (production 設定)</li>
+<li><code>webpack.dev.js</code> (devlopment 設定)</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.common.js</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry : &#123;&#125;,</span><br><span class="line">  output: &#123;</span><br><span class="line">      filename: <span class="string">'[name].bundle.js'</span>, <span class="comment">// 根據 entry 的 key name 決定name</span></span><br><span class="line">      path: path.resolve(__dirname, <span class="string">'build'</span>),</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="built_in">module</span>:&#123;</span><br><span class="line">      rules: []</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.dev.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> merge = <span class="built_in">require</span>(<span class="string">'webpack-merge'</span>);</span><br><span class="line"><span class="keyword">const</span> common = <span class="built_in">require</span>(<span class="string">'./webpack.common.js'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = merge(common, &#123; <span class="comment">// 合併 webpack.common.js 的設定</span></span><br><span class="line">  mode: <span class="string">'development'</span>,</span><br><span class="line">  entry:&#123;</span><br><span class="line">    app: [<span class="string">'./src/index.js'</span>],</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins:[],</span><br><span class="line">  output : &#123;&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.prod.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> merge = <span class="built_in">require</span>(<span class="string">'webpack-merge'</span>);</span><br><span class="line"><span class="keyword">const</span> common = <span class="built_in">require</span>(<span class="string">'./webpack.common.js'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = merge(common, &#123;</span><br><span class="line">    entry:&#123;</span><br><span class="line">        app: <span class="string">'./src/index.js'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    devtool : <span class="string">"source-map"</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>好，好長啊orz。<br>好，接下來設定好 npm script，我們就可以在 command line 快速打包。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// package.json</span></span><br><span class="line">  <span class="string">"scripts"</span>: &#123;</span><br><span class="line">    <span class="string">"build"</span>: <span class="string">"webpack --config webpack.prod.js"</span>,</span><br><span class="line">    <span class="string">"watch"</span>: <span class="string">"webpack --watch --config webpack.dev.js"</span></span><br><span class="line">    <span class="comment">// 這邊的 watch 是監看指令，當打包路徑上的檔案有變化時，會自動重新打包。但網頁不會自動刷新。</span></span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+
+<p>好，這麼一來，兩個環境的進入點都是 ./src/index.js，所以請新增一個 src 資料夾，底下開一個 index.js 做個樣子。</p>
+<pre><code>// 目前的目錄結構
+build/
+src/
+  index.js
+webpack.common.js
+webpack.dev.js
+webpack.prod.js</code></pre><h2 id="vue-loader-處理-vue-檔"><a href="#vue-loader-處理-vue-檔" class="headerlink" title="vue-loader 處理 .vue 檔"></a>vue-loader 處理 .vue 檔</h2><p>好，離上市集資已經跨了一大步了。<br>Webpack 簡單來說就是用一堆 loader 去處理依賴圖(dependencies graph)上的檔案。每種檔案都會有相對應的 loader，要有loader，webpack才知道要怎麼處理這個檔案。vue-loader 就是用來處理 .vue 檔的。</p>
+<p><a href="https://vue-loader.vuejs.org/zh/" target="_blank" rel="noopener">Vue Loader 簡體中字文件</a></p>
+<p>首先來把以下東西裝進去：<br><code>npm install --save-dev vue-loader vue-template-compiler</code><br><code>npm install --save vue</code></p>
+<p><code>vue-loader</code> 跟 <code>vue-template-compiler</code> 就是拿來 load .vue 檔的。<code>vue-loader</code>會使用 <code>vue-template-compiler</code> 先對 .vue 檔做預處理。</p>
+<p>注意一下 <code>vue-template-compiler</code> 要跟你的 <code>vue</code> 版本相同，否則會出錯。<br>安裝完後，可以到 package.json 去確認兩個的版本是不是一樣的。</p>
+<p>好，接下來要設定 webpack，把 loader 裝上去。到 <code>webpack.common.js</code> 設定：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// ./webpack.common.js</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line">  <span class="comment">// 新增</span></span><br><span class="line">  <span class="keyword">const</span> VueLoaderPlugin = <span class="built_in">require</span>(<span class="string">'vue-loader/lib/plugin'</span>);</span><br><span class="line">  </span><br><span class="line">  <span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="comment">// ...略</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 新增</span></span><br><span class="line">    plugins: [ <span class="keyword">new</span> VueLoaderPlugin() ],</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [</span><br><span class="line">        <span class="comment">// 新增 rules</span></span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.vue$/</span>,</span><br><span class="line">                loader: <span class="string">'vue-loader'</span>,</span><br><span class="line">            &#125;,</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>rules 的部分就是指定對 .vue 檔使用 <code>vue-loader</code>。<br><code>VueLoaderPlugin</code> 的作用，引用一下官網解釋</p>
+<blockquote>
+<p>这个插件是必须的！ 它的职责是将你定义过的其它规则复制并应用到 .vue 文件里相应语言的块。例如，如果你有一条匹配 /.js$/ 的规则，那么它会应用到 .vue 文件里的 script 块。</p>
+</blockquote>
+<p>也就是說，你如果有對其他檔案或是語言使用 loader 去處理的話，VueLoaderPlugin會使在 .vue 檔中的相應語言也被處理。<br>所以，威~~什麼在 .vue 檔裡面的各種語言會被處理呢？就是因為有 VueLoaderPlugin把其他 loader 套進去的喔。</p>
+<p>這麼一來，webpack就設定好惹。</p>
+<p>接著我們來用.vue檔寫個 halloween 吧。在 src 目錄下開一個 <code>App.vue</code>，然後寫個內容：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// ./src/App.vue</span></span><br><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">        &lt;h1&gt; &#123;&#123; msg &#125;&#125; &lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">&lt;<span class="regexp">/template&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">export default &#123;</span></span><br><span class="line"><span class="regexp">    data()&#123;</span></span><br><span class="line"><span class="regexp">        return &#123;</span></span><br><span class="line"><span class="regexp">            msg : "Halloween"</span></span><br><span class="line"><span class="regexp">        &#125;</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
+
+
+<p>接著接著，在 src 目錄下，寫個 index.js：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// ./src/index.js</span></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span>;</span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App.vue'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    render : <span class="function"><span class="params">h</span> =&gt;</span> h(App)</span><br><span class="line">&#125;).$mount(<span class="string">"#app"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>接著接著接著，<br>在根目錄的 build 目錄下開一個 app.html，在他的 body 裡面：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"app.bundle.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>好了，準備完成，接著來打個包：</p>
+<p><code>npm run build</code></p>
+<p>然後你就會看到 app.bundle.js 降臨在 build 資料夾中。然後打開 app.html，你就會看到 <code>halloween</code> 的字。</p>
+<p>這表示什麼？<br>表示我們打包成功了QWQ。</p>
+<h2 id="處理-css"><a href="#處理-css" class="headerlink" title="處理 css"></a>處理 css</h2><p>接下來處理CSS。<br>套用官網的教學範例，需要 <code>style-loader</code> 跟 <code>css-loader</code>。但是在 vue-loader 中，有個已經安裝好的 <code>vue-style-loader</code>，跟 <code>style-loader</code>的效果相同。所以我們只要裝 <code>css-loader</code> 就好：</p>
+<p><code>npm install --save-dev css-loader</code></p>
+<p>根據 <code>vue-style-loader</code> 的說法，這個 loader 跟<code>style-loader</code>不同，可以支援一些 SSR 的需求。有興趣的人可以參考 <a href="https://github.com/vuejs/vue-style-loader" target="_blank" rel="noopener">vue-style-loader</a>。</p>
+<p>有 loader 之後呢？裝上去啊哈哈哈哈：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ./webpack.common.js</span></span><br><span class="line">  rules: [</span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.vue$/</span>,</span><br><span class="line">                loader: <span class="string">'vue-loader'</span>,</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123; <span class="comment">// 以下新增</span></span><br><span class="line">                test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">                use : [</span><br><span class="line">                    <span class="string">'vue-style-loader'</span>, </span><br><span class="line">                    <span class="comment">// 讓 JS 透過 style 標籤插入 CSS</span></span><br><span class="line">                    &#123; <span class="comment">// 把 CSS 轉成 CommonJS </span></span><br><span class="line">                        loader: <span class="string">'css-loader'</span></span><br><span class="line">                    &#125;</span><br><span class="line">                    </span><br><span class="line">                ] </span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br></pre></td></tr></table></figure>
+<p>然後到 APP.vue 裡面加入一個 style</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">    h1 &#123;</span><br><span class="line">        color : red;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>然後然後重新打包 <code>npm run watch</code>，打包完後，對網頁重新整理，就會發現 h1 變成紅色，他的樣式在 head 裡的 style 標籤裡面。</p>
+<h2 id="處理-scss"><a href="#處理-scss" class="headerlink" title="處理 scss"></a>處理 scss</h2><p>承接上面處理 css 的部分，處理 scss 還需要其他套件 <code>node-sass</code> 和 <code>sass-loader</code>。</p>
+<p><code>npm install --save-dev node-sass sass-loader</code></p>
+<p>大家都知道 sass/scss 是需要編譯器的，node-sass 就是一個用 C++ 寫出來的編譯器。而地方的 sass-loader 需要 node-sass 來滿足他編譯 scss/sass的需求。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ./webpack.common.js</span></span><br><span class="line"></span><br><span class="line">rules: [</span><br><span class="line">  <span class="comment">// .......前略</span></span><br><span class="line">  &#123; </span><br><span class="line">      test: <span class="regexp">/\.scss$/</span>, <span class="comment">// 1. 改變匹配的檔案名稱</span></span><br><span class="line">      use : [</span><br><span class="line">          <span class="string">'vue-style-loader'</span>, </span><br><span class="line">      </span><br><span class="line">          &#123;</span><br><span class="line">              loader: <span class="string">'css-loader'</span></span><br><span class="line">          &#125;,</span><br><span class="line">          <span class="comment">// 2. 以下新增 </span></span><br><span class="line">          &#123;</span><br><span class="line">            loader: <span class="string">'sass-loader'</span>, <span class="comment">// compile scss/sass by node sass</span></span><br><span class="line">            options: &#123;</span><br><span class="line">               <span class="comment">// prependData，這裡的內容所有 scss/sass 都可以取用，通常可以放 variable/mixin 等，比如 $color 變數 ，可以在 App.vue中使用</span></span><br><span class="line">               <span class="comment">// 你也可以从一个文件读取，例如 `variables.scss`</span></span><br><span class="line">               <span class="comment">// 如果 sass-loader 版本 &lt; 8，这里使用 `data` 字段</span></span><br><span class="line">                prependData: <span class="string">'$color: blue;'</span>,</span><br><span class="line">                </span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">          </span><br><span class="line">      ] </span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>注意上面的 1 跟 2 兩個步驟都做完。<br>然後改一下 App.vue 的 style 的部分：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">"scss"</span>&gt;</span><span class="xml"> <span class="comment">&lt;!-- 注意: 要加個 lang="scss" --&gt;</span></span></span><br><span class="line">    h1 &#123;</span><br><span class="line"><span class="xml">        color : $color;  <span class="comment">&lt;!-- 注意: 使用 prependData 載入的 $color 變數，他是藍色的 --&gt;</span></span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>然後重新打包 <code>npm run watch</code> ，打包完，打開app.html，就發現字變成藍色的，表示 scss 打包成功啦哈哈哈哈哈。</p>
+<h2 id="自動前綴-postcss-loader-autoprefixer"><a href="#自動前綴-postcss-loader-autoprefixer" class="headerlink" title="自動前綴 postcss-loader + autoprefixer"></a>自動前綴 postcss-loader + autoprefixer</h2><p>打到這裡覺得好累，<br>相信你要是能看到這裡一定也覺得很累 orz</p>
+<p>但是，接下來，要來加上自動前綴的功能惹~</p>
+<p><code>npm install --save-dev postcss-loader autoprefixer</code></p>
+<p>postcss 是一個 css 的後處理器，而 sass 是前處理器。<br>而 autoprefixer 是 postcss 的一個 plugin，顧名思義就是可以幫css自動加上前綴字。<br>同樣的，把他裝上去：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ./webpack.common.js</span></span><br><span class="line"></span><br><span class="line">rules: [</span><br><span class="line">  <span class="comment">// .......前略</span></span><br><span class="line">  &#123; </span><br><span class="line">      test: <span class="regexp">/\.scss$/</span>, </span><br><span class="line">      use : [</span><br><span class="line">          <span class="string">'vue-style-loader'</span>, </span><br><span class="line">      </span><br><span class="line">          &#123;</span><br><span class="line">              loader: <span class="string">'css-loader'</span></span><br><span class="line">          &#125;,</span><br><span class="line">          <span class="comment">// 以下新增 </span></span><br><span class="line">          &#123;</span><br><span class="line">              loader: <span class="string">"postcss-loader"</span>,</span><br><span class="line">              options: &#123;</span><br><span class="line">                  ident: <span class="string">'postcss'</span>, <span class="comment">// 官方建議使用</span></span><br><span class="line">                  plugins: [ <span class="comment">// 插入 autoprefixer</span></span><br><span class="line">                      <span class="built_in">require</span>(<span class="string">'autoprefixer'</span>)(&#123;&#125;),</span><br><span class="line">                  ]</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;,</span><br><span class="line">          &#123;</span><br><span class="line">            loader: <span class="string">'sass-loader'</span>, </span><br><span class="line">            options: &#123;</span><br><span class="line">                prependData: <span class="string">'$color: blue;'</span>,</span><br><span class="line">                </span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">          </span><br><span class="line">      ] </span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>接著來隨便寫一個應該需要 prefix 的 CSS 屬性</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">"scss"</span>&gt;</span> </span><br><span class="line">    h1 &#123;</span><br><span class="line">        color : $color;  </span><br><span class="line">        transform : translateX(50%);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>然後就可以打包了<del>~ 還沒啊啊啊</del><br>要加上前綴字，需要知道對象的瀏覽器版本，我們需要在 <strong>根目錄</strong> 加一個檔案 <code>.browserslistrc</code>，裡面加上對應的瀏覽器資訊。</p>
+<pre><code>&gt; 1%
+last 2 versions</code></pre><p>其實這個設定也可以寫在 loader 上，只是其他套件(Babel)也會用到這個<code>.browserslistrc</code> 的資訊，所以把他獨立出來，整個專案對瀏覽器的支援才會統一。</p>
+<p>加上去了吼？來，打個包。<br>打開網頁用開發者工具看，你會看到 transform 前面多一個有前綴字的屬性。<br>(這篇文章是在 2020/4 寫的，這時候會出現 -webkit-transform 的屬性)</p>
+<p>postcss 還有其他有趣的功能，有興趣的人可以研究研究。</p>
+<h2 id="加上-CSS-sourcemap"><a href="#加上-CSS-sourcemap" class="headerlink" title="加上 CSS sourcemap"></a>加上 CSS sourcemap</h2><p>最後，來幫CSS 加上 sourcemap。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ./webpack.common.js</span></span><br><span class="line"></span><br><span class="line">rules: [</span><br><span class="line">  <span class="comment">// .......前略</span></span><br><span class="line">  &#123; </span><br><span class="line">      test: <span class="regexp">/\.scss$/</span>, </span><br><span class="line">      use : [</span><br><span class="line">          <span class="string">'vue-style-loader'</span>, </span><br><span class="line">      </span><br><span class="line">          &#123;</span><br><span class="line">              loader: <span class="string">'css-loader'</span>,</span><br><span class="line">              options: &#123;</span><br><span class="line">                sourceMap: <span class="literal">true</span>, <span class="comment">// 新增 1</span></span><br><span class="line">              &#125; </span><br><span class="line">          &#125;,</span><br><span class="line">          </span><br><span class="line">          &#123;</span><br><span class="line">              loader: <span class="string">"postcss-loader"</span>,</span><br><span class="line">              options: &#123;</span><br><span class="line">                  ident: <span class="string">'postcss'</span>, </span><br><span class="line">                  plugins: [ </span><br><span class="line">                      <span class="built_in">require</span>(<span class="string">'autoprefixer'</span>)(&#123;&#125;),</span><br><span class="line">                  ], </span><br><span class="line">                  sourceMap: <span class="literal">true</span>, <span class="comment">// 新增 2</span></span><br><span class="line">                  </span><br><span class="line">              &#125;</span><br><span class="line">          &#125;,</span><br><span class="line">          &#123;</span><br><span class="line">            loader: <span class="string">'sass-loader'</span>, </span><br><span class="line">            options: &#123;</span><br><span class="line">                prependData: <span class="string">'$color: blue;'</span>,</span><br><span class="line">                sourceMap: <span class="literal">true</span>, <span class="comment">// 新增 3</span></span><br><span class="line">                </span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">          </span><br><span class="line">      ] </span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>把 <code>css-loader</code>、<code>postcss-loader</code>、<code>sass-loader</code> 的 options 都加上 sourceMap，然後設定成 <code>true</code>，就會生成 sourceMap 了。<br>如果這時候你重新打包，再開啟網頁，你就會看到樣式上面有標註來源。</p>
+<p>根據<code>CSS-loader</code> webpack 官方文件說法：</p>
+<blockquote>
+<p>They are not enabled by default because they expose a runtime overhead and increase in bundle size (JS source maps do not).</p>
+</blockquote>
+<p>這個功能是預設不開啟的，因為會增加 bundle file 的大小，而且會讓打包速度變慢……<br>所以好像應該要把這兩個環境設定切開。</p>
+<p>這邊說明一下，我想不到一個看起來很專業的切分法（比如說使用 webpack merge 去處理）</p>
+<p>其實也可以這樣寫：</p>
+<p><code>sourceMap : process.env.NODE_ENV !== &quot;production&quot;</code></p>
+<p>其實這樣就解決了。</p>
+<p>但是這個解法總給我一種：「既然這樣，為什麼要切分 dev / prod 兩個檔案？」的疑問。而且，如果我今天只從這兩個檔案的層級去看環境差異的話，我就可能會漏掉 sourceMap 的環節。</p>
+<p>所以底下我想了一個不是那麼成熟的解法：<br>其實 merge 這東西就是在合併一般的 javascript Object 而已，所以可以像是修改物件一樣，在 prod/dev 兩個檔案中做出不同的修改：</p>
+<p>首先，把 webpack.common 的選項包到一個 function 中，讓 sourceMap 變成一個參數。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = common;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">common</span> (<span class="params">sourceMap</span>)</span>&#123;</span><br><span class="line">    sourceMap = <span class="built_in">Boolean</span>(sourceMap);</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        entry: &#123;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">// ......................</span></span><br><span class="line">        <span class="built_in">module</span>: &#123;</span><br><span class="line">            rules: [</span><br><span class="line">                <span class="comment">// .......</span></span><br><span class="line">                &#123;</span><br><span class="line">                    test: <span class="regexp">/\.s[ac]ss$/</span>,</span><br><span class="line">                    use : [</span><br><span class="line">                        <span class="string">'vue-style-loader'</span>, </span><br><span class="line">                        &#123;</span><br><span class="line">                            loader: <span class="string">'css-loader'</span>,</span><br><span class="line">                            options: &#123;</span><br><span class="line">                                sourceMap: sourceMap,</span><br><span class="line">                                <span class="comment">// 1. 根據參數決定</span></span><br><span class="line">                            &#125;,</span><br><span class="line">                        &#125;,</span><br><span class="line">                        &#123;</span><br><span class="line">                            loader: <span class="string">"postcss-loader"</span>,</span><br><span class="line">                            options: &#123;</span><br><span class="line">                                </span><br><span class="line">                                ident: <span class="string">'postcss'</span>,</span><br><span class="line">                                plugins: [</span><br><span class="line">                                    <span class="built_in">require</span>(<span class="string">'autoprefixer'</span>)(&#123;&#125;),</span><br><span class="line">                                ],</span><br><span class="line">                                sourceMap: sourceMap,</span><br><span class="line">                                <span class="comment">// 2. 根據參數決定</span></span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;,</span><br><span class="line">                        &#123;</span><br><span class="line">                            loader: <span class="string">'sass-loader'</span>, </span><br><span class="line">                            options: &#123;</span><br><span class="line">                                prependData: <span class="string">'$color: blue;'</span>,</span><br><span class="line">                                sourceMap: sourceMap,</span><br><span class="line">                                <span class="comment">// 3. 根據參數決定</span></span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">            </span><br><span class="line">                    ] </span><br><span class="line">                &#125;</span><br><span class="line">                </span><br><span class="line">            ]</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接著分別設定dev/prod兩個檔案，對 common 函式傳入不同的參數。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.dev.js</span></span><br><span class="line"><span class="keyword">const</span> merge = <span class="built_in">require</span>(<span class="string">'webpack-merge'</span>);</span><br><span class="line"><span class="keyword">const</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>);</span><br><span class="line"><span class="keyword">let</span> common = <span class="built_in">require</span>(<span class="string">'./webpack.common.js'</span>); </span><br><span class="line"><span class="comment">// 1. 將 common 改成 let 變數;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 生成 common 物件，決定 sourceMap 的值。</span></span><br><span class="line"><span class="keyword">const</span> sourceMap = <span class="literal">true</span>;</span><br><span class="line">common = common(sourceMap);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = merge(common, &#123;</span><br><span class="line">  mode: <span class="string">'development'</span>,</span><br><span class="line">  devtool: <span class="string">'inline-source-map'</span>,</span><br><span class="line">  entry:&#123;</span><br><span class="line">    app: [<span class="string">'./src/index.js'</span>]</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins:[],</span><br><span class="line">  output : &#123;&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.prod.js</span></span><br><span class="line"><span class="keyword">const</span> merge = <span class="built_in">require</span>(<span class="string">'webpack-merge'</span>);</span><br><span class="line"><span class="keyword">let</span> common = <span class="built_in">require</span>(<span class="string">'./webpack.common.js'</span>);</span><br><span class="line"><span class="comment">// 1. 將 common 改成 let 變數;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 生成 common 物件，決定 sourceMap 的值。</span></span><br><span class="line"><span class="keyword">const</span> sourceMap = <span class="literal">true</span>;</span><br><span class="line">common = common(sourceMap);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = merge(common, &#123;</span><br><span class="line">    entry:&#123;</span><br><span class="line">        app: <span class="string">'./src/index.js'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    mode: <span class="string">'production'</span>,</span><br><span class="line">    </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>不知道還有沒有更好的解法？</p>
+<h2 id="加上-JS-sourceMap"><a href="#加上-JS-sourceMap" class="headerlink" title="加上 JS sourceMap"></a>加上 JS sourceMap</h2><p>都說到 sourceMap ，也順便來加一下 JS 的 sourceMap 吧。<br>其實這個 Webpack 有透過 devtool 選項做支援，你可以選擇不同的 devtool 生成自己想要的 sourceMap 格式。<br>跟 CSS 不同的是，他似乎不會大量增加打包後檔案的容量。<br>官方建議兩個模式下都加入 JS sourceMap 。因為 production 跟 devlopment 兩個環境的需求不同，所以要使用不同的 sourceMap。</p>
+<p>所以就分別對 prod 跟 dev 兩個做不同的設定囉：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.dev.js</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = merge(common, &#123;</span><br><span class="line">  mode: <span class="string">'development'</span>,</span><br><span class="line">  devtool: <span class="string">'inline-source-map'</span>, <span class="comment">// 增加</span></span><br><span class="line">  <span class="comment">// 以下略.....</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.prod.js</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = merge(common, &#123;</span><br><span class="line">  mode: <span class="string">'production'</span>,</span><br><span class="line">  devtool : <span class="string">"source-map"</span>, <span class="comment">// 增加</span></span><br><span class="line">  <span class="comment">// 以下略.....</span></span><br></pre></td></tr></table></figure>
+
+<p>好，接著來測試一下，到 ./src/index.js 裡面：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span>;</span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App.vue'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"Can you see who am I ?"</span>)</span><br><span class="line"><span class="comment">// 新增</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    render : <span class="function"><span class="params">h</span> =&gt;</span> h(App)</span><br><span class="line">&#125;).$mount(<span class="string">"#app"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>然後打包之後，打開開發者工具的 console，就會看到 <code>console.log</code> 的位置在 index.js 的某行。</p>
+<p>簡單多了 QQ</p>
+<h2 id="babel-loader-轉譯-javascript"><a href="#babel-loader-轉譯-javascript" class="headerlink" title="babel-loader 轉譯 javascript"></a>babel-loader 轉譯 javascript</h2><p>終於要進到 babel 了。(我都念 babel)</p>
+<p><code>npm install --save-dev babel-loader @babel/core @babel/preset-env</code><br>首先是 <code>@babel/core</code> 跟 <code>@babel/preset-env</code> 這兩個 babel 主要功能套餐，接著是 <code>babel-loader</code> 用來對接 webpack。</p>
+<p>我們把 loader 裝上去：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.common.js</span></span><br><span class="line">modules :&#123;</span><br><span class="line">  rules : [</span><br><span class="line">      <span class="comment">// ...略</span></span><br><span class="line">      <span class="comment">// 以下新增</span></span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.js?$/</span>,</span><br><span class="line">        loader: <span class="string">'babel-loader'</span>,</span><br><span class="line"></span><br><span class="line">        exclude: <span class="function"><span class="params">file</span> =&gt;</span> ( <span class="comment">// 排除 node_modules 中非 .vue 檔</span></span><br><span class="line">            /node_modules/.test(file) &amp;&amp;</span><br><span class="line">            !<span class="regexp">/\.vue\.js/</span>.test(file)</span><br><span class="line">        ), </span><br><span class="line">        options: &#123;</span><br><span class="line">            <span class="string">"presets"</span>: [</span><br><span class="line">                [</span><br><span class="line">                    <span class="string">"@babel/preset-env"</span>,</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="string">"useBuiltIns"</span>: <span class="string">"usage"</span>,</span><br><span class="line">                        <span class="string">"corejs"</span>: <span class="string">"3"</span></span><br><span class="line">                    &#125;</span><br><span class="line">                ]</span><br><span class="line">            ],</span><br><span class="line">            <span class="string">"plugins"</span>: [</span><br><span class="line">                [</span><br><span class="line">                    <span class="string">"@babel/plugin-transform-runtime"</span>,</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="string">"corejs"</span>: <span class="string">"3"</span></span><br><span class="line">                    &#125;</span><br><span class="line">                ]</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>說明一下：<br>options 的部分會稍後說明，如果你有自己偏好的 babel 設定可以跳過。<br>exclude 選項指定了 babel 不要處理的檔案，通常會不處理node_module的檔案，但是 vue-loader 官方給了個建議設定，如上方範例，可以確保 node_modules 中的 .vue 檔被轉譯。</p>
+<p>至於 babel 會用到的 browser 設定，會直接套用根目錄的 .browserslistrc，嘿嘿嘿，前面把他獨立成一個檔案有道理，這邊不用重新寫一次。</p>
+<p>來講一下 option 的部分：<br>主要要講的是 transform-runtime，他主要是 babel 用來解決轉譯後的 code 多處重複的問題，可以把轉譯後的 code 縮小。</p>
+<p>[@babel/plugin-transform-runtime]<a href="https://babeljs.io/docs/en/babel-plugin-transform-runtime" target="_blank" rel="noopener">https://babeljs.io/docs/en/babel-plugin-transform-runtime</a></p>
+<p>如果你跟我一樣就是死都要用 polyfill ，那來裝一下吧：</p>
+<p><code>npm install --save-dev @babel/plugin-transform-runtime</code></p>
+<p>以及另外要在 production 環境使用的：</p>
+<p><code>npm install --save @babel/runtime-corejs3 @babel/runtime</code></p>
+<p>然後 loader 的部分直接使用上方的設定，就行了。</p>
+<h2 id="自動重載-Hot-Module-Reload-HMR"><a href="#自動重載-Hot-Module-Reload-HMR" class="headerlink" title="自動重載 Hot Module Reload (HMR)"></a>自動重載 Hot Module Reload (HMR)</h2><p>效果是：你不用自己按重新整理！ orz</p>
+<p>根據 webpack 官方文件，基本的基本上有兩種做法，</p>
+<ol>
+<li>webpack-dev-server</li>
+<li>webpack-dev-middleware + webpack-hot-middleware (伺服器用)</li>
+</ol>
+<h3 id="webpack-dev-server"><a href="#webpack-dev-server" class="headerlink" title="webpack-dev-server"></a>webpack-dev-server</h3><p><code>npm install --save-dev webpack-dev-server</code></p>
+<p>然後到 webpack.dev.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.dev.js</span></span><br><span class="line"><span class="comment">// .......</span></span><br><span class="line">  mode: <span class="string">'development'</span>,</span><br><span class="line">  devtool: <span class="string">'inline-source-map'</span>,</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    openPage: <span class="string">'app.html'</span>, <span class="comment">// 開啟時，打開 app.html</span></span><br><span class="line">    host: <span class="string">'192.168.0.106'</span>, <span class="comment">// 對同網域開啟連線</span></span><br><span class="line">    contentBase: <span class="string">'./build'</span>, </span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+
+<p>接著到 package.json 中設定指令：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"scripts"</span>: &#123;</span><br><span class="line">    <span class="comment">// .... 略</span></span><br><span class="line">    <span class="string">"start"</span>: <span class="string">"webpack-dev-server --open --config webpack.dev.js"</span></span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+
+<p>好，這麼一來只要在 command line 上執行 <code>npm start</code> 就會開啟頁面。並且在每次修改依賴圖上的檔案時，就會自動刷新網頁囉。</p>
+<h3 id="webpack-dev-middleware-webpack-hot-middleware-伺服器用"><a href="#webpack-dev-middleware-webpack-hot-middleware-伺服器用" class="headerlink" title="webpack-dev-middleware + webpack-hot-middleware (伺服器用)"></a>webpack-dev-middleware + webpack-hot-middleware (伺服器用)</h3><p>如果你是用像是 express 的後端框架，這兩個東西就是拿來當 middleware 插入的。只有 dev-middleware 的話，只會在伺服器開啟時打包一次，但是再加上 hot-middleware 的話，就可以在依賴圖上的檔案變化時刷新網頁。</p>
+<p><code>npm install --save-dev webpack-dev-middleware webpack-hot-middleware</code></p>
+<p>接著在 webpack.dev.js 中：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>) <span class="comment">// 新增</span></span><br><span class="line"><span class="comment">// .... 略</span></span><br><span class="line">  mode: <span class="string">'development'</span>,</span><br><span class="line">  devtool: <span class="string">'inline-source-map'</span>,</span><br><span class="line">  plugins:[</span><br><span class="line">      <span class="keyword">new</span> webpack.HotModuleReplacementPlugin(), <span class="comment">// 新增</span></span><br><span class="line">  ],</span><br><span class="line"><span class="comment">// .... 略</span></span><br></pre></td></tr></table></figure>
+
+<p>接著在你設定中間層檔案上加入 middleware，比如我是使用 express，加在最前面：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// app.js</span></span><br><span class="line"><span class="keyword">var</span> app = express();</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">"production"</span>)&#123;</span><br><span class="line">    <span class="comment">// Tell express to use the webpack-dev-middleware and use the webpack.config.js</span></span><br><span class="line">    <span class="comment">// configuration file as a base.</span></span><br><span class="line">    <span class="keyword">const</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>);</span><br><span class="line">    <span class="keyword">const</span> webpackDevMiddleware = <span class="built_in">require</span>(<span class="string">'webpack-dev-middleware'</span>);</span><br><span class="line">    <span class="keyword">const</span> config = <span class="built_in">require</span>(<span class="string">'./webpack.dev.js'</span>);</span><br><span class="line">    <span class="keyword">const</span> compiler = webpack(config);</span><br><span class="line">    </span><br><span class="line">    app.use(webpackDevMiddleware(compiler, &#123;</span><br><span class="line">        noInfo: <span class="literal">true</span>, <span class="attr">publicPath</span>: config.output.publicPath,</span><br><span class="line">    &#125;));</span><br><span class="line">    app.use(<span class="built_in">require</span>(<span class="string">"webpack-hot-middleware"</span>)(compiler));</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//...... 略</span></span><br></pre></td></tr></table></figure>
+
+<p>最後，啟動 server ，你就會看到 webpack 執行打包，並且在更新依賴圖上的檔案時，重新打包+刷新網頁。</p>
+<h2 id="壓縮圖片變成-base64-格式"><a href="#壓縮圖片變成-base64-格式" class="headerlink" title="壓縮圖片變成 base64 格式"></a>壓縮圖片變成 base64 格式</h2><p>這邊要用的是在官方文件也有的 file-loader &amp; url-loader。實際上做到壓縮這件事的是 url-loader。而 file-loader 可以把依賴圖上出現的對應檔案通通拉到 build 目錄中。</p>
+<p><code>npm install --save-dev url-loader file-loader</code></p>
+<p>接著設定 loader，可以只設定 url-loader。( <a href="https://dwatow.github.io/2018/12-29-webpack/action-url-loader-file-loader/" target="_blank" rel="noopener">實戰 Webpack 的 file-loader 和 url-loader - 《Chris 技術筆記》</a>)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">rules: [</span><br><span class="line">   &#123;</span><br><span class="line">       test: <span class="regexp">/\.(woff|woff2|eot|ttf|otf|png|svg|jpg|gif)$/</span>,</span><br><span class="line">       use: &#123;</span><br><span class="line">         loader: <span class="string">'url-loader'</span>,</span><br><span class="line">         options: &#123;</span><br><span class="line">           limit: <span class="number">1000</span>, <span class="comment">// 1000 bytes 以下壓縮</span></span><br><span class="line">           name: <span class="string">'[hash:7].[ext]'</span>,</span><br><span class="line">         &#125;</span><br><span class="line">       &#125;</span><br><span class="line">     &#125;,</span><br><span class="line"> <span class="comment">// 以下略 ................</span></span><br></pre></td></tr></table></figure>
+
+<p>好，接著來測試一下，在 App.vue 中</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span> &#123;&#123; msg &#125;&#125; <span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"bg"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span> <span class="comment">&lt;!--新增--&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.bg</span>&#123;</span><br><span class="line">    <span class="attribute">height </span>: <span class="number">500px</span>;</span><br><span class="line">    <span class="attribute">width </span>: <span class="number">500px</span>;</span><br><span class="line">    <span class="attribute">background-image</span>: <span class="built_in">url</span>(<span class="string">"./1kb圖片位置.png"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最後，重新打包，打開 app.html，看一下開發者工具，就會發現他被壓成 base64 了。</p>
+<h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>哈哈哈哈，搞到最後好像在 webpack 教學啊~~</p>
+<p>參考資料：</p>
+<ul>
+<li><p><a href="https://dwatow.github.io/2018/12-29-webpack/action-url-loader-file-loader/" target="_blank" rel="noopener">實戰 Webpack 的 file-loader 和 url-loader - 《Chris 技術筆記》</a></p>
+</li>
+<li><p><a href="https://webpack.js.org/guides/getting-started/" target="_blank" rel="noopener">Getting Started | webpack</a></p>
+</li>
+<li><p><a href="https://vue-loader.vuejs.org/zh/#vue-loader-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F" target="_blank" rel="noopener">介绍 | Vue Loader</a></p>
+</li>
+<li><p><a href="https://github.com/babel/babel-loader" target="_blank" rel="noopener">GitHub - babel/babel-loader: 📦 Babel loader for webpack</a></p>
+</li>
+<li><p><a href="https://babeljs.io/docs/en/babel-plugin-transform-runtime" target="_blank" rel="noopener">@babel/plugin-transform-runtime · Babel</a></p>
+</li>
+<li><p><a href="https://github.com/postcss/postcss-loader" target="_blank" rel="noopener">GitHub - postcss/postcss-loader: PostCSS loader for webpack</a></p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/blog/tags/%E7%AD%86%E8%A8%98/" rel="tag"><i class="fa fa-tag"></i> 筆記</a>
+              <a href="/blog/tags/w3HexSchool/" rel="tag"><i class="fa fa-tag"></i> w3HexSchool</a>
+              <a href="/blog/tags/Webpack/" rel="tag"><i class="fa fa-tag"></i> Webpack</a>
+              <a href="/blog/tags/Vue-CLI/" rel="tag"><i class="fa fa-tag"></i> Vue-CLI</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/2020/03/28/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-3-%E6%80%9D%E8%80%83%E8%B3%87%E6%96%99%E6%A0%BC%E5%BC%8F/" rel="prev" title="pocket-random 開發紀錄 - 3. 思考篩選文章用的資料格式">
+      <i class="fa fa-chevron-left"></i> pocket-random 開發紀錄 - 3. 思考篩選文章用的資料格式
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#開發環境"><span class="nav-number">1.</span> <span class="nav-text">開發環境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue-CLI-做了哪些打包？"><span class="nav-number">2.</span> <span class="nav-text">Vue-CLI 做了哪些打包？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#設置-webpack-環境"><span class="nav-number">3.</span> <span class="nav-text">設置 webpack 環境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vue-loader-處理-vue-檔"><span class="nav-number">4.</span> <span class="nav-text">vue-loader 處理 .vue 檔</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#處理-css"><span class="nav-number">5.</span> <span class="nav-text">處理 css</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#處理-scss"><span class="nav-number">6.</span> <span class="nav-text">處理 scss</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自動前綴-postcss-loader-autoprefixer"><span class="nav-number">7.</span> <span class="nav-text">自動前綴 postcss-loader + autoprefixer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加上-CSS-sourcemap"><span class="nav-number">8.</span> <span class="nav-text">加上 CSS sourcemap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加上-JS-sourceMap"><span class="nav-number">9.</span> <span class="nav-text">加上 JS sourceMap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#babel-loader-轉譯-javascript"><span class="nav-number">10.</span> <span class="nav-text">babel-loader 轉譯 javascript</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自動重載-Hot-Module-Reload-HMR"><span class="nav-number">11.</span> <span class="nav-text">自動重載 Hot Module Reload (HMR)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#webpack-dev-server"><span class="nav-number">11.1.</span> <span class="nav-text">webpack-dev-server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#webpack-dev-middleware-webpack-hot-middleware-伺服器用"><span class="nav-number">11.2.</span> <span class="nav-text">webpack-dev-middleware + webpack-hot-middleware (伺服器用)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#壓縮圖片變成-base64-格式"><span class="nav-number">12.</span> <span class="nav-text">壓縮圖片變成 base64 格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#結語"><span class="nav-number">13.</span> <span class="nav-text">結語</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="shunnNet"
+      src="/blog/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">shunnNet</p>
+  <div class="site-description" itemprop="description">會放一些筆記整理，行有餘力寫點文</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives">
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">標籤</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shunnNet" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shunnNet" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shunnNet</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/blog/lib/anime.min.js"></script>
+
+<script src="/blog/js/utils.js"></script>
+
+
+<script src="/blog/js/schemes/pisces.js"></script>
+
+
+<script src="/blog/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://shunnnetblog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://shunnnet.github.io/blog/2020/04/07/%E4%BD%BF%E7%94%A8%20Webpack%20%E8%93%8B%E5%87%BA%20Vue-CLI%20%E7%9A%84%E6%89%93%E5%8C%85%E7%A8%8B%E5%BA%8F/";
+    this.page.identifier = "2020/04/07/使用 Webpack 蓋出 Vue-CLI 的打包程序/";
+    this.page.title = "[筆記] 使用 Webpack 蓋出 Vue-CLI 的打包程序";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://shunnnetblog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

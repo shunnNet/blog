@@ -153,6 +153,114 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://shunnnet.github.io/blog/2020/04/07/%E4%BD%BF%E7%94%A8%20Webpack%20%E8%93%8B%E5%87%BA%20Vue-CLI%20%E7%9A%84%E6%89%93%E5%8C%85%E7%A8%8B%E5%BA%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.jpg">
+      <meta itemprop="name" content="shunnNet">
+      <meta itemprop="description" content="會放一些筆記整理，行有餘力寫點文">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="邊緣邊緣人的技術筆記">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2020/04/07/%E4%BD%BF%E7%94%A8%20Webpack%20%E8%93%8B%E5%87%BA%20Vue-CLI%20%E7%9A%84%E6%89%93%E5%8C%85%E7%A8%8B%E5%BA%8F/" class="post-title-link" itemprop="url">[筆記] 使用 Webpack 蓋出 Vue-CLI 的打包程序</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+              
+
+              <time title="創建時間：2020-04-07 02:32:15 / 修改時間：02:49:31" itemprop="dateCreated datePublished" datetime="2020-04-07T02:32:15+08:00">2020-04-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E7%AD%86%E8%A8%98/" itemprop="url" rel="index"><span itemprop="name">筆記</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2020/04/07/%E4%BD%BF%E7%94%A8%20Webpack%20%E8%93%8B%E5%87%BA%20Vue-CLI%20%E7%9A%84%E6%89%93%E5%8C%85%E7%A8%8B%E5%BA%8F/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/04/07/使用 Webpack 蓋出 Vue-CLI 的打包程序/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>這篇文章要來講如何用 webpack 蓋出一個 SPA 的前端打包程序。<br>這些事情在 Vue-CLI 裡面只要一個 serve/build 就搞定了，但是如果要自己用 webpack 做出類似的打包該怎麼做？</p>
+<p>如果你對 webpack 不熟悉，可以到 <a href="https://webpack.docschina.org/guides/installation/" target="_blank" rel="noopener">webpack 教學文件</a> 做到「起步」的步驟，大概就會有點概念了。</p>
+<h2 id="開發環境"><a href="#開發環境" class="headerlink" title="開發環境"></a>開發環境</h2><p>先說明一下我的開發語言：</p>
+<ul>
+<li>Vue</li>
+<li>scss</li>
+<li>HTML</li>
+<li>JS6+</li>
+</ul>
+<h2 id="Vue-CLI-做了哪些打包？"><a href="#Vue-CLI-做了哪些打包？" class="headerlink" title="Vue-CLI 做了哪些打包？"></a>Vue-CLI 做了哪些打包？</h2><p>來列一下 Vue-CLI 支援什麼：</p>
+<ul>
+<li>打包 .vue 檔</li>
+<li>可以在 .vue 檔中使用預處理語言 (scss/pug)</li>
+<li>用 babel 轉譯</li>
+<li>CSS 自動前綴(墜) (autoprefix)</li>
+<li>壓縮圖片變成 base64 格式</li>
+<li>自動網頁重載 Hot Module Reload (HMR)</li>
+<li>CSS + JS sourcemap</li>
+</ul>
+<p>以上就是這篇文章要實現的功能。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2020/04/07/%E4%BD%BF%E7%94%A8%20Webpack%20%E8%93%8B%E5%87%BA%20Vue-CLI%20%E7%9A%84%E6%89%93%E5%8C%85%E7%A8%8B%E5%BA%8F/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
     <link itemprop="mainEntityOfPage" href="https://shunnnet.github.io/blog/2020/03/28/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-3-%E6%80%9D%E8%80%83%E8%B3%87%E6%96%99%E6%A0%BC%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -184,7 +292,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-03-29 00:58:58" itemprop="dateModified" datetime="2020-03-29T00:58:58+08:00">2020-03-29</time>
+                <time title="修改時間：2020-04-07 02:49:58" itemprop="dateModified" datetime="2020-04-07T02:49:58+08:00">2020-04-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -229,155 +337,14 @@
 </ol>
 <p>這篇文章主要紀錄 隨機顯示文章 這個功能的資料結構思考過程。<br>話說，為什麼要思考這樣的東西，原因是需要確定資料庫的資料格式，同時也是要整理程式的流程。<br>考量整體之後再決定資料結構，以免寫到一半又要大改。</p>
 <p>我怎麼會說又呢orz</p>
-<h2 id="隨機顯示文章-排程規劃"><a href="#隨機顯示文章-排程規劃" class="headerlink" title="隨機顯示文章 + 排程規劃"></a>隨機顯示文章 + 排程規劃</h2><p>我手上會有的資料：<br>使用者儲存在 Pocket 帳號的所有文章及其屬性。</p>
-<h3 id="要實現的功能"><a href="#要實現的功能" class="headerlink" title="要實現的功能"></a>要實現的功能</h3><ol>
-<li><p>每天設定多個領域，每個領域隨機選出文章<br>e.g : 比如每天都看 javascript 的文章 2 篇、CSS 的文章 1 篇。</p>
-</li>
-<li><p>星期一~日 可以做不同的設定</p>
-</li>
-<li><p>由於要統計每日看完的文章，必須要判斷使用者「已看完」文章。</p>
-</li>
-</ol>
-<h3 id="初步構想"><a href="#初步構想" class="headerlink" title="初步構想"></a>初步構想</h3><ul>
-<li><p>功能 1 ：<br>Pocket 可以對文章加上 tag，所以可以透過文章的 tag 判斷一個文章屬於甚麼領域。<br>比如 「每天選出有 javascript tag的文章 1 篇」</p>
-</li>
-<li><p>功能 2 ：<br>用個星期一~日的作為key的物件，value 用陣列放功能 1 設定的條件就行。</p>
-</li>
-<li><p>功能 3 ：<br>使用「封存」(archive) 或設定特定標籤（e.g : random-readed），這個特定標籤可以使用者自訂。<br>之所以可以用封存去標示，是考慮也許有使用者比較習慣用封存的功能。</p>
-</li>
-</ul>
-<h3 id="考慮各種可能"><a href="#考慮各種可能" class="headerlink" title="考慮各種可能"></a>考慮各種可能</h3><ol>
-<li><p>一個文章的 tag 可能有很多個。<br>比如：「<code>vue</code>、<code>前端</code>、<code>javascript</code>」、「<code>後端</code>、<code>vue</code>、<code>Node.js</code>」、「<code>後端</code>、<code>php</code>、<code>資料庫</code>」……..<br>試著想像一下，如果我想要集中看 vue 的文章，每天前端 2 篇、後端 1 篇，只用一個 tag <code>vue</code> 是不夠的。要能設定複數的 tag 才行。比如：<br>「<code>vue</code>、<code>前端</code>，2 篇」<br>「<code>vue</code>、<code>後端</code>，1 篇」<br>也有一個想法是使用者自己去自己的 Pocket 整理 tag。可是如果使用者文章很多，tag又很複雜，叫人先整理再來用，好像太霸道了。</p>
-</li>
-<li><p>承1，也有可能會這樣：<br>「我想要看 <code>美食</code> 或是 <code>旅遊</code>的文章，每天 2 篇 ~ 」<br>「我想要看 <code>html</code>、<code>vue</code> 或是 <code>html</code>、<code>jQuery</code> 的文章，每天 2 篇」<br>雖然沒有根據，但使用者說不定會想這樣篩。</p>
-</li>
-</ol>
-<p>考慮到例外情況2時，從舉例的句子中浮現一個可能的資料結構：<br>「我想要看 <code>html</code>、<code>vue</code> 或是 <code>html</code>、<code>jQuery</code> 的文章，每天 2 篇」<br>=&gt;「篩出 tag 有 <code>html</code> 且 <code>vue</code> 或 <code>html</code> 且 <code>jQuery</code> 的文章」<br>=&gt; <code>[[&#39;html&#39;,&#39;vue&#39;],[&#39;html&#39;,jQuery]]</code></p>
-<p>因為 tag 變成複數的，所以先前提到 某某領域 的定義就不能用 tagName，而是交由使用者自己定義。<br>所以使用者設定好 某領域的文章出現幾篇 ，其背後的資料結構如下：</p>
-<pre><code>{
-  name : &apos;practice1&apos;,
-  filter : [[&apos;html&apos;,&apos;vue&apos;],[&apos;html&apos;,&apos;jQuery&apos;]],
-  targetNum : 2 
-}</code></pre><ol start="3">
-<li>同一個領域，每天的目標篇數可能不同。<br>在寫這個文章的時候想到這個可能情況：<br>星期一到日，每天可以對同一領域設定不同的目標。<br>直覺想的話，可以這樣表現：</li>
-</ol>
-<pre><code>&apos;Monday&apos; : [
-  { 
-    filter : [&apos;parctice1&apos;],
-    targetNum : 2
-  }
-]
-
-// filter
-&apos;practice1&apos; : {
-  filter : [[&apos;html&apos;,&apos;vue&apos;],[&apos;html&apos;,&apos;jQuery&apos;]]
-}</code></pre><p>之後就可以根據今天星期幾，去取得對應的 filter。</p>
-<ol start="4">
-<li>出現相同名稱的 filter ：<br>這裡要提的狀況是，使用者曾經命名一個 practice1 的 filter，用了一段時間後，他想要修改 filter 的條件。於是就會出現不同條件，名稱卻相同的狀況。<br>只在篩選資料的用途上，可以在演算的過程排除掉相同的 filter。<br>但是這個程式有統計的需求，不同時期(不同條件)的 practice1 要如何區別呢？</li>
-</ol>
-<h3 id="模擬-filter-的演算狀況"><a href="#模擬-filter-的演算狀況" class="headerlink" title="模擬 filter 的演算狀況"></a>模擬 filter 的演算狀況</h3><p>filter 的形式就是：<br><code>const filter = [[&#39;html&#39;,&#39;vue&#39;],[&#39;html&#39;,&#39;jQuery&#39;]]</code><br>它儲存的是一串條件，要用這個條件篩出一串符合的文章，再從符合的文章中做隨機選取。<br>底下是文章們的範例資料：</p>
-<pre><code>let articles = [
-  { title: &quot;文章1&quot;, tags: [&quot;html&quot;,&quot;vue&quot;] },
-  { title: &quot;文章2&quot;, tags: [&quot;css&quot;,&quot;vue&quot;,&quot;動畫&quot;] },
-  { title: &quot;文章3&quot;, tags: [&quot;html&quot;,&quot;jQuery&quot;,&quot;Web API&quot;] },
-  // .......................
-]</code></pre><p>範例的 filter 邏輯是：<br>找出 tag 中同時有 html , vue 標籤，或者同時有 html, jQuery 標籤，的文章。<br>用原生 js 寫可以這樣：</p>
-<pre><code>let result = []
-articles.forEach(article =&gt;{
-  if (isArticleMatch(article,filter)){
-      result.push(article)
-  }
-})
-function isArticleMatch(article,filter){
-  for (var i=0;i&lt;filter.length;i++){
-      let situation = filter[i];
-      if (isMatchSituation(article,situation)){
-          return true
-      }
-  }
-  return false
-}
-function isMatchSituation(article,situation){
-    for (var i=0;i&lt;situation.length;i++){
-        var hasTag = article.tags.includes(situation[i])
-        if (!hasTag){
-            return false
-        }
-    }
-    return true
-}</code></pre><p>可行，可是</p>
-<ol>
-<li><p>易讀性有點差。除了套第三方函式庫改進之外，或許可以將 filter 打包成物件去處理。</p>
-</li>
-<li><p>以上面的例子來說，html 這個條件兩個 situation 都有，所以 html 這個條件篩了兩次，能不能只篩一次呢？<br>我試著改成這樣</p>
-<pre><code>// 原本
-&apos;practice1&apos; : {
-  filter : [[&apos;html&apos;,&apos;vue&apos;],[&apos;html&apos;,&apos;jQuery&apos;]]
-}
-// 修改
-&apos;practice1-2&apos; : {
-  filter : [[&apos;html&apos;,&apos;vue&apos;],[&apos;html&apos;,&apos;jQuery&apos;]],
-  internal : [&apos;html&apos;],
-  spec : [ [&apos;vue&apos;],[&apos;jQuery&apos;] ]
-}</code></pre></li>
-</ol>
-<p>保留原始使用者設定的狀況，然後另外製作演算用的資料。<br>分析出兩個 filter 都有 <code>html</code> 這個條件，先比對這個共通條件，然後再比對各個獨特條件 <code>spec</code>。</p>
-<pre><code>let filter = {
-      filter : [[&apos;html&apos;,&apos;vue&apos;],[&apos;html&apos;,&apos;jQuery&apos;]],
-      internal : [&apos;html&apos;],
-      spec : [ [&apos;vue&apos;],[&apos;jQuery&apos;] ]
-    }
-let result = []
-articles.forEach(article =&gt;{
-  if (isArticleMatchInternal(article,filter) &amp;&amp;  //新增
-      isArticleMatchSpec(article,filter)){
-
-      result.push(article)
-  }
-})
-function isArticleMatchInternal(article,filter){ //新增
-  for (var i=0;i&lt;filter.internal.length;i++){
-    var hasTag = article.tags.includes(filter.internal[i])
-    if (!hasTag){ return false }
-  }
-  return true
-}
-
-function isArticleMatchSpec(article,filter){
-  for (var i=0;i&lt;filter.spec.length;i++){
-      let situation = filter.spec[i];
-      if (isMatchSituation(article,situation)){
-          return true
-      }
-  }
-  return false
-}
-function isMatchSituation(article,situation){
-    for (var i=0;i&lt;situation.length;i++){
-        var hasTag = article.tags.includes(situation[i])
-        if (!hasTag){
-            return false
-        }
-    }
-    return true
-}</code></pre><p>還算能用吧…，要想辦法解決易讀性問題。</p>
-<h2 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h2><p>從以上過程可以得出資料流動的狀況如下：<br><img src="/blog/src/pocket-random開發日誌-3-1 資料流動.jpg"></p>
-<p>這麼一來就確定了：</p>
-<ol>
-<li>使用者設定的每個領域篩選條件該如何儲存？</li>
-<li>大概該如何去實作出來，會遇到甚麼問題？</li>
-</ol>
-<p>所以可以開始設定 (一部分) 資料庫的格式了。</p>
-<p>欠缺且需要額外處理的部分是：</p>
-<ol>
-<li>如何解決易讀性的問題？</li>
-<li>如何用資料表示星期幾？</li>
-<li>如何實作隨機選取？</li>
-</ol>
-<h2 id="尾巴"><a href="#尾巴" class="headerlink" title="尾巴"></a>尾巴</h2><p>其實還有一部分是關於統計用的資料格式，思考過程也是又臭又長的，就不多提了。<br>有沒有人能把這篇看下去我也是很好奇…。</p>
-<p>　　我發現滿有趣的部份是，統計用的資料格式跟這部分資料如何表現，這兩個很可能不會互相影響。但如果更動更根本的定義，兩個都會一起改。比如說，上面提到一個在寫文章的時候才想到的狀況：我原本設想，目標篇數跟filter綁定在一起，因filter而異。但後來想到，實際上可能需要每天不一樣，所以應該是因時間而異才對。這導致兩邊原本想好的格式一起改動。<br>　　相對的，不管我怎麼修改 filter 的格式，都不會改變統計用的資料格式。<br>　　我在想這個原因應該是，前者我是變更更根本的遊戲規則，後者我只是改變形式而已。所以或許我之後可以先從遊戲規則的定義開始整理起吧。</p>
-<p>　　有個值得反省的部分是，我並沒有明確的設定使用者是怎麼樣的人，如果是要專案開發的話，果然還是要稍微做個功課吧？</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2020/03/28/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-3-%E6%80%9D%E8%80%83%E8%B3%87%E6%96%99%E6%A0%BC%E5%BC%8F/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -427,7 +394,7 @@ function isMatchSituation(article,situation){
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-03-29 00:59:01" itemprop="dateModified" datetime="2020-03-29T00:59:01+08:00">2020-03-29</time>
+                <time title="修改時間：2020-04-07 02:50:13" itemprop="dateModified" datetime="2020-04-07T02:50:13+08:00">2020-04-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -467,224 +434,14 @@ function isMatchSituation(article,situation){
           <p><a href="https://github.com/shunnNet/p-r" target="_blank" rel="noopener">Github repository</a><br>(git master commit : 9bc555a335e9c844e014a656cc3d519b7bccd6bc)</p>
 <h2 id="讀-Pocket-API-認證"><a href="#讀-Pocket-API-認證" class="headerlink" title="讀 Pocket API 認證"></a>讀 Pocket API 認證</h2><p><a href="https://getpocket.com/developer/docs/authentication" target="_blank" rel="noopener">Pocket API Authentication</a><br>等我有空再把內容寫出來。</p>
 <h2 id="整理-Pocket-API-認證部分"><a href="#整理-Pocket-API-認證部分" class="headerlink" title="整理 Pocket API 認證部分"></a>整理 Pocket API 認證部分</h2><p>接下來要實作的是使用者用 Pocket 帳號登入的部分，列一下他的步驟。</p>
-<ol start="0">
-<li><p>所有的 AJAX 請求都要是POST方法，並且附帶以下 header</p>
-<pre><code>Content-Type : application/json; charset=UTF-8
-X-Accept : application/json</code></pre></li>
-<li><p>取得request token (決定由後端處理)</p>
-<pre><code>POST to
-https://getpocket.com/v3/oauth/request
-
-body = {
-  consumer_key : **************,
-  redirect_uri : 我的應用程式網址,
-  state : 可選，metadata
-}</code></pre><p> 回傳的資料會是以下格式</p>
-<pre><code>{
-  code : 我的request_token
-}</code></pre></li>
-<li><p>將使用者導向到以下認證頁面，該頁面建議不要新開視窗。 (決定由前端處理)<br> <code>https://getpocket.com/auth/authorize?request_token=[request_token]&amp;redirect_uri=[redirect_uri]</code><br> 使用者按下同意應用程式存取指定權限後，會自動導向到redirect_uri。</p>
-</li>
-<li><p>使用者進入 redirect_uri 後，使用 POST 請求，取得access_token。(決定由後端處理)</p>
-<pre><code>POST to
-https://getpocket.com/v3/oauth/authorize
-
-body = {
-  consumer_key : **************,
-  code : **request_token**
-}</code></pre><p> 回傳的資料會是以下格式</p>
-<pre><code>{
-  username : 使用者名稱,
-  access_token : ****************
-}</code></pre><p>這麼一來就可以存取使用者的 Pocket 清單做各種事。</p>
-</li>
-</ol>
-<h2 id="問題點-A"><a href="#問題點-A" class="headerlink" title="問題點 A"></a>問題點 A</h2><ol>
-<li><p>如何確認使用者已經登入 Pocket 並同意存取？<br> 使用者不一定會乖乖的從我開給他登入的頁面進入，常常是直接開 APP 的網址，我要怎麼確認他的狀態？<br> 結論：在使用者開 APP 網址時，進行一次步驟3，看能不能取得access_token。否則導向回到登入頁。</p>
-</li>
-<li><p>Pocket API 文件有提到許多在iOS、Mac實作上的例外狀況，而且也建議，因為 Pocket 有手機 APP 版本，所以在行動版要導向到 手機APP 驗證。<br> 結論：因為完全不知道實際運行上會怎麼樣，所以先做到桌面網頁版認證成功，丟到heroku上，在測試手機版。    </p>
-</li>
-</ol>
-<p>因為問題2的部分，決定先實作出基本前端頁面，跟後端有關認證的部分。</p>
-<h2 id="建立Node-js-express-專案"><a href="#建立Node-js-express-專案" class="headerlink" title="建立Node.js + express 專案"></a>建立Node.js + express 專案</h2><p>我使用express-generator直接生成一個express專案架構，下圖是我的目錄結構：</p>
-<img src="/blog/src/pocket-random開發日誌-1-目錄結構.jpg">
-
-<ul>
-<li>model : 放 mongoose model</li>
-<li>views : 放 html 檔案。雖然 view 支援 template 語言，但這次的頁面預計只有兩頁，所以用HTML(好懷念呀~)。但其實考慮到頁面可能會擴充，其實用 template 寫應該比較好。</li>
-<li>controller : 放各路由的 middleware function，根據路由切檔案。包括一個工具middleware customUtil.js。</li>
-<li>routes：放路由。</li>
-<li>auth.js： 裡面有放consumer_key這個敏感資訊。因為會把檔案丟到 github repo 上，所以把這個資訊另外放一個檔案，要用再require進來。然後在 .gitignore 加入他。</li>
-<li>兩個 .pem ：放 SSL 憑證，是用 mkcert 生出來的。否則不能用 https ，也就是不能用 Chrome 測試。</li>
-</ul>
-<h3 id="將-request-換成-fetch"><a href="#將-request-換成-fetch" class="headerlink" title="將 request 換成 fetch"></a>將 request 換成 fetch</h3><p>開始著手寫連 API 的函式，上一個專案是用 request 做 HTTP 連線，本來打算沿用，但在查 POST 方法怎麼寫時，發現 request 在今年2月已經 deprecate 了。原因我沒查清楚。<br>後來看到有人提到 node-fetch 這個套件。<br>node-fetch的用法跟瀏覽器上的fetch幾乎一模一樣，很好上手，還可以支援 binary 的樣子。<br>基於這個原因，選擇使用 node-fetch 實作連線 API 的部分。</p>
-<h3 id="必須要有-error-pug"><a href="#必須要有-error-pug" class="headerlink" title="必須要有 error.pug"></a>必須要有 error.pug</h3><p>express 在發生錯誤時，會選擇 views 目錄中的 error.pug 渲染出錯誤頁面回傳。如果沒有error.pug 就會發生錯誤。<br>所以雖然這次只有 HTML 檔，但我還是在 views 中放了一個error.pug。<br>這部分還不知道要怎麼調掉。</p>
-<h3 id="將-routes-amp-controller-分成-page-跟-pocket"><a href="#將-routes-amp-controller-分成-page-跟-pocket" class="headerlink" title="將 routes &amp; controller 分成 page 跟 pocket"></a>將 routes &amp; controller 分成 page 跟 pocket</h3><img src="/blog/src/pocket-random開發日誌-2-切分路由.jpg">
-這次的專案會有前端透過 AJAX 跟後端溝通的部分。
-- 當前端按下 login 時，傳 AJAX 到後端，後端跟 API 取得資訊後，再回傳前端。
-- 前端可能對文章增加 Pocket 的 tag ，這時要再 AJAX 給後端，後端跟 API 溝通，再回傳前端
-
-<p>種種。<br>這個專案的路由分成兩種：AJAX、瀏覽器頁面請求。<br>所以我決定將分別將路由切成page、pocket兩個檔案管理。<br>(controller 則是對應 router 的結構)<br>雖然不知道這樣切的理由是否太薄弱。</p>
-<h2 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h2><p>設想中，APP會按照這樣的流程完成登入程序：</p>
-<ol>
-<li>使用者進入 login.html</li>
-<li>使用者點擊 login 按鈕</li>
-<li>前端傳送 AJAX 給後端，後端向 Pocket API 取得 request_token。</li>
-<li>後端傳送合併好的認證 URL 給前端。</li>
-<li>前端頁面導向到認證 URL，等待使用者授權。</li>
-<li>使用者授權完成，Pocket API 將使用者導向到 redirect_url，也就是 app page。</li>
-<li>後端 /app 路由接到請求，向 Pocket API 取得 access_token。</li>
-<li>傳送 app.html，使用者進入app。</li>
-</ol>
-<p>以下是路由的流程，不是一開始就規劃好，而是在 router 完成後寫上：<br><img src="/blog/src/pocket-random開發日誌-4-day1 page-router.jpg"><br><img src="/blog/src/pocket-random開發日誌-3-day1 pocket-router.jpg"></p>
-<p>由於還沒有處理好資料庫的部分，所以 request_token 跟 access_token 都先存在 session。<br>在重開 server 時，session就會刪除。</p>
-<h3 id="確認-or-反省"><a href="#確認-or-反省" class="headerlink" title="確認 or 反省"></a>確認 or 反省</h3><ol>
-<li><p>為什麼進入 /app 要先 check requset_token ?<br> 這部分實作上要滿足兩個條件：</p>
-<ol>
-<li>要有 session</li>
-<li>session 中要有 request_token<br>主要原因是，要取得 access_token ，必須要有 consumer_key 跟 request_token，所以在請求 access_token 之前，先確認 request_token 是否存在。<br>如果存在，表示已經走過先前的程序，所以繼續往下請求。<br>反之，回到最初的程序，login，去請求 request_token。</li>
-</ol>
-</li>
-<li><p>承1，這部分沒考慮到：如果使用者按下 login 按鈕後，直接前往 /app 路由的情形。<br> (登入程序進行到 5，使用者沒授權直接連 /app)</p>
-<p> 在這情況下，請求 access_token 時，Pocket API 會回傳 403。<br> 所以可能要在 get access_token 後，再增加是否重新導向回 login page 的判定吧。</p>
-</li>
-<li><p>is Ajax request? 的判定 以及 重新導向<br> 在 pocket router 的兩個路由都有這個 middleware。<br> 這還滿明顯，我是說畫到圖上的時候……………orz</p>
-<p> 首先，應該把這個 middleware 寫成共通的處理，比如寫在 router.use 之類的。<br> 可能我在寫的時候覺得不同的路由會需要回傳到不同的訊息吧？<br> 這也可以加入考量。</p>
-<p> 實際上直接回傳一個 json 或是 string 都比重新導向好，不然路由還要多跑一次/login。</p>
-</li>
-</ol>
-<h2 id="controller"><a href="#controller" class="headerlink" title="controller"></a>controller</h2><p>直接上 code </p>
-<pre><code>// page.js
-const fetch = require(&apos;node-fetch&apos;);
-const auth = require(&quot;../auth&quot;);
-const utils = require(&quot;./customUtil&quot;);
-const path = require(&quot;path&quot;)
-
-module.exports.getLogin = getLogin;
-module.exports.redirectIfNoReqToken = redirectIfNoReqToken;
-module.exports.getAccessTokenIfhavent = getAccessTokenIfhavent;
-module.exports.toApp = toApp;
-
-
-function getLogin(req,res,next) {
-    res.sendFile( process.cwd() + &quot;/views/login.html&quot;)
-}
-
-function redirectIfNoReqToken(req,res,next){
-    if (req.session &amp;&amp; req.session.request_token){
-        next()
-    }else{
-        res.redirect(&quot;/login&quot;)
-    }
-}
-
-function getAccessTokenIfhavent(req,res,next){
-    if (!req.session.access_token){
-        const body = {
-            consumer_key : auth.consumer_key,
-            code : req.session.request_token
-        }
-        fetch(utils.pocket_url.authorize,{
-            method : &quot;post&quot;,
-            body : JSON.stringify(body),
-            headers : utils.header_base
-        })
-        .then(response =&gt; response.json())
-        .then(data =&gt; {
-            req.session.access_token = data.access_token; 
-            req.session.username = data.username;
-            next()
-        })
-    }else{
-        next()
-    }
-}
-
-function toApp(req,res,next){
-    res.sendFile( process.cwd() + &quot;/views/app.html&quot;)
-}
-
-
-
-// pocket.js
-const fetch = require(&apos;node-fetch&apos;);
-const auth = require(&quot;../auth&quot;);
-const utils = require(&quot;./customUtil&quot;);
-
-module.exports.redirectIfNotAjax = redirectIfNotAjax;
-module.exports.getRequestToken = getRequestToken;
-module.exports.sendAuthUrl = sendAuthUrl;
-module.exports.rejectIfNotAjax = rejectIfNotAjax;
-module.exports.retrieveData = retrieveData;
-
-function redirectIfNotAjax(req,res,next){
-    if (req.isAjax){
-        next()
-    }else{
-        res.redirect(&quot;/login&quot;)
-    }
-}
-
-
-function getRequestToken(req,res,next){
-    fetch(utils.pocket_url.request,{
-        method : &quot;post&quot;,
-        body : JSON.stringify(auth),
-        headers : utils.header_base
-    })
-    .then(response =&gt; response.json())
-    .then( response =&gt;{
-        req.session.request_token = response.code;
-        next()
-    })
-}
-function sendAuthUrl(req,res,next){
-    const redirect_url = `${utils.pocket_url.user_auth}?request_token=${req.session.request_token}&amp;redirect_uri=${auth.redirect_uri}`
-    const sendBack ={
-        redirect_url
-    }
-    res.json(sendBack)
-}
-
-function rejectIfNotAjax(req,res,next){
-    if (req.isAjax){
-        next()
-    }else{
-        res.json({msg: &quot;failed&quot;})
-    }
-}
-
-function retrieveData(req,res,next){
-    const body = {
-        consumer_key : auth.consumer_key,
-        access_token : req.session.access_token
-    }
-    fetch(utils.pocket_url.retrieve,{
-        method : &quot;post&quot;,
-        body : JSON.stringify(body),
-        headers : utils.header_base
-    }).then(response =&gt; response.json())
-      .then(response =&gt; {
-          res.json(response)
-      })
-}</code></pre><p>途中遇到的幾個問題是：</p>
-<ol>
-<li>對 Node.js 的路徑處理不是很熟，稍微找一下才找到 <code>process.pwd()</code> 取得根目錄。此外也有一些地方也是相對路徑指定不熟…我都反正改一改試一試就出來的心態。</li>
-<li>簡單掃了一下，fetch 的 option 似乎可以拉出來，或是想個辦法全部合併，因為除了 body 之外通通是一樣的。讓請求的流程被看的更清楚。</li>
-</ol>
-<h2 id="收尾-amp-全部問題點-amp-在意點清單"><a href="#收尾-amp-全部問題點-amp-在意點清單" class="headerlink" title="收尾 &amp; 全部問題點 &amp; 在意點清單"></a>收尾 &amp; 全部問題點 &amp; 在意點清單</h2><p>結果還沒進行到 跨平台測試的部分，這可能是個大坑，留待下次吧。</p>
-<p>清單：</p>
-<ol>
-<li>修改 fetch 的 option</li>
-<li>整理相對路徑的寫法</li>
-<li>思考 is Ajax request? 在 mount 路由時的處理方式</li>
-<li>取得 access_token 的步驟後，新增若 403 就重新導向 /login</li>
-<li>/login 跟 /pocket/login 兩個看起來太像，還是擇一改吧？</li>
-<li>避免使用 error.pug</li>
-<li>Pocket API 在 行動版、iOS、Mac上的實作狀況</li>
-<li>是否有比 MVC 架構更好的選擇？因為這專案很小….(大概吧)</li>
-</ol>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2020/03/19/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-2-%E5%AF%A6%E4%BD%9C-Pocket-API-%E8%AA%8D%E8%AD%89/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -734,7 +491,7 @@ function retrieveData(req,res,next){
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-03-29 00:58:52" itemprop="dateModified" datetime="2020-03-29T00:58:52+08:00">2020-03-29</time>
+                <time title="修改時間：2020-04-07 02:50:19" itemprop="dateModified" datetime="2020-04-07T02:50:19+08:00">2020-04-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -775,13 +532,14 @@ function retrieveData(req,res,next){
 <p>誰知道我居然覺得「隨便挑」這件事情好累…</p>
 <p>乾脆直接程式幫我挑就好啦 0.0!</p>
 <p>於是就開始弄這個了 orz<br>(有類似的東西? 我才不管哩)</p>
-<h2 id="環境"><a href="#環境" class="headerlink" title="環境"></a>環境</h2><p>我需要拿到 Pocket 中的文章清單，查了一下有 <a href="https://getpocket.com/developer/docs/overview" target="_blank" rel="noopener">Pocket API</a> 這東西。<br>因為打算弄成所有人都能用的樣子，所以我會有應用程式金鑰、各種使用者的access_token，而且這些敏感資訊都不能放前端，所以需要藏在後端，把所有 API 請求也都放在後端。<br>此外應該會需要存一些設定或是帳戶等等的，所以至少要有個資料庫。</p>
-<p>前端如果只有隨機從所有文章挑幾篇出來太無聊，所以想說做成可以改設定，可以設定挑幾篇；而且可以指定 tag；甚至是指定隨機挑的清單中要有某 tag 幾篇這種。這種麻煩事交給 Vue 應該很適合。(框架我也只會vue………………)</p>
-<p>API<br>Pocket API v3</p>
-<p>前端<br>Vue.js (處理前端大小事)</p>
-<p>後端<br>Node.js<br>express (請求+路由)<br>mongoose (資料庫)</p>
-<h2 id="結果"><a href="#結果" class="headerlink" title="結果"></a>結果</h2><p>開始寫這個之後，每天讀 3~5 篇的技術文章的想法反而跳票了。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2020/03/19/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-1-%E7%B7%A3%E7%94%B1-%E7%92%B0%E5%A2%83/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -965,7 +723,7 @@ gulp.task(&quot;copyHTML&quot;,()=&gt;{
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-03-29 00:58:46" itemprop="dateModified" datetime="2020-03-29T00:58:46+08:00">2020-03-29</time>
+                <time title="修改時間：2020-04-07 02:50:28" itemprop="dateModified" datetime="2020-04-07T02:50:28+08:00">2020-04-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1005,43 +763,16 @@ gulp.task(&quot;copyHTML&quot;,()=&gt;{
           <h2 id="建立新文章-new"><a href="#建立新文章-new" class="headerlink" title="建立新文章 new"></a>建立新文章 new</h2><pre><code>// in cmd
 hexo new [layout] [filename]</code></pre><p>建立一個檔案。</p>
 <ul>
-<li><p>[filename]<br>顧名思義，就是生成的檔案名稱，他會生成一個markdown檔案(.md)。</p>
-</li>
-<li><p>[layout]<br>他有三個值，不填的情況下就會直接採用預設值 post ：</p>
-<ul>
-<li>post (預設值) : 在 /source/_posts 目錄下生成 .md 檔</li>
-<li>draft: 在 /source/_draft 目錄下生成 .md 檔，草稿。</li>
-<li>page : 在 /source/ 目錄下生成指定名稱的資料夾，裡面會放一個 index.md 檔。非文章的完整頁面(待說明)</li>
+<li>[filename]<br>顧名思義，就是生成的檔案名稱，他會生成一個markdown檔案(.md)。</li>
 </ul>
-</li>
-</ul>
-<p>簡單講，要新增文章：</p>
-<pre><code>// in cmd
-hexo new 第一篇文章</code></pre><p>就OK了。</p>
-<p>然後就可以編輯那個 .md 檔案。編輯好內容後，使用部屬的指令：</p>
-<pre><code>hexo deploy -g</code></pre><p>就會更新到自己的 Github Pages 上。</p>
-<h2 id="預覽-server"><a href="#預覽-server" class="headerlink" title="預覽 server"></a>預覽 server</h2><p>如果你想在發布之前先看一下樣子，就用 server。</p>
-<pre><code>// in cmd
-hexo server</code></pre><p>等他跑出來會長這樣：</p>
-<img src="/blog/src/hexo使用方法-server.jpg"> 
-
-<p>圖片中最後一排英文提示你要怎麼看，以及怎麼關閉預覽。<br>到支援 http 連線的瀏覽器(比如:firefox)打開以下網址：<br><code>http://localhost:4000/{reponame}/</code><br>(e.g 我的 repo 叫 blog 所以 <code>http://localhost:4000/blog/</code> 連這個)</p>
-<p>就會預覽上線的樣子0.0</p>
-<h2 id="草稿-draft"><a href="#草稿-draft" class="headerlink" title="草稿 draft"></a>草稿 draft</h2><ol>
-<li><p>建立草稿<br> 也許你想先打些草稿，等完成後再發布。<br> 這時候你可以這樣建立草稿：</p>
-<pre><code>// in cmd
-hexo new draft 草稿檔案名稱</code></pre><p> !!! 注意： 只要檔名就好(e.g : 草稿.md ，就打 <code>hexo new draft 草稿檔案名稱</code>)<br> 然後建立的檔案會出現在 /source/_drafts 目錄下。</p>
-</li>
-<li><p>預覽草稿<br> 方法很簡單，也是用 server 指令，不過要加個 –draft：</p>
-<pre><code>// in cmd
-hexo server --draft</code></pre><p> 然後同樣連線到 <code>http://localhost:4000/{reponame}/</code> ，會看到草稿發布後的樣子。</p>
-</li>
-<li><p>發布草稿</p>
-<pre><code>// in cmd
-hexo publish 草稿檔案名稱</code></pre><p> 草稿檔案就會從 /source/_drafts 目錄 跑到 /source/_posts 底下，跟一般的文章沒兩樣。</p>
-</li>
-</ol>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-2-%E5%BB%BA%E7%AB%8B%E6%96%87%E7%AB%A0/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1091,7 +822,7 @@ hexo publish 草稿檔案名稱</code></pre><p> 草稿檔案就會從 /source/_d
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-03-29 00:59:19" itemprop="dateModified" datetime="2020-03-29T00:59:19+08:00">2020-03-29</time>
+                <time title="修改時間：2020-04-07 02:50:35" itemprop="dateModified" datetime="2020-04-07T02:50:35+08:00">2020-04-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1136,45 +867,14 @@ hexo publish 草稿檔案名稱</code></pre><p> 草稿檔案就會從 /source/_d
 <li>部屬 </li>
 </ol>
 <p>這個部落格就是用 hexo 弄出來的。<br>hexo 實際上是個靜態網站生成器，只要有簡易伺服器又有 repo 的服務(e.g : github ,heroku)，就可以掛上去。在這邊紀錄的是使用 github page 的步驟。</p>
-<h3 id="0-環境需求"><a href="#0-環境需求" class="headerlink" title="0. 環境需求"></a>0. 環境需求</h3><ul>
-<li>Node.js</li>
-<li>Git</li>
-<li>Github 帳號</li>
-</ul>
-<h3 id="1-安裝-hexo"><a href="#1-安裝-hexo" class="headerlink" title="1. 安裝 hexo"></a>1. 安裝 hexo</h3><pre>npm install -g hexo-cli</pre>
-
-<h3 id="2-初始化-hexo-的-node-js-專案"><a href="#2-初始化-hexo-的-node-js-專案" class="headerlink" title="2. 初始化 hexo 的 node.js 專案"></a>2. 初始化 hexo 的 node.js 專案</h3><pre>
-hexo init [folder name]
-cd [folder name]
-npm install hexo-deployer-git --save
-</pre>
-
-<p>上面這些指令都跑完後，目錄應該會長的像是下面這樣。<br>(除了紅色槓掉的部分之外)</p>
-<img src="/blog/src/hexo使用方法-初始化完成.jpg"> 
-
-<h3 id="3-設定-Github-repository"><a href="#3-設定-Github-repository" class="headerlink" title="3. 設定 Github repository"></a>3. 設定 Github repository</h3><ul>
-<li>開一個新的 Github repository，把 repo 的網址複製下來<br>e.g : <code>https://github.com/shunnNet/blog.git</code><br>然後到 _config.yml 這個檔案的最下面，把 deploy 的部分改成如下。<br><b>( repo 的部分請貼上 repo 的網址 )</b></li>
-</ul>
-<img src="/blog/src/hexo使用方法-deploy.jpg"> 
-
-<h3 id="4-設定-Github-Page"><a href="#4-設定-Github-Page" class="headerlink" title="4. 設定 Github Page"></a>4. 設定 Github Page</h3><ol>
-<li>到 Github repository 的 setting 的地方找到 GitHub Pages 設定</li>
-<li>source 的欄位有個下拉選單，選擇 <b> Master branch </b></li>
-<li>等他跑完，回到同樣的位置，就會出現綠色區塊，裡面是 Github pages 的連結，複製下來。</li>
-</ol>
-<img src="/blog/src/hexo使用方法-GithubPages.jpg">
-
-<ol start="4">
-<li>回到 _confing.yml，到下圖的設定位置<ul>
-<li>url 填 Github Pages 的網址</li>
-<li>path 填 /repo名稱/<br>(e.g 比如我的 repo 叫 blog ，所以打 /blog/)</li>
-</ul>
-</li>
-</ol>
-<img src="/blog/src/hexo使用方法-GithubPages-2.jpg"> 
-
-<h3 id="5-部屬"><a href="#5-部屬" class="headerlink" title="5. 部屬"></a>5. 部屬</h3><pre><code>hexo clean &amp;&amp; hexo deploy</code></pre><p>部屬的過程你可能會需要輸入 Github 的 帳號密碼。<br>部屬跑完之後，到你的 repository 頁面，應該會發現自己 repo 中多了很多東西。<br>稍微等個 1 分鐘，用瀏覽器開你的 Github Pages 頁面 ，應該就會看到部落格了。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-hexo-1-%E7%94%9F%E6%88%90%E9%83%A8%E8%90%BD%E6%A0%BC/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1216,10 +916,16 @@ npm install hexo-deployer-git --save
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">發表於</span>
-              
 
-              <time title="創建時間：2020-03-15 02:39:10 / 修改時間：03:19:32" itemprop="dateCreated datePublished" datetime="2020-03-15T02:39:10+08:00">2020-03-15</time>
+              <time title="創建時間：2020-03-15 02:39:10" itemprop="dateCreated datePublished" datetime="2020-03-15T02:39:10+08:00">2020-03-15</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2020-04-07 02:50:42" itemprop="dateModified" datetime="2020-04-07T02:50:42+08:00">2020-04-07</time>
+              </span>
 
           
   
@@ -1255,30 +961,14 @@ npm install hexo-deployer-git --save
 <ul>
 <li>觀看 Process 的運行狀況 ： 在 Mac 中，可以使用「活動監視器」；在 Windows 中使用「工作管理員」</li>
 </ul>
-<h2 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h2><p>執行or運算各種動作。<br>比如跑動畫，網頁渲染等等。<br>所以在開啟、執行 process 時，他的CPU耗用總是比較大。<br>如果某個 process 沒有在運行動作，只是開著的話，他不會耗用CPU。</p>
-<h2 id="記憶體-RAM"><a href="#記憶體-RAM" class="headerlink" title="記憶體 RAM"></a>記憶體 RAM</h2><p>暫存空間。或許可以想成是儲存一大堆資料的地方。<br>比如在JS中指派變數，資料是被存在某個記憶體位置的。<br>在他被回收之前，就是佔用了記憶體。</p>
-<h2 id="程序-Process"><a href="#程序-Process" class="headerlink" title="程序 Process"></a>程序 Process</h2><p>就是應用程式。一個應用程式是一個 Process，並且其中不會有第二個。</p>
-<h2 id="執行緒-Thread"><a href="#執行緒-Thread" class="headerlink" title="執行緒 Thread"></a>執行緒 Thread</h2><p>一個 Process 會有一或多個 Thread ， Thread 中是一連串要執行的指令。這些 Thread 會排隊去找 CPU ，等著被處理。</p>
-<h2 id="IP"><a href="#IP" class="headerlink" title="IP"></a>IP</h2><p>指「電腦在網路上的位置」，像是地址一樣的東西。<br>一般家用電腦的 IP 位置會浮動，那跟網路供應商有關。<br>可以去跟供應商申請固定 IP 。<br>如果你的電腦有打開 port ，並使用協定的話，就可以從外部訪問你的電腦。</p>
-<h2 id="port"><a href="#port" class="headerlink" title="port"></a>port</h2><p><a href="https://www.google.com/search?q=%E5%B8%B8%E7%94%A8port+%E5%88%97%E8%A1%A8" target="_blank" rel="noopener">常用port 列表 - Google 搜尋</a><br>你必須要找到位置，並且要有入口，才能進入別人的電腦。<br>port 就是像電腦的入口的東西。<br>一個電腦可以有好多個入口。<br>一個入口只能被一個 process 監聽。</p>
-<p>在 windows 中查詢 port 的使用狀況：<br>cmd &gt;<br>netstat -a : 所有 port 的狀態，要跑一陣子才會全跑完。<br>netstat -h : 查看所有指令。</p>
-<h2 id="虛擬主機"><a href="#虛擬主機" class="headerlink" title="虛擬主機"></a>虛擬主機</h2><p>網路上可以找到虛擬主機的服務，它讓你感覺自己的網站放在一個主機上。但實際上會有多個網站放在同一個主機上，只是不同網站透過不同的 port 而已。<br>當共用的其他應用程式出問題，導致主機掛掉的時候，你的網站也會一起死。這就是虛擬主機的缺點。</p>
-<h2 id="實體主機"><a href="#實體主機" class="headerlink" title="實體主機"></a>實體主機</h2><p>相對於虛擬主機，實體主機就是一個網站一台電腦。</p>
-<h2 id="選購主機的簡易判斷方式"><a href="#選購主機的簡易判斷方式" class="headerlink" title="選購主機的簡易判斷方式"></a>選購主機的簡易判斷方式</h2><p>可以觀察自己的後端程序對 CPU 跟 記憶體的耗用狀況去決定要購買怎麼樣設備的主機。</p>
-<h2 id="流量"><a href="#流量" class="headerlink" title="流量"></a>流量</h2><p>買主機的時候通常還會限定流量。</p>
-<p>可以透過 chrome dev tool : Network 看到 resource<br><img src="/blog/流量.jpg"><br><img src=":storage%5Cc13e7371-2d20-4342-9a5d-e13639b7af19%5C015d8043.jpg" alt="流量.jpg"><br>最下方有一個 resource ，表示載入這個網頁所花費的流量(合計檔案大小)</p>
-<p>可以用 :</p>
-<p>估計流量 x 月估計訪問人數 = 月估計流量</p>
-<p>去計算你需要的流量數。</p>
-<h2 id="主機服務"><a href="#主機服務" class="headerlink" title="主機服務"></a>主機服務</h2><ul>
-<li><a href="https://emanager.aptg.com.tw/konakart/CustomProdIntro.action?page=Dynamic&data=vhostCost&ContentId=334" target="_blank" rel="noopener">虛擬主機-亞太e管家-企業e化服務平台</a></li>
-<li><a href="https://www.pumo.com.tw/www/hosting/windows.jsp" target="_blank" rel="noopener">推薦 Windows 虛擬主機 搭配 MSSQL | 捕夢網數位科技 PUMO</a></li>
-<li><a href="https://azure.microsoft.com/zh-tw/free/" target="_blank" rel="noopener">立即建立免費的 Azure 帳戶 | Microsoft Azure</a></li>
-</ul>
-<h2 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h2><ul>
-<li><a href="https://www.youtube.com/watch?v=OAx_6-wdslM" target="_blank" rel="noopener">Introducing How Computers Work</a></li>
-</ul>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-%E5%89%8D%E5%BE%8C%E7%AB%AF%E7%9B%B8%E9%97%9C%E6%8A%80%E8%A1%93%E7%9F%A5%E8%AD%98/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1445,7 +1135,7 @@ npm install hexo-deployer-git --save
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives">
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -1455,7 +1145,7 @@ npm install hexo-deployer-git --save
         <span class="site-state-item-name">分類</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">標籤</span>
       </div>
   </nav>
