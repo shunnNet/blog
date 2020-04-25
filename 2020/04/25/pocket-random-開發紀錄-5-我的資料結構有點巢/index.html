@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"shunnnet.github.io","root":"/blog/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="說明下方是這次應用程式的資料，是主要的設定，他存在資料庫裏面。 說明一下它的用途： mission 是一串設定資料，有不重複的ID，protos 屬性存了篩選器資料。 weekday 存了每天的設定，根據星期一到日，每天不同。weekday 儲存當天要執行的 mission 們的 id，有需要的時候，透過 mid 屬性去存取 mission 中的設定，使用他的篩選器 protos。 為了方便 mi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pocket-random 開發紀錄 - 5. 我的資料結構有點巢">
+<meta property="og:url" content="https://shunnnet.github.io/blog/2020/04/25/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-5-%E6%88%91%E7%9A%84%E8%B3%87%E6%96%99%E7%B5%90%E6%A7%8B%E6%9C%89%E9%BB%9E%E5%B7%A2/index.html">
+<meta property="og:site_name" content="邊緣邊緣人的技術筆記">
+<meta property="og:description" content="說明下方是這次應用程式的資料，是主要的設定，他存在資料庫裏面。 說明一下它的用途： mission 是一串設定資料，有不重複的ID，protos 屬性存了篩選器資料。 weekday 存了每天的設定，根據星期一到日，每天不同。weekday 儲存當天要執行的 mission 們的 id，有需要的時候，透過 mid 屬性去存取 mission 中的設定，使用他的篩選器 protos。 為了方便 mi">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-04-25T10:06:30.000Z">
+<meta property="article:modified_time" content="2020-04-25T16:30:05.398Z">
+<meta property="article:author" content="shunnNet">
+<meta property="article:tag" content="w3HexSchool">
+<meta property="article:tag" content="資料結構">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://shunnnet.github.io/blog/2020/04/25/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-5-%E6%88%91%E7%9A%84%E8%B3%87%E6%96%99%E7%B5%90%E6%A7%8B%E6%9C%89%E9%BB%9E%E5%B7%A2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>pocket-random 開發紀錄 - 5. 我的資料結構有點巢 | 邊緣邊緣人的技術筆記</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">邊緣邊緣人的技術筆記</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-首頁">
+
+    <a href="/blog/" rel="section"><i class="fa fa-fw fa-home"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-分類">
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分類</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://shunnnet.github.io/blog/2020/04/25/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-5-%E6%88%91%E7%9A%84%E8%B3%87%E6%96%99%E7%B5%90%E6%A7%8B%E6%9C%89%E9%BB%9E%E5%B7%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.jpg">
+      <meta itemprop="name" content="shunnNet">
+      <meta itemprop="description" content="會放一些筆記整理，行有餘力寫點文">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="邊緣邊緣人的技術筆記">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          pocket-random 開發紀錄 - 5. 我的資料結構有點巢
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2020-04-25 18:06:30" itemprop="dateCreated datePublished" datetime="2020-04-25T18:06:30+08:00">2020-04-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2020-04-26 00:30:05" itemprop="dateModified" datetime="2020-04-26T00:30:05+08:00">2020-04-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84/" itemprop="url" rel="index"><span itemprop="name">開發紀錄</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2020/04/25/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-5-%E6%88%91%E7%9A%84%E8%B3%87%E6%96%99%E7%B5%90%E6%A7%8B%E6%9C%89%E9%BB%9E%E5%B7%A2/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/04/25/pocket-random-開發紀錄-5-我的資料結構有點巢/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="說明"><a href="#說明" class="headerlink" title="說明"></a>說明</h2><p>下方是這次應用程式的資料，是主要的設定，他存在資料庫裏面。</p>
+<p>說明一下它的用途：</p>
+<p><code>mission</code> 是一串設定資料，有不重複的ID，protos 屬性存了篩選器資料。</p>
+<p><code>weekday</code> 存了每天的設定，根據星期一到日，每天不同。<code>weekday</code> 儲存當天要執行的 mission 們的 id，有需要的時候，透過 mid 屬性去存取 <code>mission</code> 中的設定，使用他的篩選器 protos。</p>
+<p>為了方便 <code>mission</code> 反查有哪個 weekday 使用了他，所以每個 <code>mission</code> 中還有個 <code>weekday</code> 陣列儲存這個訊息。</p>
+<a id="more"></a>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> config = &#123;</span><br><span class="line">    viewer : &#123;</span><br><span class="line">        accomplishTag: <span class="string">"String"</span>,</span><br><span class="line">        weekday : &#123;</span><br><span class="line">            <span class="string">"1"</span> : &#123; </span><br><span class="line">                targetNum_total: <span class="number">5</span>,</span><br><span class="line">                groups: [ <span class="comment">// Loop 2</span></span><br><span class="line">                    &#123; <span class="attr">mid</span>: <span class="string">"missionID"</span>, <span class="attr">targetNum</span>: <span class="number">2</span> &#125;,</span><br><span class="line">                    &#123; <span class="attr">mid</span>: <span class="string">"missionID2"</span>, <span class="attr">targetNum</span>: <span class="number">3</span> &#125;,</span><br><span class="line">                ]</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="string">"2"</span> : &#123;</span><br><span class="line">                targetNum_total: <span class="number">3</span>,</span><br><span class="line">                groups: [ <span class="comment">// Loop 2</span></span><br><span class="line">                    &#123; <span class="attr">mid</span>: <span class="string">"missionID3"</span>, <span class="attr">targetNum</span>: <span class="number">1</span> &#125;,</span><br><span class="line">                    &#123; <span class="attr">mid</span>: <span class="string">"missionID4"</span>, <span class="attr">targetNum</span>: <span class="number">2</span> &#125;,</span><br><span class="line">                ]</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 以下直到 "7"..... </span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    mission : &#123;</span><br><span class="line">        <span class="string">"missionID"</span>: &#123;</span><br><span class="line">            mid: <span class="string">"missionID"</span>,</span><br><span class="line">            name: <span class="string">"sample"</span>,</span><br><span class="line">            protos: [</span><br><span class="line">                [<span class="string">"動畫"</span>, <span class="string">"學校"</span>],</span><br><span class="line">                [<span class="string">"工作"</span>]</span><br><span class="line">            ],</span><br><span class="line">            status: <span class="string">"active"</span>,</span><br><span class="line">            weekday : [<span class="string">"1"</span>] <span class="comment">// loop</span></span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="情況"><a href="#情況" class="headerlink" title="情況"></a>情況</h2><p>寫這個應用程式的過程中，我遇到一些狀況，然後有些想法。</p>
+<ol>
+<li><p>巢狀資料結構<br> 這裡指的是 <code>config.viewer</code> 的部分。在這篇文章中我會先把這個部分說成「用 weekday 群組化」的資料。</p>
+<p> 如果我要取出某一天中的 groups 陣列：</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> day = <span class="string">"1"</span>;</span><br><span class="line"><span class="keyword">var</span> groups = config.viewer.weekday[<span class="string">"1"</span>].groups</span><br><span class="line"><span class="comment">// 好長啊...................................</span></span><br></pre></td></tr></table></figure>
+<p> 因為巢狀太多層了，導致在取值的時候都要點好幾層。所以往往想多一行變數指派，讓他看起來不要那麼長。</p>
+<p> 可以看底下第2項範例的第一行。</p>
+<p> 我在初期的時候，很直覺想到這樣的資料結構：</p>
+<p> <strong>「這是 viewer 的設定，viewer 底下有每天(weekday)的設定，每天的設定稍有不同，分成1234567，底下有他們各自的設定」</strong></p>
+<p> 可是太多層的確會挺困擾的，所以如果沒有要管理大量設定，或是即使不歸在 viewer 底下也無所謂的資料，其實可以拿出來。<br> 感覺上是這種巢狀盡量不要超過三層比較好理解。我自己在超過三層的時候腦袋想起來會很累。</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//....................</span></span><br><span class="line">accomplishTag: <span class="string">"String"</span>,</span><br><span class="line">weekday : &#123;</span><br><span class="line">        <span class="string">"1"</span> : &#123; </span><br><span class="line">            targetNum_total: <span class="number">5</span>,</span><br><span class="line">            groups: [ <span class="comment">// Loop 2</span></span><br><span class="line">                &#123; <span class="attr">mid</span>: <span class="string">"missionID"</span>, <span class="attr">targetNum</span>: <span class="number">2</span> &#125;,</span><br><span class="line">                &#123; <span class="attr">mid</span>: <span class="string">"missionID2"</span>, <span class="attr">targetNum</span>: <span class="number">3</span> &#125;,</span><br><span class="line">            ]</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">"2"</span> : &#123;</span><br><span class="line">            targetNum_total: <span class="number">3</span>,</span><br><span class="line">            groups: [ <span class="comment">// Loop 2</span></span><br><span class="line">                &#123; <span class="attr">mid</span>: <span class="string">"missionID3"</span>, <span class="attr">targetNum</span>: <span class="number">1</span> &#125;,</span><br><span class="line">                &#123; <span class="attr">mid</span>: <span class="string">"missionID4"</span>, <span class="attr">targetNum</span>: <span class="number">2</span> &#125;,</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 以下直到 "7"..... </span></span><br><span class="line">    &#125;,</span><br><span class="line">mission : &#123;</span><br><span class="line"><span class="comment">//................</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> groups = configs.weekday[<span class="string">"1"</span>].groups;</span><br><span class="line"><span class="comment">// 這邊仍然是 4 層，.............................</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>運算對象是巢狀資料中的所有陣列</p>
+<p> 題目：在所有 weekday 中尋找某個 missionID 是否存在。在的話，從該 weekday 的 groups 中移除那個 mission。</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> weekdays = config.viewer.weekday;</span><br><span class="line"><span class="keyword">var</span> targetID = <span class="string">'someID'</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> day <span class="keyword">in</span> weekdays) &#123;</span><br><span class="line">    <span class="keyword">const</span> daySetting = weekdays[day];</span><br><span class="line">    <span class="keyword">const</span> groups = daySetting.groups;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 尋找某個 mission 是否存在，在的話，移除</span></span><br><span class="line">    <span class="keyword">var</span> index = groups.findIndex(<span class="function"><span class="params">mission</span> =&gt;</span> mission.mid === targetID);</span><br><span class="line">    <span class="keyword">if</span> (index)&#123;</span><br><span class="line">        groups.splice(index,<span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> 這邊有兩個想法：</p>
+<ol>
+<li><p>for in迴圈比較慢(其實通常沒有甚麼差別)</p>
+</li>
+<li><p>雙重迴圈</p>
+<p><a href="https://codepen.io/shunnnet/pen/jObBjNz?editors=1010" target="_blank" rel="noopener">迴圈速度比較</a></p>
+<p>這個連結比較了 for in 迭代物件，以及 forEach 迭代一般陣列的速度差。轉到 100000 圈的時候差大概 10 毫秒。除非是真的很有潔癖，否則這邊用不用 for in 其實不算是問題。但剛好我有點在意orz。</p>
+<p>但就算不管 for in 的速度，這邊還是有個雙重迴圈，寫起來有點討厭。其實這個雙重迴圈的演算過程，在那個資料結構設定好的時候就應該可以預料到了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">weekday : &#123;</span><br><span class="line">        <span class="string">"1"</span> : &#123; <span class="comment">// Loop 1  for in 第一層迴圈</span></span><br><span class="line">            targetNum_total: <span class="number">5</span>,</span><br><span class="line">            groups: [  <span class="comment">// Loop 2 forEach 第二層迴圈</span></span><br><span class="line">                &#123; <span class="attr">mid</span>: <span class="string">"missionID"</span>, <span class="attr">targetNum</span>: <span class="number">2</span> &#125;,</span><br><span class="line">                &#123; <span class="attr">mid</span>: <span class="string">"missionID2"</span>, <span class="attr">targetNum</span>: <span class="number">3</span> &#125;,</span><br><span class="line">            ]</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">"2"</span> : &#123; <span class="comment">// Loop 1 for in</span></span><br><span class="line">            targetNum_total: <span class="number">3</span>,</span><br><span class="line">            groups: [ <span class="comment">// Loop 2 forEach</span></span><br><span class="line">                &#123; <span class="attr">mid</span>: <span class="string">"missionID3"</span>, <span class="attr">targetNum</span>: <span class="number">1</span> &#125;,</span><br><span class="line">                &#123; <span class="attr">mid</span>: <span class="string">"missionID4"</span>, <span class="attr">targetNum</span>: <span class="number">2</span> &#125;,</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 以下直到 "7"..... </span></span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure>
+
+<p>為了避免這種要轉兩層的很痛苦的感覺，我試著把結構改成這樣：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">weekday : [</span><br><span class="line">    &#123; <span class="attr">day</span>:<span class="string">"1"</span>, <span class="attr">mid</span>: <span class="string">"missionID"</span>, <span class="attr">targetNum</span>: <span class="number">2</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">day</span>:<span class="string">"1"</span>, <span class="attr">mid</span>: <span class="string">"missionID2"</span>, <span class="attr">targetNum</span>: <span class="number">3</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">day</span>:<span class="string">"2"</span>, <span class="attr">mid</span>: <span class="string">"missionID3"</span>, <span class="attr">targetNum</span>: <span class="number">1</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">day</span>:<span class="string">"2"</span>, <span class="attr">mid</span>: <span class="string">"missionID4"</span>, <span class="attr">targetNum</span>: <span class="number">2</span> &#125;,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用這個資料結構做同一個題目</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> targetID = <span class="string">"someID"</span>;</span><br><span class="line"><span class="keyword">var</span> index = weekday.findIndex(<span class="function"><span class="params">mission</span> =&gt;</span> mission.mid === targetID);</span><br><span class="line"><span class="keyword">while</span> (index)&#123;</span><br><span class="line">    groups.splice(index,<span class="number">1</span>)</span><br><span class="line">    index = groups.findIndex(<span class="function"><span class="params">mission</span> =&gt;</span> mission.mid === targetID);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 結果還是轉了兩次迴圈啊哈哈哈哈哈</span></span><br></pre></td></tr></table></figure>
+<p>結果還是轉了兩次迴圈啊哈哈哈哈哈~~。<br>再試著用兩種結構去算各種可能遇到的問題：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 合計某一天的 targetNum_total</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 群組結構</span></span><br><span class="line">weekday[<span class="string">"1"</span>].groups</span><br><span class="line">            .reduce(<span class="function">(<span class="params">pre,now</span>)=&gt;</span> pre.targetNum + now.targetNum)</span><br><span class="line"><span class="comment">// 陣列結構</span></span><br><span class="line">weekday.filter(<span class="function"><span class="params">itm</span> =&gt;</span> itm.day === <span class="string">"1"</span>)</span><br><span class="line">       .reduce(<span class="function">(<span class="params">pre,now</span>)=&gt;</span> pre.targetNum + now.targetNum)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 找到某個 mission 在哪些 weekday 中</span></span><br><span class="line"><span class="comment">// 群組結構</span></span><br><span class="line"><span class="keyword">var</span> targetID = <span class="string">"missionID"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> result = [];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> day <span class="keyword">in</span> weekday)&#123;</span><br><span class="line">    <span class="keyword">var</span> index = weekday[day].groups.findIndex(<span class="function"><span class="params">group</span> =&gt;</span> group.mid === targetID);</span><br><span class="line">    <span class="keyword">if</span> (index !== <span class="number">-1</span>)&#123; </span><br><span class="line">        result.push(day)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 陣列結構</span></span><br><span class="line">weekday.map(<span class="function"><span class="params">itm</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (itm.mid === targetID)&#123;</span><br><span class="line">        <span class="keyword">return</span> itm.day</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>如果我要針對某一天算的時候，群組結構比較省事；陣列結構反而要先 filter。</p>
+<p>可是要跨群組的時候，群組結構必須要跑for in，而且每圈都要 findIndex。相對的陣列結構很省事。</p>
+</li>
+</ol>
+</li>
+</ol>
+<ol start="3">
+<li><p>使用在 Vue 模板<br> 欸，這個我就比較支持使用群組化的資料，至少就這次來說，以下是在表單中出現的狀況：</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 使用巢狀結構  --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 分群渲染  --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-for</span>=<span class="string">"(daySetting, day) in configs.weekday"</span> <span class="attr">:key</span>=<span class="string">"day"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h3</span>&gt;</span>&#123;&#123; day &#125;&#125;<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">v-for</span>=<span class="string">"(group,i) in daySetting.missions"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>名稱：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">v-model</span>=<span class="string">"group.mid"</span>&gt;</span> <span class="tag">&lt;/<span class="name">p</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>目標數量： <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"number"</span>  <span class="attr">v-model</span>=<span class="string">"group.targetNum"</span>&gt;</span> <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p> 因為我需要讓使用者清楚看到某一天底下設定了什麼 mission，所以這種很符合直覺的巢狀結構反而適得其所。</p>
+<p> 相對的，陣列結構就比較麻煩了，需要外掛資料，<a href="https://codepen.io/shunnnet/pen/NWGpoRR?editors=1010" target="_blank" rel="noopener">寫個 computed 群組化將他群組化</a>。</p>
+</li>
+</ol>
+<h2 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h2><p>基本上巢狀結構能夠精簡就精簡比較好。但真的要拿來演算的時候，兩種結構各有優缺(廢話)。</p>
+<p>整理一下：</p>
+<pre><code>- 陣列結構
+    -  優點：
+        1. 適合多屬性(props)交叉演算，因為所有資料都是同等的
+        2. 彈性，可以自由根據屬性(props)群組化
+    -  缺點：
+        1. 針對特定領域(field)的演算需要先做一層filter
+
+- 巢狀結構：
+    -  優點：
+        1. 特定情況下(群組內)查詢跟演算比較快 (包括用.運算子也是比較快的)
+        2. 群組化，貼近直覺，方便理解
+
+    -  缺點：
+        1. 跨群組運算要多轉forin迴圈
+        2. 難以用其他領域 (props) 組成資料
+        3. 太多層會 ........... 到死
+    -  建議：
+        1. 適時精簡巢狀</code></pre><p>最大的問題是，在初期規劃階段，到底要怎麼決定(廢話)。<br>總之，要考量一下他會在那些場景使用，雖然曾經在<a href="https://shunnnet.github.io/blog/2020/03/28/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-3-%E6%80%9D%E8%80%83%E8%B3%87%E6%96%99%E6%A0%BC%E5%BC%8F/">開發紀錄3 思考篩選文章用的資料格式</a><br>稍微考慮過類似的問題，但沒想到其他地方也會發生這種算的有點不舒服的狀況。orz</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/blog/tags/w3HexSchool/" rel="tag"><i class="fa fa-tag"></i> w3HexSchool</a>
+              <a href="/blog/tags/%E8%B3%87%E6%96%99%E7%B5%90%E6%A7%8B/" rel="tag"><i class="fa fa-tag"></i> 資料結構</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/2020/04/15/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-4-%E5%AF%AB%E5%BE%8C%E7%AB%AF%E7%9A%84%E5%B0%8F%E6%84%9F%E6%83%B3/" rel="prev" title="pocket-random 開發紀錄 - 4. 寫後端的小感想">
+      <i class="fa fa-chevron-left"></i> pocket-random 開發紀錄 - 4. 寫後端的小感想
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#說明"><span class="nav-number">1.</span> <span class="nav-text">說明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#情況"><span class="nav-number">2.</span> <span class="nav-text">情況</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#結論"><span class="nav-number">3.</span> <span class="nav-text">結論</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="shunnNet"
+      src="/blog/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">shunnNet</p>
+  <div class="site-description" itemprop="description">會放一些筆記整理，行有餘力寫點文</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives">
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">標籤</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shunnNet" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shunnNet" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shunnNet</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/blog/lib/anime.min.js"></script>
+
+<script src="/blog/js/utils.js"></script>
+
+
+<script src="/blog/js/schemes/pisces.js"></script>
+
+
+<script src="/blog/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://shunnnetblog.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://shunnnet.github.io/blog/2020/04/25/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-5-%E6%88%91%E7%9A%84%E8%B3%87%E6%96%99%E7%B5%90%E6%A7%8B%E6%9C%89%E9%BB%9E%E5%B7%A2/";
+    this.page.identifier = "2020/04/25/pocket-random-開發紀錄-5-我的資料結構有點巢/";
+    this.page.title = "pocket-random 開發紀錄 - 5. 我的資料結構有點巢";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://shunnnetblog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
