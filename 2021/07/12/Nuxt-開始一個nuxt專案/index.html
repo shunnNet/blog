@@ -20,21 +20,22 @@
     var CONFIG = {"hostname":"shunnnet.github.io","root":"/blog/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="緣由某天我突然有了個念頭：每天讀 3~5 篇技術文章，領域不限。剛好六角正在辦鐵人賽，所以我打算把想看的文章用 Pocket 存起來，然後每天隨便挑幾篇來看。 誰知道我居然覺得「隨便挑」這件事情好累… 乾脆直接程式幫我挑就好啦 0.0! 於是就開始弄這個了 orz(有類似的東西? 我才不管哩)">
+  <meta name="description" content="如果要用 Vue 寫 Server-Side-Render 的話，通常會想到 Nuxt。 Nuxt 除了可以寫 SSR 之外，也可以寫 SPA，以及生成靜態網站。但他原本是一個「什麼功能都幫你封裝好」的框架，讓你可以透過簡單的設定，就做出一些常用的功能。 如果有用過 Vue CLI 的話，會覺得 Nuxt 跟他有點像，但 Nuxt 有更複雜的部份，算是一個更進階的框架。 今天來講一下如何安裝 Nu">
 <meta property="og:type" content="article">
-<meta property="og:title" content="pocket-random 開發紀錄 - 1. 緣由 &amp; 環境">
-<meta property="og:url" content="https://shunnnet.github.io/blog/2020/03/19/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-1-%E7%B7%A3%E7%94%B1-%E7%92%B0%E5%A2%83/index.html">
+<meta property="og:title" content="Nuxt - 開始一個 Nuxt 專案">
+<meta property="og:url" content="https://shunnnet.github.io/blog/2021/07/12/Nuxt-%E9%96%8B%E5%A7%8B%E4%B8%80%E5%80%8Bnuxt%E5%B0%88%E6%A1%88/index.html">
 <meta property="og:site_name" content="邊緣邊緣人的技術筆記">
-<meta property="og:description" content="緣由某天我突然有了個念頭：每天讀 3~5 篇技術文章，領域不限。剛好六角正在辦鐵人賽，所以我打算把想看的文章用 Pocket 存起來，然後每天隨便挑幾篇來看。 誰知道我居然覺得「隨便挑」這件事情好累… 乾脆直接程式幫我挑就好啦 0.0! 於是就開始弄這個了 orz(有類似的東西? 我才不管哩)">
+<meta property="og:description" content="如果要用 Vue 寫 Server-Side-Render 的話，通常會想到 Nuxt。 Nuxt 除了可以寫 SSR 之外，也可以寫 SPA，以及生成靜態網站。但他原本是一個「什麼功能都幫你封裝好」的框架，讓你可以透過簡單的設定，就做出一些常用的功能。 如果有用過 Vue CLI 的話，會覺得 Nuxt 跟他有點像，但 Nuxt 有更複雜的部份，算是一個更進階的框架。 今天來講一下如何安裝 Nu">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2020-03-18T18:52:12.000Z">
-<meta property="article:modified_time" content="2020-04-06T18:50:19.539Z">
+<meta property="article:published_time" content="2021-07-12T13:10:33.000Z">
+<meta property="article:modified_time" content="2021-07-12T14:26:53.749Z">
 <meta property="article:author" content="shunnNet">
-<meta property="article:tag" content="w3HexSchool">
-<meta property="article:tag" content="Pocket API">
+<meta property="article:tag" content="Vue.js">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="Nuxt">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://shunnnet.github.io/blog/2020/03/19/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-1-%E7%B7%A3%E7%94%B1-%E7%92%B0%E5%A2%83/">
+<link rel="canonical" href="https://shunnnet.github.io/blog/2021/07/12/Nuxt-%E9%96%8B%E5%A7%8B%E4%B8%80%E5%80%8Bnuxt%E5%B0%88%E6%A1%88/">
 
 
 <script id="page-configurations">
@@ -47,7 +48,7 @@
   };
 </script>
 
-  <title>pocket-random 開發紀錄 - 1. 緣由 & 環境 | 邊緣邊緣人的技術筆記</title>
+  <title>Nuxt - 開始一個 Nuxt 專案 | 邊緣邊緣人的技術筆記</title>
   
 
 
@@ -153,7 +154,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://shunnnet.github.io/blog/2020/03/19/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-1-%E7%B7%A3%E7%94%B1-%E7%92%B0%E5%A2%83/">
+    <link itemprop="mainEntityOfPage" href="https://shunnnet.github.io/blog/2021/07/12/Nuxt-%E9%96%8B%E5%A7%8B%E4%B8%80%E5%80%8Bnuxt%E5%B0%88%E6%A1%88/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.jpg">
@@ -166,7 +167,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          pocket-random 開發紀錄 - 1. 緣由 & 環境
+          Nuxt - 開始一個 Nuxt 專案
         </h1>
 
         <div class="post-meta">
@@ -175,23 +176,17 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">發表於</span>
+              
 
-              <time title="創建時間：2020-03-19 02:52:12" itemprop="dateCreated datePublished" datetime="2020-03-19T02:52:12+08:00">2020-03-19</time>
+              <time title="創建時間：2021-07-12 21:10:33 / 修改時間：22:26:53" itemprop="dateCreated datePublished" datetime="2021-07-12T21:10:33+08:00">2021-07-12</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-04-07 02:50:19" itemprop="dateModified" datetime="2020-04-07T02:50:19+08:00">2020-04-07</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">分類於</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84/" itemprop="url" rel="index"><span itemprop="name">開發紀錄</span></a>
+                  <a href="/blog/categories/%E7%AD%86%E8%A8%98/" itemprop="url" rel="index"><span itemprop="name">筆記</span></a>
                 </span>
             </span>
 
@@ -204,8 +199,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/2020/03/19/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-1-%E7%B7%A3%E7%94%B1-%E7%92%B0%E5%A2%83/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/03/19/pocket-random-開發紀錄-1-緣由-環境/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/2021/07/12/Nuxt-%E9%96%8B%E5%A7%8B%E4%B8%80%E5%80%8Bnuxt%E5%B0%88%E6%A1%88/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/07/12/Nuxt-開始一個nuxt專案/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -220,18 +215,35 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="緣由"><a href="#緣由" class="headerlink" title="緣由"></a>緣由</h2><p>某天我突然有了個念頭：每天讀 3~5 篇技術文章，領域不限。剛好<a href="https://shawnlin0201.github.io/hexschool-2020-challenge-blog-list/" target="_blank" rel="noopener">六角正在辦鐵人賽</a>，所以我打算把想看的文章用 Pocket 存起來，然後每天隨便挑幾篇來看。</p>
-<p>誰知道我居然覺得「隨便挑」這件事情好累…</p>
-<p>乾脆直接程式幫我挑就好啦 0.0!</p>
-<p>於是就開始弄這個了 orz<br>(有類似的東西? 我才不管哩)</p>
+        <p>如果要用 <code>Vue</code> 寫 Server-Side-Render 的話，通常會想到 <code>Nuxt</code>。</p>
+<p><code>Nuxt</code> 除了可以寫 SSR 之外，也可以寫 SPA，以及生成靜態網站。<br>但他原本是一個「<strong>什麼功能都幫你封裝好</strong>」的框架，讓你可以透過簡單的設定，就做出一些常用的功能。</p>
+<p>如果有用過 <code>Vue CLI</code> 的話，會覺得 <code>Nuxt</code> 跟他有點像，但 <code>Nuxt</code> 有更複雜的部份，算是一個更進階的框架。</p>
+<p>今天來講一下如何安裝 <code>Nuxt</code> 以及寫個簡單的 <code>Hello World</code>。</p>
 <a id="more"></a>
 
-<h2 id="環境"><a href="#環境" class="headerlink" title="環境"></a>環境</h2><p>我需要拿到 Pocket 中的文章清單，查了一下有 <a href="https://getpocket.com/developer/docs/overview" target="_blank" rel="noopener">Pocket API</a> 這東西。<br>因為打算弄成所有人都能用的樣子，所以我會有應用程式金鑰、各種使用者的access_token，而且這些敏感資訊都不能放前端，所以需要藏在後端，把所有 API 請求也都放在後端。<br>此外應該會需要存一些設定或是帳戶等等的，所以至少要有個資料庫。</p>
-<p>前端如果只有隨機從所有文章挑幾篇出來太無聊，所以想說做成可以改設定，可以設定挑幾篇；而且可以指定 tag；甚至是指定隨機挑的清單中要有某 tag 幾篇這種。這種麻煩事交給 Vue 應該很適合。(框架我也只會vue………………)</p>
-<p>API<br>Pocket API v3</p>
-<p>前端<br>Vue.js (處理前端大小事)</p>
-<p>後端<br>Node.js<br>express (請求+路由)<br>mongoose (資料庫)</p>
-<h2 id="結果"><a href="#結果" class="headerlink" title="結果"></a>結果</h2><p>開始寫這個之後，每天讀 3~5 篇的技術文章的想法反而跳票了。</p>
+<h2 id="安裝"><a href="#安裝" class="headerlink" title="安裝"></a>安裝</h2><p>如果你是用 <code>npm</code> 的話，可以直接使用以下指令安裝：</p>
+<p><code>npx create-nuxt-app nuxt-sample</code></p>
+<p>如果你的本地端還沒有安裝 <code>create-nuxt-app</code> ，此時他會先幫你下載好，下載完後，開始運行 nuxt 安裝程序。</p>
+<p>首先，跟 Vue CLI 相同，他會問你很多專案設定的問題，其中有幾個為了方便說明，請先這樣選：</p>
+<ol>
+<li>UI framework : None </li>
+<li>Nuxt.js modules : Axios (忘記裝也沒關係，之後可以補)</li>
+<li>Rendering mode : Universal (SSR / SSG) (這個就很重要)</li>
+<li>Deployment target: Server (Node.js hosting)</li>
+</ol>
+<p>選完選項之後，安裝程式就會在當前目錄下創建一個名字是 <code>nuxt-sample</code> 的目錄，並在裡面安裝 <code>nuxt</code> 專案。</p>
+<h2 id="附註"><a href="#附註" class="headerlink" title="附註"></a>附註</h2><p>根據 <code>nuxt-create-app</code> 版本不同，預設的專案架構會稍有不同，如果你發現你的架構中沒有我說的檔案或是目錄，請自己創一個。</p>
+<h2 id="確認模式"><a href="#確認模式" class="headerlink" title="確認模式"></a>確認模式</h2><p>在開始寫第一個頁面之前，先確認一件事。請在專案跟目錄找到 <code>nuxt.config.js</code>，他是 nuxt 的設定檔。<br>他的內容會像是這樣：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// nuxt.config.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="comment">// 很多設定...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>請確認這些設定中<strong>沒有 mode，或者是有 <code>mode: &#39;universal&#39;</code></strong>，這代表 nuxt 目前是 SSR 模式。 </p>
+<h2 id="寫出第一個-Nuxt-頁面"><a href="#寫出第一個-Nuxt-頁面" class="headerlink" title="寫出第一個 Nuxt 頁面"></a>寫出第一個 Nuxt 頁面</h2><p>請新增一個 <code>pages</code> 目錄，並在底下新增一個 <code>index.vue</code>，可以隨便寫些內容，比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;h1&gt; &#123;&#123; message &#125;&#125; &lt;&#x2F;h1&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  data()&#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      message: &quot;Hello World&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>(如果他已經有 index.vue 的話，你也可以直接取代掉他的 index.vue)</p>
+<p>接著請到 terminal，執行 <code>npm run dev</code>，等他跑完之後，用瀏覽器訪問 <code>http://localhost:3000</code>。就可以看到 <code>Hello World</code> 了喔。</p>
+<h2 id="我已經開始寫-SSR-了嗎"><a href="#我已經開始寫-SSR-了嗎" class="headerlink" title="我已經開始寫 SSR 了嗎?"></a>我已經開始寫 SSR 了嗎?</h2><p>請在開啟的網頁上點右鍵，選「檢視網頁原始碼」。你會發現裏頭可以找到 <code>&lt;h1&gt;Hello World&lt;/h1&gt;</code> 這段 html。這個是 Vue 元件渲染出來的內容。</p>
+<p>若你有用過 Vue CLI 生成的專案，你可以試著對他「檢視網頁原始碼」，你會發現其中不會包含 Vue 元件中的內容，通常只會有個<code>&lt;div id=&quot;app&quot;&gt;&lt;/div&gt;</code>，而 Vue 元件的內容不會出現在網頁原始碼上。</p>
+<p>為什麼會不同呢？<br>因為當瀏覽器請求 <code>http://localhost:3000</code> 的時候，<code>Nuxt</code> 會<strong>先在 server 端</strong>根據 vue 元件<strong>渲染出</strong> html 檔案(包含上面那段 <code>&lt;h1&gt;Hello World&lt;/h1&gt;</code>)，接著回傳給瀏覽器。所以瀏覽器看到的 html 包含 Vue 元件的內容。</p>
+<p>這代表，我們的確已經用 Nuxt 寫出一個 SSR 頁面了</p>
 
     </div>
 
@@ -242,8 +254,9 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/blog/tags/w3HexSchool/" rel="tag"><i class="fa fa-tag"></i> w3HexSchool</a>
-              <a href="/blog/tags/Pocket-API/" rel="tag"><i class="fa fa-tag"></i> Pocket API</a>
+              <a href="/blog/tags/Vue-js/" rel="tag"><i class="fa fa-tag"></i> Vue.js</a>
+              <a href="/blog/tags/javascript/" rel="tag"><i class="fa fa-tag"></i> javascript</a>
+              <a href="/blog/tags/Nuxt/" rel="tag"><i class="fa fa-tag"></i> Nuxt</a>
           </div>
 
         
@@ -252,13 +265,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/blog/2020/03/15/%E7%AD%86%E8%A8%98-gulp-1-%E5%AE%89%E8%A3%9D/" rel="prev" title="[筆記] gulp - 1. 安裝">
-      <i class="fa fa-chevron-left"></i> [筆記] gulp - 1. 安裝
+    <a href="/blog/2020/04/29/%E7%AD%86%E8%A8%98-vue-router-1-%E4%B8%80%E4%BA%9B%E7%AD%86%E8%A8%98/" rel="prev" title="筆記 Vue-router - 1. 一些筆記">
+      <i class="fa fa-chevron-left"></i> 筆記 Vue-router - 1. 一些筆記
     </a></div>
-      <div class="post-nav-item">
-    <a href="/blog/2020/03/19/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-2-%E5%AF%A6%E4%BD%9C-Pocket-API-%E8%AA%8D%E8%AD%89/" rel="next" title="pocket-random 開發紀錄 - 2. 實作 Pocket API 認證">
-      pocket-random 開發紀錄 - 2. 實作 Pocket API 認證 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -325,7 +335,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#緣由"><span class="nav-number">1.</span> <span class="nav-text">緣由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#環境"><span class="nav-number">2.</span> <span class="nav-text">環境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#結果"><span class="nav-number">3.</span> <span class="nav-text">結果</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安裝"><span class="nav-number">1.</span> <span class="nav-text">安裝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附註"><span class="nav-number">2.</span> <span class="nav-text">附註</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#確認模式"><span class="nav-number">3.</span> <span class="nav-text">確認模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#寫出第一個-Nuxt-頁面"><span class="nav-number">4.</span> <span class="nav-text">寫出第一個 Nuxt 頁面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我已經開始寫-SSR-了嗎"><span class="nav-number">5.</span> <span class="nav-text">我已經開始寫 SSR 了嗎?</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -450,9 +460,9 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://shunnnet.github.io/blog/2020/03/19/pocket-random-%E9%96%8B%E7%99%BC%E7%B4%80%E9%8C%84-1-%E7%B7%A3%E7%94%B1-%E7%92%B0%E5%A2%83/";
-    this.page.identifier = "2020/03/19/pocket-random-開發紀錄-1-緣由-環境/";
-    this.page.title = "pocket-random 開發紀錄 - 1. 緣由 & 環境";
+    this.page.url = "https://shunnnet.github.io/blog/2021/07/12/Nuxt-%E9%96%8B%E5%A7%8B%E4%B8%80%E5%80%8Bnuxt%E5%B0%88%E6%A1%88/";
+    this.page.identifier = "2021/07/12/Nuxt-開始一個nuxt專案/";
+    this.page.title = "Nuxt - 開始一個 Nuxt 專案";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {
